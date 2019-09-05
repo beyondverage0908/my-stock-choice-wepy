@@ -1,0 +1,8 @@
+{
+    "navigationBarTitleText": "财报助手",
+    "component": true,
+    "usingComponents": {
+        "i-input": "../iview/dist/input/index",
+        "i-tag": "../iview/dist/tag/index"
+    }
+}

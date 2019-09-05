@@ -1,0 +1,30 @@
+
+<view class="home-container">
+	<view class="section">
+		<view class="header-bg">
+			<input type="text" placeholder="请输入股票名称/代码" data-wpy-evt="7-146" bindchange="_proxy" class="input"></input>
+			<view class="avatar-warp">
+				<view class="h-wrap">
+					<open-data type="userAvatarUrl"></open-data> 
+				</view>
+			</view>
+		</view>
+		<view class="stock-info">
+			<view class="info">
+				<view class="name">中国平安</view>
+				<view class="code">601318.SH</view>
+				<view class="tag-list">
+					<label class="tag">白马股</label>
+					<label class="tag">白马股</label>
+					<label class="tag">白马股</label>
+				</view>
+			</view>
+			<view class="ring">
+				分数环
+			</view>
+		</view>
+		<view class="statement">
+			<label class="tx">该公司为金融企业，本工具暂不适用，请用户谨慎参考！</label><label class="dity">免责声明</label>
+		</view>
+	</view>
+</view>

@@ -1,0 +1,151 @@
+<style lang="less">
+	@input-font-size: 28rpx;
+	.home-container {
+		.section {
+			border-bottom: solid 20rpx #f6f6f6;
+			padding-bottom: 33rpx;
+		}
+		.header-bg {
+			display: flex;
+			align-items: center;
+			height: 160rpx;
+			background: yellow;
+			.input {
+				display: flex;
+				flex: 4;
+				background-color: #fff;
+				height: 80rpx;
+				border-radius: 40rpx;
+				box-sizing: border-box;
+				padding: 0 30rpx;
+				font-size: @input-font-size;
+				margin-left: 20rpx;
+			}
+			.avatar-warp {
+				display: flex;
+				flex: 1;
+				justify-content: center;
+				.h-wrap {
+					width: 80rpx;
+					height: 80rpx;
+					border-radius: 40rpx;
+					overflow: hidden;
+				}
+			}
+		}
+		.stock-info {
+			display: flex;
+			.info {
+				flex: 5;
+				box-sizing: border-box;
+				padding-left: 40rpx;
+				.name {
+					font-size: 60rpx;
+					color: rgb(131, 177, 229);
+					margin: 10rpx 0 15rpx;
+				}
+				.code {
+					font-size: 30rpx;
+					color: rgb(134, 134, 134);
+				}
+				.tag-list {
+					display: flex;
+					justify-content: flex-start;
+					margin: 40rpx 0;
+					.tag {
+						display: inline-block;
+						background-color: rgb(238, 238, 238);
+						padding: 10rpx 15rpx;
+						font-size: 21rpx;
+						border-radius: 5rpx;
+						color: rgb(193, 193, 193);
+						margin: 0 10rpx;
+					}
+				}
+			}
+			.ring {
+				flex: 3;
+				background-color: pink;
+			}
+		}
+		.statement {
+			display: flex;
+			margin-left: 40rpx;
+			margin-top: 25rpx;
+			align-items: center;
+			.tx {
+				font-size: 23rpx;
+				color: #CFCFCF;
+			}
+			.dity {
+				font-size: 30rpx;
+				color: #9085C8;
+				text-decoration: underline;
+			}
+		}
+	}
+</style>
+<template>
+	<div class="home-container">
+		<div class="section">
+			<div class="header-bg">
+				<input class="input" type="text" bind:change="onChangeInput" placeholder="请输入股票名称/代码"></input>
+				<div class="avatar-warp">
+					<div class="h-wrap">
+						<open-data type="userAvatarUrl"></open-data> 
+					</div>
+				</div>
+			</div>
+			<div class="stock-info">
+				<div class="info">
+					<div class="name">中国平安</div>
+					<div class="code">601318.SH</div>
+					<div class="tag-list">
+						<span class="tag">白马股</span>
+						<span class="tag">白马股</span>
+						<span class="tag">白马股</span>
+					</div>
+				</div>
+				<div class="ring">
+					分数环
+				</div>
+			</div>
+			<div class="statement">
+				<span class="tx">该公司为金融企业，本工具暂不适用，请用户谨慎参考！</span><span class="dity">免责声明</span>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import wepy from '@wepy/core'
+
+wepy.page({
+	data: {
+		inputText: ''
+	},
+	computed: {
+
+	},
+	created() {
+		console.log('created');
+	},
+	mounted() {
+		console.log('mounted');
+	},
+	methods: {
+		onChangeInput(e) {
+			console.log(e);
+			// console.log(this.inputText);
+		}
+	}
+})
+</script>
+<config>
+{
+    navigationBarTitleText: '财报助手',
+    usingComponents: {
+		"i-input": "~@/iview/dist/input/index",
+		"i-tag": "~@/iview/dist/tag/index"
+    }
+}
+</config>

@@ -1,0 +1,83 @@
+.home-container .section {
+  border-bottom: solid 20rpx #f6f6f6;
+  padding-bottom: 33rpx;
+}
+.home-container .header-bg {
+  display: flex;
+  align-items: center;
+  height: 160rpx;
+  background: yellow;
+}
+.home-container .header-bg .input {
+  display: flex;
+  flex: 4;
+  background-color: #fff;
+  height: 80rpx;
+  border-radius: 40rpx;
+  box-sizing: border-box;
+  padding: 0 30rpx;
+  font-size: 28rpx;
+  margin-left: 20rpx;
+}
+.home-container .header-bg .avatar-warp {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+}
+.home-container .header-bg .avatar-warp .h-wrap {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+  overflow: hidden;
+}
+.home-container .stock-info {
+  display: flex;
+}
+.home-container .stock-info .info {
+  flex: 5;
+  box-sizing: border-box;
+  padding-left: 40rpx;
+}
+.home-container .stock-info .info .name {
+  font-size: 60rpx;
+  color: #83b1e5;
+  margin: 10rpx 0 15rpx;
+}
+.home-container .stock-info .info .code {
+  font-size: 30rpx;
+  color: #868686;
+}
+.home-container .stock-info .info .tag-list {
+  display: flex;
+  justify-content: flex-start;
+  margin: 40rpx 0;
+}
+.home-container .stock-info .info .tag-list .tag {
+  display: inline-block;
+  background-color: #eeeeee;
+  padding: 10rpx 15rpx;
+  font-size: 21rpx;
+  border-radius: 5rpx;
+  color: #c1c1c1;
+  margin: 0 10rpx;
+}
+.home-container .stock-info .ring {
+  flex: 3;
+  background-color: pink;
+}
+.home-container .statement {
+  display: flex;
+  margin-left: 40rpx;
+  margin-top: 25rpx;
+  align-items: center;
+}
+.home-container .statement .tx {
+  font-size: 23rpx;
+  color: #CFCFCF;
+}
+.home-container .statement .dity {
+  font-size: 30rpx;
+  color: #9085C8;
+  text-decoration: underline;
+}
+
