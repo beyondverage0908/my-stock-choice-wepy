@@ -2,7 +2,7 @@
 <view class="home-container">
 	<view class="section">
 		<view class="header-bg">
-			<input type="text" placeholder="请输入股票名称/代码" data-wpy-evt="7-14" bindchange="_proxy" class="input"></input>
+			<input type="text" placeholder="请输入股票名称/代码" data-wpy-evt="7-0" bindchange="_proxy" class="input"></input>
 			<view class="avatar-warp">
 				<view class="h-wrap">
 					<open-data type="userAvatarUrl"></open-data> 
