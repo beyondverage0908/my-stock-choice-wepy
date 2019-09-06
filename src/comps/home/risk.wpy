@@ -45,12 +45,13 @@
 			</div>
 		</div>
 		<div class="risk-item" v-for="item in risks">
-			<div class="tag">摸鱼</div>
-			<div class="detail">摸鱼排风靠哈偶，请谨慎考虑</div>
+			<div class="tag">{{item.riskType === 1 ? '财务' : '事件'}}</div>
+			<div class="detail">{{item.riskName}}</div>
 		</div>
 	</div>
 </template>
 <script>
+// 1.财务　2.事件
 import wepy from '@wepy/core';
 wepy.component({
 	props: {
@@ -65,7 +66,6 @@ wepy.component({
 		}
 	},
 	methods: {
-
 	}
 });
 </script>

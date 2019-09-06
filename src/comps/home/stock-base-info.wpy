@@ -31,12 +31,27 @@
 
 <template>
 	<div class="info">
-		<div class="name">中国平安</div>
-		<div class="code">601318.SH</div>
+		<div class="name">{{stock.zqjc}}</div>
+		<div class="code">{{stock.zqdm}}</div>
 		<div class="tag-list">
-			<span class="tag">白马股</span>
-			<span class="tag">白马股</span>
-			<span class="tag">白马股</span>
+			<span class="tag" v-for="tag in stock.sections">{{tag}}</span>
 		</div>
 	</div>
 </template>
+
+<script>
+import wepy from '@wepy/core';
+wepy.component({
+	props: {
+		stock: {
+			type: Object,
+			default: null
+		}
+	},
+	data() {
+		return {
+			
+		}
+	}
+});
+</script>

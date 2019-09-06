@@ -6,7 +6,7 @@
 		</view>
 	</view>
 	<view wx:for="{{ risks }}" wx:for-index="index" wx:for-item="item" wx:key="index" class="risk-item">
-		<view class="tag">摸鱼</view>
-		<view class="detail">摸鱼排风靠哈偶，请谨慎考虑</view>
+		<view class="tag">{{item.riskType === 1 ? '财务' : '事件'}}</view>
+		<view class="detail">{{item.riskName}}</view>
 	</view>
 </view>

@@ -1,10 +1,8 @@
 
 <view class="info">
-	<view class="name">中国平安</view>
-	<view class="code">601318.SH</view>
+	<view class="name">{{stock.zqjc}}</view>
+	<view class="code">{{stock.zqdm}}</view>
 	<view class="tag-list">
-		<label class="tag">白马股</label>
-		<label class="tag">白马股</label>
-		<label class="tag">白马股</label>
+		<label wx:for="{{ stock.sections }}" wx:for-index="index" wx:for-item="tag" wx:key="index" class="tag">{{tag}}</label>
 	</view>
 </view>

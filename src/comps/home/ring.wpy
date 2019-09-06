@@ -75,7 +75,7 @@
 			<div class="circle-bottom-left"></div>
 			<div class="circle-bottom-right"></div>
 		</div>
-		<div class="info">{{score}}</div>
+		<div class="info">{{transformScore}}</div>
 	</div>
 </template>
 <script>
@@ -91,8 +91,21 @@ wepy.component({
       default: 0
     }
   },
+  computed: {
+	  transformScore() {
+		  if (this.score > 0) {
+			  return this.score;
+		  }
+		  return '-';
+	  }
+  },
+	watch: {
+		score(newVal, oldVal) {
+			this.initRing();
+		}
+	},
   ready() {
-	this.initRing();
+	
   },
   methods: {
     initRing() {

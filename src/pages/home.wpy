@@ -1,35 +1,55 @@
 <style lang="less">
 	@input-font-size: 28rpx;
 	.home-container {
+		position: relative;
 		.section {
 			border-bottom: solid 20rpx #f6f6f6;
 			padding-bottom: 33rpx;
 		}
 		.header-bg {
-			display: flex;
-			align-items: center;
 			height: 160rpx;
 			background: yellow;
-			.input {
+			.search {
 				display: flex;
-				flex: 4;
-				background-color: #fff;
-				height: 80rpx;
-				border-radius: 40rpx;
-				box-sizing: border-box;
-				padding: 0 30rpx;
-				font-size: @input-font-size;
-				margin-left: 20rpx;
-			}
-			.avatar-warp {
-				display: flex;
-				flex: 1;
-				justify-content: center;
-				.h-wrap {
-					width: 80rpx;
+				align-items: center;
+				padding-top: 40rpx;
+				.input {
+					display: flex;
+					flex: 4;
+					background-color: #fff;
 					height: 80rpx;
 					border-radius: 40rpx;
-					overflow: hidden;
+					box-sizing: border-box;
+					padding: 0 30rpx;
+					font-size: @input-font-size;
+					margin-left: 20rpx;
+				}
+				.avatar-warp {
+					display: flex;
+					flex: 1;
+					justify-content: center;
+					.h-wrap {
+						width: 80rpx;
+						height: 80rpx;
+						border-radius: 40rpx;
+						overflow: hidden;
+					}
+				}
+			}
+			// 搜索框
+			.search-board {
+				width: 100%;
+				background: #fff;
+				z-index: 10;
+				position: absolute;
+				top: 110rpx;
+				.search-item {
+					border-bottom: 1rpx solid #f6f6f6;
+					padding: 18rpx 0;
+					.info {
+						font-size: 25rpx;
+						margin-left: 25rpx;
+					}
 				}
 			}
 		}
@@ -47,38 +67,66 @@
 			justify-content: center;
 			padding-bottom: 40rpx;
 		}
+		.customer-service {
+			width: 100rpx;
+			height: 100rpx;
+			line-height: 100rpx;
+			font-size: 28rpx;
+			color: #5291F5;
+			position: fixed;
+			bottom: 50rpx;
+			right: 38rpx;
+			border-radius: 50%;
+			text-align: center;
+			padding-left: 0;
+			padding-right: 0;
+			background-color: #f8f8f8;
+		}
 	}
 </style>
 <template>
 	<div class="home-container">
 		<div class="section">
 			<div class="header-bg">
-				<input class="input" type="text" bind:change="onChangeInput" placeholder="请输入股票名称/代码"></input>
-				<div class="avatar-warp">
-					<div class="h-wrap">
-						<open-data type="userAvatarUrl"></open-data> 
+				<div class="search">
+					<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码"></input>
+					<div class="avatar-warp">
+						<div class="h-wrap">
+							<open-data type="userAvatarUrl"></open-data> 
+						</div>
+					</div>
+				</div>
+				<div class="search-board" v-if="stockList.length && !startSearch">
+					<div class="search-item" v-for="item in stockList" @tap="handleSearch(item)">
+						<span class="info">{{item.zqjc}}({{item.zqdm}})</span>
 					</div>
 				</div>
 			</div>
 			<div class="stock-info">
 				<div class="info">
-					<stock-base-info />
+					<stock-base-info :stock="stock" />
 				</div>
 				<div class="ring">
-					<ring :score="86" />
+					<ring :score="rankRatio" />
 				</div>
 			</div>
 			<statement />
 		</div>
-		<div class="section">
-			<risk :risks="[1, 2, 3]"/>
+		<div class="section" v-if="hasRisk">
+			<risk :risks="stock.risks"/>
 		</div>
-		<div class="section">
+		<div class="section" v-if="hasGraph">
 			<indicator />
 			<div class="canvas-column">
-				<canvas canvas-id="columnCanvas" class="canvas"></canvas>
+				<canvas canvas-id="columnCanvas-1" class="canvas"></canvas>
+			</div>
+			<div class="canvas-column">
+				<canvas canvas-id="columnCanvas-2" class="canvas"></canvas>
 			</div>
 		</div>
+		<cover-view class="customer-service">
+			<button class="customer-service" open-type="contact">客服</button>
+		</cover-view>
 	</div>
 </template>
 <script>
@@ -86,10 +134,30 @@ import wepy from '@wepy/core'
 
 wepy.page({
 	data: {
-		inputText: ''
+		inputText: '',
+		stock: null,
+		stockList: [],
+		startSearch: false
 	},
 	computed: {
-
+		rankRatio() {
+			if (!this.stock) {
+				return 0;
+			}
+			return (this.stock.rank / this.stock.total) * 100;
+		},
+		hasGraph() {
+			if (!this.stock) {
+				return false;
+			}
+			return this.stock.growings.length > 0;
+		},
+		hasRisk() {
+			if (!this.stock) {
+				return false;
+			}
+			return this.stock.risks.length > 0;
+		}
 	},
 	created() {
 		console.log('created');
@@ -99,28 +167,42 @@ wepy.page({
 	},
 	methods: {
 		onChangeInput(e) {
-			console.log(e);
-			// console.log(this.inputText);
+			console.log(this.inputText);
+			this.startSearch = false;
+			if (this.inputText) {
+				this.getSearchStockInfo(this.inputText).then(res => {
+					console.log(res);
+					this.stockList = res;
+				});
+			}
 		},
-		initColumnChart() {
+		// 点击搜索
+		handleSearch(search) {
+			this.startSearch = true;
+			this.inputText = '';
+			this.getStockInfo(search.zqdm)
+		},
+		initColumnProfitChart(categorys, mainData) {
+			if (!categorys || !categorys.length || !mainData || !mainData.length) return;
 			const wxCharts = require('../comps/wxcharts/wxcharts.js');
 			var windowWidth = 320;
 			try {
-			var res = wx.getSystemInfoSync();
-			windowWidth = res.windowWidth;
+				var res = wx.getSystemInfoSync();
+				windowWidth = res.windowWidth;
 			} catch (e) {
-			console.error('getSystemInfoSync failed!');
+				console.error('getSystemInfoSync failed!');
 			}
 			new wxCharts({
-				canvasId: 'columnCanvas',
+				canvasId: 'columnCanvas-1',
 				type: 'column',
 				animation: true,
-				categories: ['2012', '2013', '2014', '2015', '2016'],
+				categories: categorys,
 				series: [{
-					name: '成交量1',
-					data: [15, 20, 45, 37, 4]
+					name: '净利润',
+					data: mainData
 				}],
 				yAxis: {
+					title: '净利润',
 					format: function (val) {
 						return val + '万';
 					}
@@ -129,19 +211,115 @@ wepy.page({
 					disableGrid: true,
 					type: 'calibration'
 				},
-				width: windowWidth,
+				width: 320,
 				height: 180
 			});
+		},
+		initColumnProfitRoe(categorys, mainData) {
+			if (!categorys || !categorys.length || !mainData || !mainData.length) return;
+			const wxCharts = require('../comps/wxcharts/wxcharts.js');
+			var windowWidth = 320;
+			try {
+				var res = wx.getSystemInfoSync();
+				windowWidth = res.windowWidth;
+			} catch (e) {
+				console.error('getSystemInfoSync failed!');
+			}
+			new wxCharts({
+				canvasId: 'columnCanvas-2',
+				type: 'column',
+				animation: true,
+				categories: categorys,
+				series: [{
+					name: '净资产收益率',
+					data: mainData,
+					color: '#a6d94a'
+				}],
+				yAxis: {
+					title: '净资产收益率',
+					format: function (val) {
+						return val + '%';
+					}
+				},
+				xAxis: {
+					disableGrid: true,
+					type: 'calibration'
+				},
+				width: 320,
+				height: 180
+			});
+		},
+		getStockInfo(stockCode) {
+			wx.request({
+				url: `https://m.00315.com/wxapp/api/stocks/${stockCode}`,
+				success: (res) => {
+					if (res.data) {
+						this.stock = res.data;
+						const cat = this.getGraphColumnCategories(res.data);
+						const profits = this.getGraphColumnNetProfit(res.data);
+						const roes = this.getGraphColumnRoe(res.data);
+						this.initColumnProfitChart(cat, profits);
+						this.initColumnProfitRoe(cat, roes);
+					}
+				}
+			})
+		},
+		getGraphColumnCategories(stock) {
+			const categories = [];
+			stock.growings.forEach(item => {
+				categories.push(item.year);
+			})
+			return categories
+		},
+		getGraphColumnNetProfit(stock) {
+			const profits = [];
+			stock.growings.forEach(item => {
+				profits.push(item.netProfit);
+			})
+			return profits
+		},
+		getGraphColumnRoe(stock) {
+			const roes = [];
+			stock.growings.forEach(item => {
+				roes.push(item.roe);
+			})
+			return roes
+		},
+		getSearchStockInfo(searchText) {
+			return new Promise((resolve, reject) => {
+				wx.request({
+					url: `https://m.00315.com/wxapp/api/stocks?q=${searchText || ''}`,
+					success: (res) => {
+						if (res.data) {
+							resolve(res.data);
+						} else {
+							reject()
+						}
+					}
+				})
+			})
 		}
 	},
 	onReady() {
-		this.initColumnChart();
+		console.log('ready');
+	},
+	onLoad(options) {
+		const code = options['code'] || '600519';
+		this.getStockInfo(code);
+	},
+	onShareAppMessage() {
+		console.log(this.stock.zqdm || '600519');
+		const code = this.stock.zqdm || '600519';
+		return {
+			title: 'K2复盘助手',
+			path: `/pages/home?code=${code}`
+		}
 	}
 })
 </script>
 <config>
 {
-    navigationBarTitleText: '财报助手',
+    navigationBarTitleText: 'K2复盘助手',
 	navigationBarBackgroundColor: '#5386C7',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",

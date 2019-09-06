@@ -6,5 +6,5 @@
 		<view class="circle-bottom-left"></view>
 		<view class="circle-bottom-right"></view>
 	</view>
-	<view class="info">{{score}}</view>
+	<view class="info">{{transformScore}}</view>
 </view>
