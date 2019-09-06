@@ -1,0 +1,42 @@
+<style lang="less" scoped>
+	.info {
+		flex: 5;
+		box-sizing: border-box;
+		padding-left: 40rpx;
+		.name {
+			font-size: 60rpx;
+			color: rgb(131, 177, 229);
+			margin: 10rpx 0 15rpx;
+		}
+		.code {
+			font-size: 30rpx;
+			color: rgb(134, 134, 134);
+		}
+		.tag-list {
+			display: flex;
+			justify-content: flex-start;
+			margin: 40rpx 0;
+			.tag {
+				display: inline-block;
+				background-color: rgb(238, 238, 238);
+				padding: 10rpx 15rpx;
+				font-size: 21rpx;
+				border-radius: 5rpx;
+				color: rgb(193, 193, 193);
+				margin: 0 10rpx;
+			}
+		}
+	}
+</style>
+
+<template>
+	<div class="info">
+		<div class="name">中国平安</div>
+		<div class="code">601318.SH</div>
+		<div class="tag-list">
+			<span class="tag">白马股</span>
+			<span class="tag">白马股</span>
+			<span class="tag">白马股</span>
+		</div>
+	</div>
+</template>

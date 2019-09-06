@@ -1,0 +1,23 @@
+<style lang="less" scoped>
+.statement {
+	display: flex;
+	margin-left: 40rpx;
+	margin-top: 25rpx;
+	align-items: center;
+	.tx {
+		font-size: 23rpx;
+		color: #CFCFCF;
+	}
+	.dity {
+		font-size: 30rpx;
+		color: #9085C8;
+		text-decoration: underline;
+	}
+}
+</style>
+
+<template>
+	<div class="statement">
+		<span class="tx">该公司为金融企业，本工具暂不适用，请用户谨慎参考！</span><span class="dity">免责声明</span>
+	</div>
+</template>

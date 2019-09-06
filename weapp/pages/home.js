@@ -20,35 +20,28 @@ _core["default"].page({
       console.log(e); // console.log(this.inputText);
     }
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"}},"on":{}}, handlers: {'7-3': {"change": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"}},"on":{}}, handlers: {'7-14': {"change": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"}},"on":{}}, handlers: {'7-3': {"change": function proxy () {
+  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"}},"on":{}}, handlers: {'7-14': {"change": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"}},"on":{}}, handlers: {'7-3': {"change": function proxy () {
+  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"}},"on":{}}, handlers: {'7-14': {"change": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"}},"on":{}}, handlers: {'7-3': {"change": function proxy () {
-    var $event = arguments[arguments.length - 1];
-    var _vm=this;
-      return (function () {
-        _vm.onChangeInput($event)
-      })();
-    
-  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"}},"on":{}}, handlers: {'7-3': {"change": function proxy () {
+  }}}, models: {} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"}},"on":{}}, handlers: {'7-14': {"change": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {

@@ -1,0 +1,10 @@
+
+<view class="ring">
+	<view class="circle">
+		<view style=" {{ 'transition:' + ringLeftClass[\'transition\'] + ';' + 'transform:' + ringLeftClass[\'transform\'] + ';' }}" class="circle-left"></view>
+		<view style=" {{ 'transform:' + ringRightClass[\'transform\'] + ';' + 'transition:' + ringRightClass[\'transition\'] + ';' + 'opacity:' + ringRightClass[\'opacity\'] + ';' }}" class="circle-right"></view>
+		<view class="circle-bottom-left"></view>
+		<view class="circle-bottom-right"></view>
+	</view>
+	<view class="info">{{score}}</view>
+</view>
