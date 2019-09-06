@@ -1,0 +1,12 @@
+
+<view wx:if="{{ risks.length }}" class="risk">
+	<view class="title">
+		<view class="tip-cn">
+			<label class="tx">风险提示</label>
+		</view>
+	</view>
+	<view wx:for="{{ risks }}" wx:for-index="index" wx:for-item="item" wx:key="index" class="risk-item">
+		<view class="tag">摸鱼</view>
+		<view class="detail">摸鱼排风靠哈偶，请谨慎考虑</view>
+	</view>
+</view>
