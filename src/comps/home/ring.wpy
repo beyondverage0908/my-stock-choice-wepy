@@ -92,7 +92,6 @@ wepy.component({
     }
   },
   ready() {
-	console.log('ring create', this.score);
 	this.initRing();
   },
   methods: {

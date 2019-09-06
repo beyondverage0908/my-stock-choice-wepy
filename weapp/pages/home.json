@@ -7,6 +7,8 @@
         "i-tag": "../iview/dist/tag/index",
         "ring": "../comps/home/ring",
         "stock-base-info": "../comps/home/stock-base-info",
-        "statement": "../comps/home/statement"
+        "statement": "../comps/home/statement",
+        "risk": "../comps/home/risk",
+        "indicator": "../comps/home/indicator"
     }
 }

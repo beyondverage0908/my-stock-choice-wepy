@@ -39,4 +39,9 @@
 .home-container .stock-info .ring {
   flex: 3.5;
 }
+.home-container .canvas-column {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 40rpx;
+}
 

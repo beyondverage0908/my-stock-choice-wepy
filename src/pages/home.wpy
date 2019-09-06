@@ -42,6 +42,11 @@
 				flex: 3.5;
 			}
 		}
+		.canvas-column {
+			display: flex;
+			justify-content: center;
+			padding-bottom: 40rpx;
+		}
 	}
 </style>
 <template>
@@ -65,6 +70,15 @@
 			</div>
 			<statement />
 		</div>
+		<div class="section">
+			<risk :risks="[1, 2, 3]"/>
+		</div>
+		<div class="section">
+			<indicator />
+			<div class="canvas-column">
+				<canvas canvas-id="columnCanvas" class="canvas"></canvas>
+			</div>
+		</div>
 	</div>
 </template>
 <script>
@@ -87,7 +101,41 @@ wepy.page({
 		onChangeInput(e) {
 			console.log(e);
 			// console.log(this.inputText);
+		},
+		initColumnChart() {
+			const wxCharts = require('../comps/wxcharts/wxcharts.js');
+			var windowWidth = 320;
+			try {
+			var res = wx.getSystemInfoSync();
+			windowWidth = res.windowWidth;
+			} catch (e) {
+			console.error('getSystemInfoSync failed!');
+			}
+			new wxCharts({
+				canvasId: 'columnCanvas',
+				type: 'column',
+				animation: true,
+				categories: ['2012', '2013', '2014', '2015', '2016'],
+				series: [{
+					name: '成交量1',
+					data: [15, 20, 45, 37, 4]
+				}],
+				yAxis: {
+					format: function (val) {
+						return val + '万';
+					}
+				},
+				xAxis: {
+					disableGrid: true,
+					type: 'calibration'
+				},
+				width: windowWidth,
+				height: 180
+			});
 		}
+	},
+	onReady() {
+		this.initColumnChart();
 	}
 })
 </script>
@@ -100,7 +148,9 @@ wepy.page({
 		"i-tag": "~@/iview/dist/tag/index",
 		"ring": "~@/comps/home/ring",
 		"stock-base-info": "~@/comps/home/stock-base-info",
-		"statement": "~@/comps/home/statement"
+		"statement": "~@/comps/home/statement",
+		"risk": "~@/comps/home/risk",
+		"indicator": "~@/comps/home/indicator"
     }
 }
 </config>

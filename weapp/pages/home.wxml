@@ -2,7 +2,7 @@
 <view class="home-container">
 	<view class="section">
 		<view class="header-bg">
-			<input type="text" placeholder="请输入股票名称/代码" data-wpy-evt="7-0" bindchange="_proxy" class="input"></input>
+			<input type="text" placeholder="请输入股票名称/代码" data-wpy-evt="7-28" bindchange="_proxy" class="input"></input>
 			<view class="avatar-warp">
 				<view class="h-wrap">
 					<open-data type="userAvatarUrl"></open-data> 
@@ -18,5 +18,14 @@
 			</view>
 		</view>
 		<statement bind_init="_initComponent"></statement>
+	</view>
+	<view class="section">
+		<risk bind_init="_initComponent" risks="{{ [1, 2, 3] }}"></risk>
+	</view>
+	<view class="section">
+		<indicator bind_init="_initComponent"></indicator>
+		<view class="canvas-column">
+			<canvas canvas-id="columnCanvas" class="canvas"></canvas>
+		</view>
 	</view>
 </view>
