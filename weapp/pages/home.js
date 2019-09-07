@@ -208,21 +208,21 @@ _core["default"].page({
       path: "/pages/home?code=".concat(code)
     };
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"}},"on":{}}, handlers: {'7-307': {"input": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"i-tag":{"path":"../iview/dist/tag/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }},'7-308': {"tap": function proxy (item) {
+  }},'7-1': {"tap": function proxy (item) {
     
     var _vm=this;
       return (function () {
         _vm.handleSearch(item)
       })();
     
-  }}}, models: {'146': {
+  }}}, models: {'0': {
       type: "input",
       expr: "inputText",
       handler: function set ($v) {
