@@ -323,7 +323,6 @@ wepy.page({
 	navigationBarBackgroundColor: '#5386C7',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",
-		"i-tag": "~@/iview/dist/tag/index",
 		"ring": "~@/comps/home/ring",
 		"stock-base-info": "~@/comps/home/stock-base-info",
 		"statement": "~@/comps/home/statement",
