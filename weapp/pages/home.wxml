@@ -3,15 +3,15 @@
 	<view class="section">
 		<view class="header-bg">
 			<view class="search">
-				<input type="text" value="{{ inputText }}" bindinput="_proxy" data-model-id="13" placeholder="请输入股票名称/代码" data-wpy-evt="7-46" class="input"></input>
+				<input type="text" value="{{ inputText }}" bindinput="_proxy" data-model-id="0" placeholder="请输入股票名称/代码" data-wpy-evt="7-0" class="input"></input>
 				<view class="avatar-warp">
-					<view data-wpy-evt="7-47" bindtap="_proxy" class="h-wrap">
+					<view data-wpy-evt="7-1" bindtap="_proxy" class="h-wrap">
 						<open-data type="userAvatarUrl"></open-data> 
 					</view>
 				</view>
 			</view>
 			<view wx:if="{{ stockList.length && !startSearch }}" class="search-board">
-				<view wx:for="{{ stockList }}" wx:for-index="index" wx:for-item="item" wx:key="index" data-wpy-evt="7-48" bindtap="_proxy" data-wpytap-a="{{ item }}" class="search-item">
+				<view wx:for="{{ stockList }}" wx:for-index="index" wx:for-item="item" wx:key="index" data-wpy-evt="7-2" bindtap="_proxy" data-wpytap-a="{{ item }}" class="search-item">
 					<label class="info">{{item.zqjc}}({{item.zqdm}})</label>
 				</view>
 			</view>
@@ -40,6 +40,6 @@
 	</view>
 	<toolbar bind_init="_initComponent"></toolbar>
 	<view wx:if="{{ hazyCount===6 }}">
-		<button data-wpy-evt="7-49" bindtap="_proxy">图表</button>
+		<button data-wpy-evt="7-3" bindtap="_proxy">图表</button>
 	</view>
 </view>

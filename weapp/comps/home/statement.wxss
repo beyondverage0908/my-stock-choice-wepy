@@ -1,16 +1,1 @@
-.statement {
-  display: flex;
-  margin-left: 40rpx;
-  margin-top: 25rpx;
-  align-items: center;
-}
-.statement .tx {
-  font-size: 23rpx;
-  color: #CFCFCF;
-}
-.statement .dity {
-  font-size: 30rpx;
-  color: #9085C8;
-  text-decoration: underline;
-}
-
+.statement{display:flex;margin-left:40rpx;margin-top:25rpx;align-items:center}.statement .tx{font-size:23rpx;color:#CFCFCF}.statement .dity{font-size:30rpx;color:#9085C8;text-decoration:underline}

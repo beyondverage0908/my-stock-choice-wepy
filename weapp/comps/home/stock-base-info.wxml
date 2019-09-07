@@ -2,11 +2,11 @@
 <view class="info">
 	<view class="name">{{stock.zqjc}}</view>
 	<view class="code">{{stock.zqdm}}</view>
-	<view data-wpy-evt="15-0" bindtap="_proxy" class="rank">排行榜<label class="arrow">></label></view>
+	<view data-wpy-evt="17-0" bindtap="_proxy" class="rank">排行榜<label class="arrow">></label></view>
 	<view class="tag-list">
 		<label wx:for="{{ stock.sections }}" wx:for-index="index" wx:for-item="tag" wx:key="index" class="tag">{{tag}}</label>
 	</view>
-	<i-modal bind_init="_initComponent" title="排行提示" visible="{{ modalVisible }}" ok-text="我知道了" show-cancel="{{ false }}" data-wpy-evt="15-1" bindok="_proxy">
+	<i-modal bind_init="_initComponent" title="排行提示" visible="{{ modalVisible }}" ok-text="我知道了" show-cancel="{{ false }}" data-wpy-evt="17-1" bindok="_proxy">
 		<view>排行信息仅供参考，具体的操作请谨慎操作。投资有风险，入市需谨慎</view>
 	</i-modal>
 </view>
