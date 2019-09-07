@@ -1,16 +1,25 @@
 <style lang="less" scoped>
+	@main-blue-color: rgb(131, 177, 229);
+	@main-gray-color: rgb(134, 134, 134);
 	.info {
 		flex: 5;
 		box-sizing: border-box;
 		padding-left: 40rpx;
 		.name {
 			font-size: 60rpx;
-			color: rgb(131, 177, 229);
+			color: @main-blue-color;
 			margin: 10rpx 0 15rpx;
 		}
 		.code {
 			font-size: 30rpx;
-			color: rgb(134, 134, 134);
+			color: @main-gray-color;
+		}
+		.rank {
+			color: @main-blue-color;
+			margin: 15rpx 0;
+			.arrow {
+				padding-left: 10rpx;
+			}
 		}
 		.tag-list {
 			display: flex;
@@ -33,15 +42,22 @@
 	<div class="info">
 		<div class="name">{{stock.zqjc}}</div>
 		<div class="code">{{stock.zqdm}}</div>
+		<div class="rank" @tap="onHandleRank">排行榜<span class="arrow">></span></div>
 		<div class="tag-list">
 			<span class="tag" v-for="tag in stock.sections">{{tag}}</span>
 		</div>
+		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+			<div>排行信息仅供参考，具体的操作请谨慎操作。投资有风险，入市需谨慎</div>
+		</i-modal>
 	</div>
 </template>
 
 <script>
 import wepy from '@wepy/core';
+import { mapMutations } from '@wepy/x';
+import store from '@/store';
 wepy.component({
+	store,
 	props: {
 		stock: {
 			type: Object,
@@ -50,8 +66,26 @@ wepy.component({
 	},
 	data() {
 		return {
-			
+			modalVisible: false
+		}
+	},
+	methods: {
+		...mapMutations(['changeHomeChartVisible']),
+		onHandleRank() {
+			this.modalVisible = true;
+			this.changeHomeChartVisible(false);
+		},
+		handleCloseOk() {
+			this.modalVisible = false;
+			this.changeHomeChartVisible(true);
 		}
 	}
 });
 </script>
+<config>
+{
+    usingComponents: {
+		"i-modal": "~@/iview/dist/modal/index"
+    }
+}
+</config>

@@ -52,35 +52,35 @@ _core["default"].component({
       console.log(this.$name + ' minus tap');
     }
   })
-}, {info: {"components":{},"on":{}}, handlers: {'22-0': {"tap": function proxy () {
+}, {info: {"components":{},"on":{}}, handlers: {'22-5': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.plus($event)
       })();
     
-  }},'22-1': {"tap": function proxy () {
+  }},'22-6': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.minus($event)
       })();
     
-  }},'22-2': {"tap": function proxy () {
+  }},'22-7': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.increment($event)
       })();
     
-  }},'22-3': {"tap": function proxy () {
+  }},'22-8': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.decrement($event)
       })();
     
-  }},'22-4': {"tap": function proxy () {
+  }},'22-9': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {

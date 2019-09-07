@@ -67,21 +67,6 @@
 			justify-content: center;
 			padding-bottom: 40rpx;
 		}
-		.customer-service {
-			width: 100rpx;
-			height: 100rpx;
-			line-height: 100rpx;
-			font-size: 28rpx;
-			color: #5291F5;
-			position: fixed;
-			bottom: 50rpx;
-			right: 38rpx;
-			border-radius: 50%;
-			text-align: center;
-			padding-left: 0;
-			padding-right: 0;
-			background-color: #f8f8f8;
-		}
 	}
 </style>
 <template>
@@ -115,7 +100,7 @@
 		<div class="section" v-if="hasRisk">
 			<risk :risks="stock.risks"/>
 		</div>
-		<div class="section" v-if="hasGraph">
+		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
 			<indicator />
 			<div class="canvas-column">
 				<canvas canvas-id="columnCanvas-1" class="canvas"></canvas>
@@ -124,15 +109,16 @@
 				<canvas canvas-id="columnCanvas-2" class="canvas"></canvas>
 			</div>
 		</div>
-		<cover-view class="customer-service">
-			<button class="customer-service" open-type="contact">客服</button>
-		</cover-view>
+		<toolbar />
 	</div>
 </template>
 <script>
 import wepy from '@wepy/core'
-
+import { getStockInfo, getSearchStockInfo } from '@/api/home'
+import { mapState } from '@wepy/x'
+import store from '../store';
 wepy.page({
+	store,
 	data: {
 		inputText: '',
 		stock: null,
@@ -140,6 +126,7 @@ wepy.page({
 		startSearch: false
 	},
 	computed: {
+		...mapState(['isShowHomeChart']),
 		rankRatio() {
 			if (!this.stock) {
 				return 0;
@@ -159,19 +146,12 @@ wepy.page({
 			return this.stock.risks.length > 0;
 		}
 	},
-	created() {
-		console.log('created');
-	},
-	mounted() {
-		console.log('mounted');
-	},
 	methods: {
 		onChangeInput(e) {
 			console.log(this.inputText);
 			this.startSearch = false;
 			if (this.inputText) {
 				this.getSearchStockInfo(this.inputText).then(res => {
-					console.log(res);
 					this.stockList = res;
 				});
 			}
@@ -250,17 +230,14 @@ wepy.page({
 			});
 		},
 		getStockInfo(stockCode) {
-			wx.request({
-				url: `https://m.00315.com/wxapp/api/stocks/${stockCode}`,
-				success: (res) => {
-					if (res.data) {
-						this.stock = res.data;
-						const cat = this.getGraphColumnCategories(res.data);
-						const profits = this.getGraphColumnNetProfit(res.data);
-						const roes = this.getGraphColumnRoe(res.data);
-						this.initColumnProfitChart(cat, profits);
-						this.initColumnProfitRoe(cat, roes);
-					}
+			getStockInfo(stockCode).then(res => {
+				if (res.data) {
+					this.stock = res.data;
+					const cat = this.getGraphColumnCategories(res.data);
+					const profits = this.getGraphColumnNetProfit(res.data);
+					const roes = this.getGraphColumnRoe(res.data);
+					this.initColumnProfitChart(cat, profits);
+					this.initColumnProfitRoe(cat, roes);
 				}
 			})
 		},
@@ -287,17 +264,14 @@ wepy.page({
 		},
 		getSearchStockInfo(searchText) {
 			return new Promise((resolve, reject) => {
-				wx.request({
-					url: `https://m.00315.com/wxapp/api/stocks?q=${searchText || ''}`,
-					success: (res) => {
-						if (res.data) {
-							resolve(res.data);
-						} else {
-							reject()
-						}
+				getSearchStockInfo(searchText).then(res => {
+					if (res.data) {
+						resolve(res.data);
+					} else {
+						reject()
 					}
 				})
-			})
+			});
 		}
 	},
 	onReady() {
@@ -327,7 +301,8 @@ wepy.page({
 		"stock-base-info": "~@/comps/home/stock-base-info",
 		"statement": "~@/comps/home/statement",
 		"risk": "~@/comps/home/risk",
-		"indicator": "~@/comps/home/indicator"
+		"indicator": "~@/comps/home/indicator",
+		"toolbar": '~@/comps/home/toolbar'
     }
 }
 </config>

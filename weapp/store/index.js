@@ -11,32 +11,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 
 var _default = new _x["default"].Store({
   state: {
-    counter: 0
+    isShowHomeChart: true
   },
   mutations: {
-    increment: function increment(state) {
-      state.counter++;
-    },
-    decrement: function decrement(state) {
-      state.counter--;
+    changeHomeChartVisible: function changeHomeChartVisible(state, payload) {
+      state.isShowHomeChart = !!payload;
     }
   },
-  actions: {
-    increment: function increment(_ref) {
-      var commit = _ref.commit;
-      commit('increment');
-    },
-    decrement: function decrement(_ref2) {
-      var commit = _ref2.commit;
-      commit('decrement');
-    },
-    incrementAsync: function incrementAsync(_ref3) {
-      var commit = _ref3.commit;
-      setTimeout(function () {
-        commit('increment');
-      }, 1000);
-    }
-  }
+  actions: {}
 });
 
 exports["default"] = _default;

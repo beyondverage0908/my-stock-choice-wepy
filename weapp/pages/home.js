@@ -2,16 +2,29 @@
 
 var _core = _interopRequireDefault(require('../vendor.js')(0));
 
+var _home = require('../api/home.js');
+
+var _x = require('../vendor.js')(4);
+
+var _store = _interopRequireDefault(require('../store/index.js'));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 _core["default"].page({
+  store: _store["default"],
   data: {
     inputText: '',
     stock: null,
     stockList: [],
     startSearch: false
   },
-  computed: {
+  computed: _objectSpread({}, (0, _x.mapState)(['isShowHomeChart']), {
     rankRatio: function rankRatio() {
       if (!this.stock) {
         return 0;
@@ -33,13 +46,7 @@ _core["default"].page({
 
       return this.stock.risks.length > 0;
     }
-  },
-  created: function created() {
-    console.log('created');
-  },
-  mounted: function mounted() {
-    console.log('mounted');
-  },
+  }),
   methods: {
     onChangeInput: function onChangeInput(e) {
       var _this = this;
@@ -49,7 +56,6 @@ _core["default"].page({
 
       if (this.inputText) {
         this.getSearchStockInfo(this.inputText).then(function (res) {
-          console.log(res);
           _this.stockList = res;
         });
       }
@@ -138,22 +144,19 @@ _core["default"].page({
     getStockInfo: function getStockInfo(stockCode) {
       var _this2 = this;
 
-      wx.request({
-        url: "https://m.00315.com/wxapp/api/stocks/".concat(stockCode),
-        success: function success(res) {
-          if (res.data) {
-            _this2.stock = res.data;
+      (0, _home.getStockInfo)(stockCode).then(function (res) {
+        if (res.data) {
+          _this2.stock = res.data;
 
-            var cat = _this2.getGraphColumnCategories(res.data);
+          var cat = _this2.getGraphColumnCategories(res.data);
 
-            var profits = _this2.getGraphColumnNetProfit(res.data);
+          var profits = _this2.getGraphColumnNetProfit(res.data);
 
-            var roes = _this2.getGraphColumnRoe(res.data);
+          var roes = _this2.getGraphColumnRoe(res.data);
 
-            _this2.initColumnProfitChart(cat, profits);
+          _this2.initColumnProfitChart(cat, profits);
 
-            _this2.initColumnProfitRoe(cat, roes);
-          }
+          _this2.initColumnProfitRoe(cat, roes);
         }
       });
     },
@@ -180,14 +183,11 @@ _core["default"].page({
     },
     getSearchStockInfo: function getSearchStockInfo(searchText) {
       return new Promise(function (resolve, reject) {
-        wx.request({
-          url: "https://m.00315.com/wxapp/api/stocks?q=".concat(searchText || ''),
-          success: function success(res) {
-            if (res.data) {
-              resolve(res.data);
-            } else {
-              reject();
-            }
+        (0, _home.getSearchStockInfo)(searchText).then(function (res) {
+          if (res.data) {
+            resolve(res.data);
+          } else {
+            reject();
           }
         });
       });
@@ -208,7 +208,7 @@ _core["default"].page({
       path: "/pages/home?code=".concat(code)
     };
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {

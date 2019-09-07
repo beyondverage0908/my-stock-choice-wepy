@@ -8,6 +8,7 @@
         "stock-base-info": "../comps/home/stock-base-info",
         "statement": "../comps/home/statement",
         "risk": "../comps/home/risk",
-        "indicator": "../comps/home/indicator"
+        "indicator": "../comps/home/indicator",
+        "toolbar": "../comps/home/toolbar"
     }
 }
