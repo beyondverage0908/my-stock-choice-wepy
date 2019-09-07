@@ -42,7 +42,7 @@
 				background: #fff;
 				z-index: 10;
 				position: absolute;
-				top: 110rpx;
+				top: 150rpx;
 				.search-item {
 					border-bottom: 1rpx solid #f6f6f6;
 					padding: 18rpx 0;
@@ -76,7 +76,7 @@
 				<div class="search">
 					<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码"></input>
 					<div class="avatar-warp">
-						<div class="h-wrap">
+						<div class="h-wrap" @click="onHazyDeal">
 							<open-data type="userAvatarUrl"></open-data> 
 						</div>
 					</div>
@@ -110,6 +110,9 @@
 			</div>
 		</div>
 		<toolbar />
+		<div v-if="hazyCount===6">
+			<button @click="gotoChartArea">图表</button>
+		</div>
 	</div>
 </template>
 <script>
@@ -120,6 +123,7 @@ import store from '../store';
 wepy.page({
 	store,
 	data: {
+		hazyCount: 0,
 		inputText: '',
 		stock: null,
 		stockList: [],
@@ -147,6 +151,15 @@ wepy.page({
 		}
 	},
 	methods: {
+		onHazyDeal() {
+			console.log('hit');
+			this.hazyCount++;
+		},
+		gotoChartArea() {
+			wx.navigateTo({
+				url: './chart-demo?chart=xx'
+			})
+		},
 		onChangeInput(e) {
 			console.log(this.inputText);
 			this.startSearch = false;
@@ -154,6 +167,8 @@ wepy.page({
 				this.getSearchStockInfo(this.inputText).then(res => {
 					this.stockList = res;
 				});
+			} else {
+				this.stockList = [];
 			}
 		},
 		// 点击搜索
@@ -282,7 +297,6 @@ wepy.page({
 		this.getStockInfo(code);
 	},
 	onShareAppMessage() {
-		console.log(this.stock.zqdm || '600519');
 		const code = this.stock.zqdm || '600519';
 		return {
 			title: 'K2复盘助手',

@@ -1,11 +1,13 @@
 {
-    "pages": [
-        "pages/home"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "WeChat",
-        "navigationBarTextStyle": "white"
-    }
+  "pages": [
+    "pages/home",
+    "pages/chart-demo"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#5386C7",
+    "navigationBarTitleText": "K2复盘助手",
+    "navigationBarTextStyle": "white"
+  },
+  "sitemapLocation": "sitemap26.json"
 }

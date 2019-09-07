@@ -31,14 +31,602 @@ _core["default"].component({
       this.changeHomeChartVisible(true);
     }
   })
-}, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"15-1":["ok"]}}, handlers: {'15-0': {"tap": function proxy () {
+}, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onDisclaimerApply($event)
       })();
     
-  }},'15-1': {"ok": function proxy () {
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"16-1":["ok"]}}, handlers: {'16-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'16-1': {"ok": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {

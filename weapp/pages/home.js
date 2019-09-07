@@ -19,6 +19,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 _core["default"].page({
   store: _store["default"],
   data: {
+    hazyCount: 0,
     inputText: '',
     stock: null,
     stockList: [],
@@ -48,6 +49,15 @@ _core["default"].page({
     }
   }),
   methods: {
+    onHazyDeal: function onHazyDeal() {
+      console.log('hit');
+      this.hazyCount++;
+    },
+    gotoChartArea: function gotoChartArea() {
+      wx.navigateTo({
+        url: './chart-demo?chart=xx'
+      });
+    },
     onChangeInput: function onChangeInput(e) {
       var _this = this;
 
@@ -58,6 +68,8 @@ _core["default"].page({
         this.getSearchStockInfo(this.inputText).then(function (res) {
           _this.stockList = res;
         });
+      } else {
+        this.stockList = [];
       }
     },
     // 点击搜索
@@ -201,28 +213,77 @@ _core["default"].page({
     this.getStockInfo(code);
   },
   onShareAppMessage: function onShareAppMessage() {
-    console.log(this.stock.zqdm || '600519');
     var code = this.stock.zqdm || '600519';
     return {
       title: 'K2复盘助手',
       path: "/pages/home?code=".concat(code)
     };
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"}},"on":{}}, handlers: {'7-46': {"input": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }},'7-1': {"tap": function proxy (item) {
+  }},'7-47': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onHazyDeal($event)
+      })();
+    
+  }},'7-48': {"tap": function proxy (item) {
     
     var _vm=this;
       return (function () {
         _vm.handleSearch(item)
       })();
     
-  }}}, models: {'0': {
+  }},'7-49': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.gotoChartArea($event)
+      })();
+    
+  }}}, models: {'13': {
+      type: "input",
+      expr: "inputText",
+      handler: function set ($v) {
+      var _vm=this;
+        _vm.inputText = $v;
+      
+    }
+    }} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"}},"on":{}}, handlers: {'7-46': {"input": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onChangeInput($event)
+      })();
+    
+  }},'7-47': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onHazyDeal($event)
+      })();
+    
+  }},'7-48': {"tap": function proxy (item) {
+    
+    var _vm=this;
+      return (function () {
+        _vm.handleSearch(item)
+      })();
+    
+  }},'7-49': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.gotoChartArea($event)
+      })();
+    
+  }}}, models: {'13': {
       type: "input",
       expr: "inputText",
       handler: function set ($v) {
