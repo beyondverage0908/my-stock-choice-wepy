@@ -9,6 +9,8 @@
         "statement": "../comps/home/statement",
         "risk": "../comps/home/risk",
         "indicator": "../comps/home/indicator",
-        "toolbar": "../comps/home/toolbar"
+        "toolbar": "../comps/home/toolbar",
+        "column-profit": "../comps/charts/column-profit",
+        "column-roe": "../comps/charts/column-roe"
     }
 }

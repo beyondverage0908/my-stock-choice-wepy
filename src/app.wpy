@@ -56,7 +56,7 @@ wepy.app({
 <config>
 {
     pages: [
-		    'pages/home',
+        'pages/home',
         'pages/chart-demo'
     ],
     window: {

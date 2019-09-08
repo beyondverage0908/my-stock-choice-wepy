@@ -23,7 +23,9 @@ _core["default"].page({
     inputText: '',
     stock: null,
     stockList: [],
-    startSearch: false
+    startSearch: false,
+    yearProfits: [],
+    yearRoes: []
   },
   computed: _objectSpread({}, (0, _x.mapState)(['isShowHomeChart']), {
     rankRatio: function rankRatio() {
@@ -158,19 +160,36 @@ _core["default"].page({
 
       (0, _home.getStockInfo)(stockCode).then(function (res) {
         if (res.data) {
-          _this2.stock = res.data;
+          _this2.stock = res.data; // const cat = this.getGraphColumnCategories(res.data);
+          // const profits = this.getGraphColumnNetProfit(res.data);
+          // const roes = this.getGraphColumnRoe(res.data);
+          // this.initColumnProfitChart(cat, profits);
+          // this.initColumnProfitRoe(cat, roes);
 
-          var cat = _this2.getGraphColumnCategories(res.data);
-
-          var profits = _this2.getGraphColumnNetProfit(res.data);
-
-          var roes = _this2.getGraphColumnRoe(res.data);
-
-          _this2.initColumnProfitChart(cat, profits);
-
-          _this2.initColumnProfitRoe(cat, roes);
+          _this2.yearProfits = _this2.getYearProfitList(res.data);
+          _this2.yearRoes = _this2.getYearRoeList(res.data);
         }
       });
+    },
+    getYearProfitList: function getYearProfitList(stock) {
+      var profits = [];
+      stock.growings.forEach(function (item) {
+        profits.push({
+          year: "".concat(item.year),
+          profit: item.netProfit
+        });
+      });
+      return profits;
+    },
+    getYearRoeList: function getYearRoeList(stock) {
+      var roes = [];
+      stock.growings.forEach(function (item) {
+        roes.push({
+          year: "".concat(item.year),
+          roe: item.roe
+        });
+      });
+      return roes;
     },
     getGraphColumnCategories: function getGraphColumnCategories(stock) {
       var categories = [];
@@ -219,7 +238,7 @@ _core["default"].page({
       path: "/pages/home?code=".concat(code)
     };
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"},"column-profit":{"path":"../comps/charts/column-profit"},"column-roe":{"path":"../comps/charts/column-roe"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {

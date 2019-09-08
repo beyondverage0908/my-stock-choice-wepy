@@ -5,8 +5,8 @@
         flex-direction: column;
         .f-c-1 {
             width: 100%;
-            height: 300rpx;
-            background-color: red;
+            height: 600rpx;
+            background-color: goldenrod;
             .canvas-1 {
                 width: 100%;
                 height: 100%;
@@ -58,7 +58,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         width,
         height
     });
-
+    chart1.legend(false);
     chart1.source(data, {
         sales: {
             tickCount: 5
@@ -73,7 +73,13 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
             items[0].value = '¥ ' + items[0].value;
         }
     });
-    chart1.interval().position('year*sales');
+    chart1.interval().position('year*sales').color('year', cVal => {
+        console.log(cVal);
+        if (cVal === '1956 年') {
+            return 'blue';
+        }
+        return 'pink';
+    });
     chart1.render();
     return chart1;
 }
@@ -138,12 +144,13 @@ wepy.page({
                     { year: '1962 年', sales: 38 },
                 ];
                 // 可以通过重新给chart设置data，并且render，对图表进行重绘
-                chart1.source(data, {
-                    sales: {
-                        tickCount: 5
-                    }
-                });
-                chart1.render();
+                // chart1.source(data, {
+                //     sales: {
+                //         tickCount: 5
+                //     }
+                // });
+                chart1.changeData(data);
+                // chart1.render();
             }, 3000)
         }
     },

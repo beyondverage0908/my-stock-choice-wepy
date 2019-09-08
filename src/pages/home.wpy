@@ -102,12 +102,14 @@
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
 			<indicator />
-			<div class="canvas-column">
+			<!-- <div class="canvas-column">
 				<canvas canvas-id="columnCanvas-1" class="canvas"></canvas>
 			</div>
 			<div class="canvas-column">
 				<canvas canvas-id="columnCanvas-2" class="canvas"></canvas>
-			</div>
+			</div> -->
+			<column-profit :data="yearProfits" :title="'净利润'"/>
+			<column-roe :data="yearRoes" :title="'净资产收益率'"/>
 		</div>
 		<toolbar />
 		<div v-if="hazyCount===6">
@@ -127,7 +129,9 @@ wepy.page({
 		inputText: '',
 		stock: null,
 		stockList: [],
-		startSearch: false
+		startSearch: false,
+		yearProfits: [],
+		yearRoes: []
 	},
 	computed: {
 		...mapState(['isShowHomeChart']),
@@ -248,13 +252,29 @@ wepy.page({
 			getStockInfo(stockCode).then(res => {
 				if (res.data) {
 					this.stock = res.data;
-					const cat = this.getGraphColumnCategories(res.data);
-					const profits = this.getGraphColumnNetProfit(res.data);
-					const roes = this.getGraphColumnRoe(res.data);
-					this.initColumnProfitChart(cat, profits);
-					this.initColumnProfitRoe(cat, roes);
+					// const cat = this.getGraphColumnCategories(res.data);
+					// const profits = this.getGraphColumnNetProfit(res.data);
+					// const roes = this.getGraphColumnRoe(res.data);
+					// this.initColumnProfitChart(cat, profits);
+					// this.initColumnProfitRoe(cat, roes);
+					this.yearProfits = this.getYearProfitList(res.data);
+					this.yearRoes = this.getYearRoeList(res.data);
 				}
 			})
+		},
+		getYearProfitList(stock) {
+			const profits = []
+			stock.growings.forEach(item => {
+				profits.push({year: `${item.year}`, profit: item.netProfit});
+			});
+			return profits;
+		},
+		getYearRoeList(stock) {
+			const roes = []
+			stock.growings.forEach(item => {
+				roes.push({year: `${item.year}`, roe: item.roe});
+			});
+			return roes;
 		},
 		getGraphColumnCategories(stock) {
 			const categories = [];
@@ -316,7 +336,9 @@ wepy.page({
 		"statement": "~@/comps/home/statement",
 		"risk": "~@/comps/home/risk",
 		"indicator": "~@/comps/home/indicator",
-		"toolbar": '~@/comps/home/toolbar'
+		"toolbar": "~@/comps/home/toolbar",
+		"column-profit": "~@/comps/charts/column-profit",
+		"column-roe": "~@/comps/charts/column-roe"
     }
 }
 </config>
