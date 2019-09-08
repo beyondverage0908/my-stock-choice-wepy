@@ -238,35 +238,71 @@ _core["default"].page({
       path: "/pages/home?code=".concat(code)
     };
   }
-}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"},"column-profit":{"path":"../comps/charts/column-profit"},"column-roe":{"path":"../comps/charts/column-roe"}},"on":{}}, handlers: {'7-0': {"input": function proxy () {
+}, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"},"column-profit":{"path":"../comps/charts/column-profit"},"column-roe":{"path":"../comps/charts/column-roe"}},"on":{}}, handlers: {'7-16': {"input": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onChangeInput($event)
       })();
     
-  }},'7-1': {"tap": function proxy () {
+  }},'7-17': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.onHazyDeal($event)
       })();
     
-  }},'7-2': {"tap": function proxy (item) {
+  }},'7-18': {"tap": function proxy (item) {
     
     var _vm=this;
       return (function () {
         _vm.handleSearch(item)
       })();
     
-  }},'7-3': {"tap": function proxy () {
+  }},'7-19': {"tap": function proxy () {
     var $event = arguments[arguments.length - 1];
     var _vm=this;
       return (function () {
         _vm.gotoChartArea($event)
       })();
     
-  }}}, models: {'0': {
+  }}}, models: {'4': {
+      type: "input",
+      expr: "inputText",
+      handler: function set ($v) {
+      var _vm=this;
+        _vm.inputText = $v;
+      
+    }
+    }} }, {info: {"components":{"i-input":{"path":"../iview/dist/input/index"},"ring":{"path":"../comps/home/ring"},"stock-base-info":{"path":"../comps/home/stock-base-info"},"statement":{"path":"../comps/home/statement"},"risk":{"path":"../comps/home/risk"},"indicator":{"path":"../comps/home/indicator"},"toolbar":{"path":"../comps/home/toolbar"},"column-profit":{"path":"../comps/charts/column-profit"},"column-roe":{"path":"../comps/charts/column-roe"}},"on":{}}, handlers: {'7-16': {"input": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onChangeInput($event)
+      })();
+    
+  }},'7-17': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onHazyDeal($event)
+      })();
+    
+  }},'7-18': {"tap": function proxy (item) {
+    
+    var _vm=this;
+      return (function () {
+        _vm.handleSearch(item)
+      })();
+    
+  }},'7-19': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.gotoChartArea($event)
+      })();
+    
+  }}}, models: {'4': {
       type: "input",
       expr: "inputText",
       handler: function set ($v) {

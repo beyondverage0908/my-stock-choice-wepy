@@ -45,4 +45,116 @@ _core["default"].component({
         _vm.handleCloseOk($event)
       })();
     
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
+  }}}, models: {} }, {info: {"components":{"i-modal":{"path":"../../iview/dist/modal/index"}},"on":{"18-1":["ok"]}}, handlers: {'18-0': {"tap": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.onDisclaimerApply($event)
+      })();
+    
+  }},'18-1': {"ok": function proxy () {
+    var $event = arguments[arguments.length - 1];
+    var _vm=this;
+      return (function () {
+        _vm.handleCloseOk($event)
+      })();
+    
   }}}, models: {} });
