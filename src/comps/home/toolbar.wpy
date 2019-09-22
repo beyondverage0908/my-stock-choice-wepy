@@ -3,27 +3,56 @@
     text-align: center;
     color: #5291F5;
     font-size: 28rpx;
-    background-color: #f8f8f8;
     padding-left: 0;
     padding-right: 0;
+    border: none;
+    border-style: none;
+    background-color: transparent;
+    height: 50rpx;
+    line-height: 1;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100rpx;
     height: 100rpx;
-    line-height: 100rpx;
     border-radius: 50%;
+    background-color: #f8f8f8;
+    padding: 10rpx;
 }
 .toolbar {
     position: fixed;
     bottom: 50rpx;
     right: 38rpx;
     .customer-service {
+        .container;
+        .img {
+            width: 36rpx;
+            height: 36rpx;
+            margin: 10rpx 0;
+        }
         .customer-btn {
             .btn-style;
+            &::after {
+                border: none;
+            }
         }
     }
     .share {
         margin-top: 30rpx;
-        .btn {
+        .container;
+        .img {
+            width: 40rpx;
+            height: 40rpx;
+            margin: 10rpx 0;
+        }
+        .share-btn {
             .btn-style;
+            &::after {
+                border: none;
+            }
         }
     }
 }
@@ -32,10 +61,12 @@
 <template>
     <cover-view class="toolbar">
         <cover-view class="customer-service">
+            <cover-image class="img" src="../../assets/call.png" alt="call" />
 			<button class="customer-btn" open-type="contact">客服</button>
 		</cover-view>
         <cover-view class="share">
-            <button class="btn" open-type="share">分享</button>
+            <cover-image class="img" src="../../assets/sh.png" alt="share" />
+            <button class="share-btn" open-type="share">分享</button>
         </cover-view>
     </cover-view>
 </template>

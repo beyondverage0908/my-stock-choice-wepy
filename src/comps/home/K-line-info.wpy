@@ -1,0 +1,119 @@
+<style lang="less" scoped>
+@main-gray: #CFCFCF;
+@main-des-gray: rgba(102, 102, 102, 1);
+@sign-color: rgba(229, 28, 35, 1);
+.kline-container {
+    // margin: 30rpx 40rpx;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        .time {
+            margin-top: 30rpx;
+            margin-right: 40rpx;
+            color: @main-gray;
+            font-size: 27rpx;
+        }
+    }
+    .content {
+        margin: 0 40rpx;
+        .desc {
+            font-size: 28rpx;
+            color: @main-des-gray;
+        }
+        .sec {
+            margin: 15rpx 0;
+            display: flex;
+            .title {
+                font-size: 28rpx;
+                min-width: 145rpx;
+            }
+            .item {
+                color: @main-des-gray;
+            }
+            .buying {
+                .b-item {
+                    display: inline-block;
+                    padding: 0 10rpx;
+                }
+            }
+            .sign {
+                color: @sign-color;
+            }
+        }
+        .st {
+            font-size: 28rpx;
+            color: @main-des-gray;
+        }
+    }
+}
+</style>
+<template>
+    <div class="kline-container">
+        <div class="header">
+            <!-- <span class="title">K线强度</span> -->
+            <indicator :title="'K线强度'"/>
+            <span class="time">{{startTime}}-{{endTime}}</span>
+        </div>
+        <div class="content">
+            <div class="desc">
+                Ｋ线强度起源于二十年前石开先生的β背离系数，牛棚量化小组在南京、苏州二地潜心研究十五年，成功地开发了基于Ｋ线强度的AI轮动系统。
+            </div>
+            <div class="sec">
+                <div class="title">轮动节奏：</div>
+                <div class="item buying">
+                    <span v-for="(label, index) in buyingLabelList" :class="{sign: stock.buying === index}" class="b-item">{{label}}</span>
+                </div>
+            </div>
+            <div class="sec">
+                <div class="title">K线强度：</div>
+                <div class="item">{{stock.banker || '-'}}</div>
+            </div>
+            <div class="sec">
+                <div class="title">排名：</div>
+                <div class="item"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
+            </div>
+            <div class="st">
+                实时监测股票池的轮动买点，寻找相似Ｋ线
+            </div>
+        </div>
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core';
+import moment from 'moment';
+wepy.component({
+    props: {
+        stock: {
+            type: Object,
+            default: {}
+        }
+    },
+    data: {
+        buyingLabelList: ['路人', '关注', '买点']
+    },
+    computed: {
+        startTime() {
+            if (this.stock && this.stock.beginTime) {
+                return moment(this.stock.beginTime).format('YYYYMMDD');
+            }
+            return '-';
+        },
+        endTime() {
+            if (this.stock && this.stock.endTime) {
+                return moment(this.stock.endTime).format('YYYYMMDD');
+            }
+            return '-';
+        }
+    },
+    methods: {
+
+    }
+})
+</script>
+<config>
+{
+    usingComponents: {
+		"indicator": "~@/comps/home/indicator",
+    }
+}
+</config>

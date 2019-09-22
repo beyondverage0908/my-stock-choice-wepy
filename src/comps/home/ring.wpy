@@ -4,7 +4,7 @@
 @ring-color: #a6d94a;
 @ring-bg-color: #eeeeee;
 @ring-gap-width: 90rpx;
-@ring-info-fontsize: 70rpx;
+@ring-info-fontsize: 60rpx;
 .ring {
   margin-top: 14rpx;
   margin-left: 10rpx;
@@ -75,7 +75,7 @@
 			<div class="circle-bottom-left"></div>
 			<div class="circle-bottom-right"></div>
 		</div>
-		<div class="info">{{transformScore}}</div>
+		<div class="info">{{rank || '-'}}</div>
 	</div>
 </template>
 <script>
@@ -87,6 +87,10 @@ wepy.component({
   },
   props: {
     score: {
+      type: Number,
+      default: 0
+    },
+    rank: {
       type: Number,
       default: 0
     }

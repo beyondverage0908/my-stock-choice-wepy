@@ -1,0 +1,137 @@
+<style lang="less" scoped>
+@input-font-size: 28rpx;
+@main-gray: #CFCFCF;
+@main-des-gray: rgba(102, 102, 102, 1);
+@sign-color: rgba(229, 28, 35, 1);
+@main-blue-color: rgb(131, 177, 229);
+.stock-table-rating {
+    .table {
+        .tr {
+            display: flex;
+            .th {
+                font-size: 30rpx;
+                font-weight: 700;
+                text-align: center;
+                flex: 1;
+                border: solid @main-gray 1rpx;
+                padding: 10rpx 5rpx;
+            }
+            .td {
+                font-size: 28rpx;
+                font-weight: 500;
+                color: @main-des-gray;
+                text-align: center;
+                flex: 1;
+                border: solid @main-gray 1rpx;
+                padding: 10rpx 5rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .tread {
+                    width: 60%;
+                    display: flex;
+                    justify-content: space-evenly;
+                    align-items: center;
+                    .img {
+                        width: 16rpx;
+                        height: 16rpx;
+                    }
+                }
+            }
+        }
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: @main-blue-color;
+            height: 150rpx;
+            border-left: solid @main-gray 1rpx;
+            border-bottom: solid @main-gray 1rpx;
+            border-right: solid @main-gray 1rpx;
+        }
+    }
+}
+</style>
+<template>
+	<div class="stock-table-rating">
+        <div class="table">
+            <div class="tr">
+                <div class="th" v-for="head in tableHeadLabelList" :key="head.label">{{head.label}}</div>
+            </div>
+            <div v-if="tableData.length > 0" class="tr" v-for="tr in tableData">
+                <div class="td" v-for="item in tableHeadLabelList" :key="item.label">
+                    <div class="tread" v-if="item.key === 'netprofit1' || item.key === 'netprofit2'">
+                        <img v-if="tr[item.key] >= tr['netprofit0']" class="img" src="../../assets/up.png" alt="" />
+                        <img v-else class="img" src="../../assets/down.png" alt="" />
+                        <span>{{tr[item.key]}}</span>
+                    </div>
+                    <div v-else>
+                        {{tr[item.key]}}
+                    </div>
+                </div>
+            </div>
+            <div v-if="!tableData.length && showNoData" class="no-data">
+                暂无数据
+            </div>
+        </div>
+	</div>
+</template>
+<script>
+import wepy from "@wepy/core";
+import { getProfitRatings } from '@/api/home';
+wepy.component({
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        stockCode: {
+            type: String,
+            default: null
+        }
+    },
+    watch: {
+        isShow(newVal, oldVal) {
+            if (newVal === true) {
+                this.getProfitRatings(this.stockCode);
+            }
+        }
+    },
+	data: {
+		name: 'mingzi',
+        // 机构名称 研究员 2019预测 2020预测
+        tableHeadLabelList: [
+            { label: '机构名称', key: 'organization' },
+            { label: '研究员', key: 'researcher' },
+            { label: '2019预测', key: 'netprofit1' },
+            { label: '2020预测', key: 'netprofit2' }
+        ],
+        tableData: [],
+        showNoData: false
+    },
+	methods: {
+		getProfitRatings() {
+            // default 
+            if (!this.stockCode) return;
+            getProfitRatings(this.stockCode).then(res => {
+                if (res.data && res.data.length) {
+                    const year = res.data[0].year;
+                    this.tableHeadLabelList.forEach(element => {
+                        if (element.key === 'netprofit1') {
+                            element.label = `${year + 1}预测`;
+                        } else if (element.key === 'netprofit2') {
+                            element.label = `${year + 2}预测`;
+                        }
+                    });
+                    this.showNoData = false;
+                    this.tableData = res.data;
+                } else {
+                    this.showNoData = true;
+                }
+            })
+        }
+    },
+    ready() {}
+})
+</script>
+

@@ -35,6 +35,13 @@
 				margin: 0 10rpx;
 			}
 		}
+		.modal-content {
+			margin: 15rpx 30rpx;
+			.wxid {
+				color: @main-blue-color;
+				font-weight: 700;
+			}
+		}
 	}
 </style>
 
@@ -47,7 +54,7 @@
 			<span class="tag" v-for="tag in stock.sections">{{tag}}</span>
 		</div>
 		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
-			<div>排行信息仅供参考，具体的操作请谨慎操作。投资有风险，入市需谨慎</div>
+			<div class="modal-content">牛棚100指数－－关注公司旗下微信服务号“解套宝”（ＩＤ：<span class="wxid" @click="handleCopyWxId">SpringClub2015</span> 点击复制），查看性价比最高的100支价值投资股票名单</div>
 		</i-modal>
 	</div>
 </template>
@@ -78,6 +85,11 @@ wepy.component({
 		handleCloseOk() {
 			this.modalVisible = false;
 			this.changeHomeChartVisible(true);
+		},
+		handleCopyWxId() {
+			wx.setClipboardData({
+				data: 'SpringClub2015'
+			})
 		}
 	}
 });

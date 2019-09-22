@@ -35,6 +35,7 @@ import wepy from '@wepy/core';
 import F2 from '@/f2-canvas/lib/f2';
 
 let chart1 = null;
+let dataSource = null;
 function initChart1(canvas, width, height) { // 使用 F2 绘制图表
     const data = [];
     chart1 = new F2.Chart({
@@ -42,7 +43,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         width,
         height
     });
-    chart1.legend(true);
+    chart1.legend(false);
     chart1.source(data, {
         // sales: {
         //     tickCount: 5
@@ -52,14 +53,18 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         showItemMarker: false,
         onShow(ev) {
             const { items } = ev;
-            console.log(ev);
             items[0].name = null;
             items[0].name = items[0].title;
             items[0].value = items[0].value + '万';
         }
     });
     chart1.interval().position('year*profit').color('year', cVal => {
-        return 'rgb(131, 177, 229)';
+        const f = dataSource && dataSource.find(item => item.year === cVal);
+        if (f.type === 0) {
+            return 'rgb(131, 177, 229)';
+        } else {
+            return '#FFD700';
+        }
     });
     chart1.axis('profit', {
         position: 'left',
@@ -109,7 +114,7 @@ wepy.component({
             // 这是timeout主要是为了防止chart对象为null
             setTimeout(() => {
                 const data = this.data;
-                console.log(data);
+                dataSource = data;
                 if (!chart1) return;
                 // chart1.source(data);
                 // data.forEach(item => {
@@ -121,7 +126,6 @@ wepy.component({
                 // });
                 // chart1.repaint();
                 chart1.changeData(data);
-
             }, 500);
         }
     },
