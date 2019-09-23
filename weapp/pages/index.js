@@ -210,7 +210,7 @@ _core["default"].page({
         _vm.counterEmit($event)
       })();
     
-  }}}, models: {'0': {
+  }}}, models: {'1': {
       type: "input",
       expr: "inputmodel",
       handler: function set ($v) {

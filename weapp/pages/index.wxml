@@ -47,7 +47,7 @@ module.exports.getTime = getTime;
    <panel bind_init="_initComponent">
      <view slot="title" class="title">测试 v-model</view>
      <view style="display: flex; align-items: center;">
-       <input value="{{ inputmodel }}" bindinput="_proxy" data-model-id="0"></input>
+       <input value="{{ inputmodel }}" bindinput="_proxy" data-model-id="1"></input>
        <text style="margin-left: 30rpx;">Value: {{inputmodel}}</text>
      </view>
    </panel>
