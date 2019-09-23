@@ -59,7 +59,6 @@
 </template>
 <script>
 import wepy from "@wepy/core";
-import { getRatings } from '@/api/home';
 wepy.component({
     props: {
         isShow: {
@@ -69,15 +68,22 @@ wepy.component({
         stockCode: {
             type: String,
             default: null
-        }
+		},
+		dataSource: {
+			type: Array,
+			default: []	
+		}
     },
     watch: {
-        isShow(newVal, oldVal) {
-            if (newVal === true) {
-                this.getRatings(this.stockCode);
-            }
-        }
-    },
+		dataSource(newVal, oldVal) {
+			if (!newVal || !newVal.length) {
+				this.showNoData = true;
+				this.tableData = [];
+			} else {
+				this.tableData = newVal;
+			}
+		}
+	},
 	data: {
 		name: 'mingzi',
         // 机构名称 研究员 评级
@@ -90,19 +96,6 @@ wepy.component({
         showNoData: false
     },
 	methods: {
-		getRatings() {
-            // default 
-            // this.stockCode = '000001.SZ';
-            if (!this.stockCode) return;
-            getRatings(this.stockCode).then(res => {
-                if (res.data && res.data.length) {
-                    this.showNoData = false;
-                    this.tableData = res.data;
-                } else {
-                    this.showNoData = true;
-                }
-            })
-        }
     },
     ready() {}
 })

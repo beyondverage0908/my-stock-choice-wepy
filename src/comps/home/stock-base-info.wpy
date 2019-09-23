@@ -23,8 +23,9 @@
 		}
 		.tag-list {
 			display: flex;
-			justify-content: flex-start;
-			margin: 40rpx 0;
+			flex-direction: column;
+			align-items: flex-start;
+			margin: 20rpx 0 0 0;
 			.tag {
 				display: inline-block;
 				background-color: rgb(238, 238, 238);
@@ -32,7 +33,7 @@
 				font-size: 21rpx;
 				border-radius: 5rpx;
 				color: rgb(193, 193, 193);
-				margin: 0 10rpx;
+				margin: 10rpx 0;
 			}
 		}
 		.modal-content {
@@ -49,7 +50,7 @@
 	<div class="info">
 		<div class="name">{{stock.zqjc}}</div>
 		<div class="code">{{stock.zqdm}}</div>
-		<div class="rank" @tap="onHandleRank">排行榜<span class="arrow">></span></div>
+		<!-- <div class="rank" @tap="onHandleRank">排行榜<span class="arrow">></span></div> -->
 		<div class="tag-list">
 			<span class="tag" v-for="tag in stock.sections">{{tag}}</span>
 		</div>

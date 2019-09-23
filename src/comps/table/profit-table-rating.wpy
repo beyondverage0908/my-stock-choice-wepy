@@ -78,7 +78,6 @@
 </template>
 <script>
 import wepy from "@wepy/core";
-import { getProfitRatings } from '@/api/home';
 wepy.component({
     props: {
         isShow: {
@@ -88,14 +87,30 @@ wepy.component({
         stockCode: {
             type: String,
             default: null
-        }
+		},
+		dataSource: {
+			type: Array,
+			default: []	
+		}
     },
     watch: {
-        isShow(newVal, oldVal) {
-            if (newVal === true) {
-                this.getProfitRatings(this.stockCode);
-            }
-        }
+		dataSource(newVal, oldVal) {
+			if (!newVal || !newVal.length) {
+				this.showNoData = true;
+				this.tableData = [];
+			} else {
+				this.showNoData = true;
+				const year = newVal[0].year;
+				this.tableHeadLabelList.forEach(element => {
+					if (element.key === 'netprofit1') {
+						element.label = `${year + 1}预测`;
+					} else if (element.key === 'netprofit2') {
+						element.label = `${year + 2}预测`;
+					}
+				});
+				this.tableData = newVal;
+			}
+		}
     },
 	data: {
 		name: 'mingzi',
@@ -109,28 +124,7 @@ wepy.component({
         tableData: [],
         showNoData: false
     },
-	methods: {
-		getProfitRatings() {
-            // default 
-            if (!this.stockCode) return;
-            getProfitRatings(this.stockCode).then(res => {
-                if (res.data && res.data.length) {
-                    const year = res.data[0].year;
-                    this.tableHeadLabelList.forEach(element => {
-                        if (element.key === 'netprofit1') {
-                            element.label = `${year + 1}预测`;
-                        } else if (element.key === 'netprofit2') {
-                            element.label = `${year + 2}预测`;
-                        }
-                    });
-                    this.showNoData = false;
-                    this.tableData = res.data;
-                } else {
-                    this.showNoData = true;
-                }
-            })
-        }
-    },
+	methods: {},
     ready() {}
 })
 </script>

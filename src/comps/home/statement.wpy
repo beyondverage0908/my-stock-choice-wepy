@@ -50,6 +50,7 @@ wepy.component({
 		},
 		handleCloseOk() {
 			this.modalVisible = false;
+			this.handleCopyWxId();
 			this.changeHomeChartVisible(true);
 		},
 		handleCopyWxId() {

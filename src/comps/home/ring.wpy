@@ -1,7 +1,7 @@
 <style lang="less">
 @ring-width: 250rpx;
 @ring-height: 250rpx;
-@ring-color: #a6d94a;
+@ring-color: #E95B5F;
 @ring-bg-color: #eeeeee;
 @ring-gap-width: 90rpx;
 @ring-info-fontsize: 60rpx;

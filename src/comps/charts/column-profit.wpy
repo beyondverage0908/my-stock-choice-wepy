@@ -80,7 +80,8 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
             if (index > 0 && index === total - 1) {
                 cfg.textAlign = 'center';
             }
-            cfg.text = text + '万';  // cfg.text 支持文本格式化处理
+			// cfg.text = text + '万';  // cfg.text 支持文本格式化处理
+			cfg.text = text;
             return cfg;
         }
     })

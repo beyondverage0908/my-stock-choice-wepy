@@ -78,7 +78,6 @@
 </template>
 <script>
 import wepy from "@wepy/core";
-import { getRoeratings } from '@/api/home';
 wepy.component({
     props: {
         isShow: {
@@ -88,14 +87,30 @@ wepy.component({
         stockCode: {
             type: String,
             default: null
-        }
+		},
+		dataSource: {
+			type: Array,
+			default: []	
+		}
     },
     watch: {
-        isShow(newVal, oldVal) {
-            if (newVal === true) {
-                this.getRoeratings(this.stockCode);
-            }
-        }
+		dataSource(newVal, oldVal) {
+			if (!newVal || !newVal.length) {
+				this.showNoData = true;
+				this.tableData = [];
+			} else {
+				this.showNoData = true;
+				const year = newVal[0].year;
+				this.tableHeadLabelList.forEach(element => {
+					if (element.key === 'roe1') {
+						element.label = `${year + 1}预测`;
+					} else if (element.key === 'roe2') {
+						element.label = `${year + 2}预测`;
+					}
+				});
+				this.tableData = newVal;
+			}
+		}
     },
 	data: {
 		name: 'mingzi',
@@ -109,29 +124,7 @@ wepy.component({
         tableData: [],
         showNoData: false
     },
-	methods: {
-		getRoeratings() {
-            // default 
-            //  this.stockCode = '000001.SZ';
-            if (!this.stockCode) return;
-            getRoeratings(this.stockCode).then(res => {
-                if (res.data && res.data.length) {
-                    const year = res.data[0].year;
-                    this.tableHeadLabelList.forEach(element => {
-                        if (element.key === 'roe1') {
-                            element.label = `${year + 1}预测`;
-                        } else if (element.key === 'roe2') {
-                            element.label = `${year + 2}预测`;
-                        }
-                    });
-                    this.tableData = res.data;
-                    this.showNoData = false;
-                } else {
-                    this.showNoData = true;
-                }
-            })
-        }
-    },
+	methods: {},
     ready() {}
 })
 </script>

@@ -1,6 +1,6 @@
 <style lang="less" scoped>
-	@main-red: #BA6A64;
-	@tag-red: #E95B5F;
+	@main-red: #009100;
+	@tag-red: #28FF28;
 	.risk {
 		margin: 30rpx 40rpx;
 		.title {
@@ -8,7 +8,7 @@
 				display: inline-block;
 				position: relative;
 				height: 28rpx;
-				border-bottom: solid #FFE0DF 20rpx; 
+				border-bottom: solid #CEFFCE 20rpx; 
 				.tx {
 					left: 0;
 					z-index: 4;
