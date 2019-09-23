@@ -213,7 +213,7 @@
 import wepy from '@wepy/core'
 import { getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
 import { defaultStockCode } from '@/util/config'
-import { mapState } from '@wepy/x'
+import { mapState, mapMutations } from '@wepy/x'
 import store from '../store';
 wepy.page({
 	store,
@@ -256,6 +256,7 @@ wepy.page({
 		}
 	},
 	methods: {
+		...mapMutations(['changeLoginCode']),
 		onHazyDeal() {
 			console.log('hit');
 			this.hazyCount++;
@@ -396,6 +397,21 @@ wepy.page({
 			this.isShowStockRating = !this.isShowStockRating;
 			this.isShowRoeRating = false;
 			this.isShowProfitRating = false;
+		},
+		wxLogin() {
+			debugger;
+			wx.login({
+				success: (res) => {
+					if (res.code) {
+						this.changeLoginCode(res.code);
+					} else {
+						console.log('wx login fail');
+					}
+				},
+				fail: (err) => {
+					console.log(`wx login fail ${err}`);
+				}
+			})
 		}
 	},
 	onReady() {
@@ -405,6 +421,8 @@ wepy.page({
 		const code = options['code'] || defaultStockCode;
 		this.currentStockCode = code;
 		this.getStockInfo(code);
+		// 获取微信登录的code
+		this.wxLogin();
 	},
 	onShareAppMessage() {
 		const code = this.stock.zqdm || defaultStockCode;
