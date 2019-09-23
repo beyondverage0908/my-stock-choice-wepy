@@ -1,0 +1,170 @@
+<style lang="less" scoped>
+    .container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        .f-c-1 {
+            width: 100%;
+            height: 600rpx;
+            background-color: goldenrod;
+            .canvas-1 {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .f-c-2 {
+            width: 100%;
+            height: 300rpx;
+            background-color: yellow;
+            .canvas-2 {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+    
+</style>
+
+<template>
+    <div class="container">
+        <div class="f-c-1">
+            <ff-canvas class="canvas-1" id="column-dom-1" canvas-id="column-1" opts="{{ opts1 }}"></ff-canvas>
+        </div>
+        <div class="f-c-2">
+            <ff-canvas class="canvas-2" id="column-dom-2" canvas-id="column-2" opts="{{ opts2 }}"></ff-canvas>
+        </div>
+    </div>
+</template>
+<script>
+import wepy from "@wepy/core";
+import F2 from '@/f2-canvas/lib/f2';
+
+let chart1 = null;
+let chart2 = null;
+
+function initChart1(canvas, width, height) { // 使用 F2 绘制图表
+    const data = [
+        { year: '1951 年', sales: 38 },
+        { year: '1952 年', sales: 52 },
+        { year: '1956 年', sales: 61 },
+        { year: '1957 年', sales: 145 },
+        { year: '1958 年', sales: 48 },
+        { year: '1959 年', sales: 38 },
+        { year: '1960 年', sales: 38 },
+        { year: '1962 年', sales: 38 },
+    ];
+    chart1 = new F2.Chart({
+        el: canvas,
+        width,
+        height
+    });
+    chart1.legend(false);
+    chart1.source(data, {
+        sales: {
+            tickCount: 5
+        }
+    });
+    chart1.tooltip({
+        showItemMarker: false,
+        onShow(ev) {
+            const { items } = ev;
+            items[0].name = null;
+            items[0].name = items[0].title;
+            items[0].value = '¥ ' + items[0].value;
+        }
+    });
+    chart1.interval().position('year*sales').color('year', cVal => {
+        console.log(cVal);
+        if (cVal === '1956 年') {
+            return 'blue';
+        }
+        return 'pink';
+    });
+    chart1.render();
+    return chart1;
+}
+
+function initChart2(canvas, width, height) { // 使用 F2 绘制图表
+    const data = [
+        { year: '1951 年', sales: 38 },
+        { year: '1952 年', sales: 52 },
+        { year: '1956 年', sales: 61 },
+        { year: '1957 年', sales: 145 },
+        { year: '1958 年', sales: 48 },
+        { year: '1959 年', sales: 38 },
+        { year: '1960 年', sales: 38 },
+        { year: '1962 年', sales: 38 },
+    ];
+    const chart = new F2.Chart({
+        el: canvas,
+        width,
+        height
+    });
+
+    chart.source(data, {
+        sales: {
+            tickCount: 5
+        }
+    });
+    chart.tooltip({
+        showItemMarker: false,
+        onShow(ev) {
+            const { items } = ev;
+            items[0].name = null;
+            items[0].name = items[0].title;
+            items[0].value = '¥ ' + items[0].value;
+        }
+    });
+    chart.interval().position('year*sales');
+    chart.render();
+    return chart;
+}
+
+
+wepy.page({
+    data: {
+        opts1: {
+            onInit: initChart1
+        },
+        opts2: {
+            onInit: initChart2
+        }
+    },
+    methods: {
+        initChart() {
+            setTimeout(() => {
+                const data = [
+                    { year: '1951 年', sales: 100 },
+                    { year: '1952 年', sales: 150 },
+                    { year: '1956 年', sales: 145 },
+                    { year: '1957 年', sales: 145 },
+                    { year: '1958 年', sales: 48 },
+                    { year: '1959 年', sales: 38 },
+                    { year: '1960 年', sales: 38 },
+                    { year: '1962 年', sales: 38 },
+                ];
+                // 可以通过重新给chart设置data，并且render，对图表进行重绘
+                // chart1.source(data, {
+                //     sales: {
+                //         tickCount: 5
+                //     }
+                // });
+                chart1.changeData(data);
+                // chart1.render();
+            }, 3000)
+        }
+    },
+    onLoad() {
+        this.initChart();
+    }
+})
+</script>
+<config>
+{
+  "usingComponents": {
+    "ff-canvas": "~@/f2-canvas/f2-canvas"
+  }
+}
+</config>
+
+

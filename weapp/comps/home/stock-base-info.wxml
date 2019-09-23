@@ -1,8 +1,0 @@
-
-<view class="info">
-	<view class="name">{{stock.zqjc}}</view>
-	<view class="code">{{stock.zqdm}}</view>
-	<view class="tag-list">
-		<label wx:for="{{ stock.sections }}" wx:for-index="index" wx:for-item="tag" wx:key="index" class="tag">{{tag}}</label>
-	</view>
-</view>

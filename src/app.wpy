@@ -56,13 +56,13 @@ wepy.app({
 <config>
 {
     pages: [
-		'pages/home',
-    	'pages/index'
+        'pages/home',
+        'pages/chart-demo'
     ],
     window: {
       	backgroundTextStyle: 'light',
-      	navigationBarBackgroundColor: '#fff',
-      	navigationBarTitleText: 'WeChat',
+        navigationBarBackgroundColor: '#5386C7',
+      	navigationBarTitleText: 'K2复盘助手',
       	navigationBarTextStyle: 'white'
     }
 }

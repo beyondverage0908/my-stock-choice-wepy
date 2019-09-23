@@ -1,0 +1,48 @@
+<style lang="less" scoped>
+.btn-style {
+    text-align: center;
+    color: #5291F5;
+    font-size: 28rpx;
+    background-color: #f8f8f8;
+    padding-left: 0;
+    padding-right: 0;
+    width: 100rpx;
+    height: 100rpx;
+    line-height: 100rpx;
+    border-radius: 50%;
+}
+.toolbar {
+    position: fixed;
+    bottom: 50rpx;
+    right: 38rpx;
+    .customer-service {
+        .customer-btn {
+            .btn-style;
+        }
+    }
+    .share {
+        margin-top: 30rpx;
+        .btn {
+            .btn-style;
+        }
+    }
+}
+</style>
+
+<template>
+    <cover-view class="toolbar">
+        <cover-view class="customer-service">
+			<button class="customer-btn" open-type="contact">客服</button>
+		</cover-view>
+        <cover-view class="share">
+            <button class="btn" open-type="share">分享</button>
+        </cover-view>
+    </cover-view>
+</template>
+<script>
+import wepy from '@wepy/core';
+wepy.component({
+
+});
+</script>
+
