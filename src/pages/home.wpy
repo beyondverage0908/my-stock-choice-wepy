@@ -240,13 +240,13 @@ wepy.page({
 			return parseFloat(((this.stock.rank / this.stock.total) * 100).toFixed(1));
 		},
 		hasGraph() {
-			if (!this.stock) {
+			if (!this.stock || !this.stock.growings) {
 				return false;
 			}
 			return this.stock.growings.length > 0;
 		},
 		hasRisk() {
-			if (!this.stock) {
+			if (!this.stock || !this.stock.risks) {
 				return false;
 			}
 			return this.stock.risks.length > 0;

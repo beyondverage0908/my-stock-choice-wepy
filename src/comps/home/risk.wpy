@@ -1,6 +1,6 @@
 <style lang="less" scoped>
 	@main-red: #009100;
-	@tag-red: #28FF28;
+	@tag-red: #00A600;
 	.risk {
 		margin: 30rpx 40rpx;
 		.title {
