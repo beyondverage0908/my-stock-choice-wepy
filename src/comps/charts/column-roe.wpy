@@ -72,7 +72,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         labelOffset: 20, // 坐标轴文本距离轴线的距离
         label: (text, index, total) => {
             const cfg = {
-                textAlign: 'center'
+				textAlign: 'center',
             };
             // 第一个点左对齐，最后一个点右对齐，其余居中，只有一个点时左对齐
             if (index === 0) {
@@ -84,7 +84,17 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
             cfg.text = text + '%';  // cfg.text 支持文本格式化处理
             return cfg;
         }
-    })
+	});
+	chart1.axis('year', {
+		label: (text, index, total) => {
+			const cfg = {
+				textAlign: 'center',
+				fontStyle: 'oblique',
+				rotate: -Math.PI / 10
+			};
+			return cfg;
+		}
+	});
     chart1.render();
     return chart1;
 }

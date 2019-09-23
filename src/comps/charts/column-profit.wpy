@@ -84,7 +84,17 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
 			cfg.text = text;
             return cfg;
         }
-    })
+	});
+	chart1.axis('year', {
+		label: (text, index, total) => {
+			const cfg = {
+				textAlign: 'center',
+				fontStyle: 'oblique',
+				rotate: -Math.PI / 10
+			};
+			return cfg;
+		}
+	});
     chart1.render();
     return chart1;
 }

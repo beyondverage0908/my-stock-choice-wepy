@@ -187,7 +187,7 @@
 			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title">评级机构:</div>
-					<div class="buy">买入</div>
+					<div class="buy">{{stock.ratingAvgChn}}</div>
 				</div>
 				<div @click="handleStockRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />明细
@@ -198,7 +198,7 @@
 		<div class="section" v-if="hasRisk">
 			<risk :risks="stock.risks"/>
 		</div>
-		<copyrignt :number="28574"></copyrignt>
+		<copyrignt :number="stock.pv"></copyrignt>
 		<!-- toolbar 是否悬浮在右下角的客服和分享 -->
 		<toolbar />
 		<div v-if="hazyCount===6">
@@ -318,7 +318,8 @@ wepy.page({
 			});
 		},
 		getRatings() {
-            // this.stockCode = '000001.SZ';
+			// this.currentStockCode = '000001.SZ';
+			// this.stock.hasWest = true;
 			if (!this.currentStockCode || !this.stock.hasWest) return;
             getRatings(this.currentStockCode).then(res => {
                 if (res.data && res.data.length) {

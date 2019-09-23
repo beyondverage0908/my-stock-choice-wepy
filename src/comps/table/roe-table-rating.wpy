@@ -6,6 +6,8 @@
 @main-blue-color: rgb(131, 177, 229);
 .stock-table-rating {
     .table {
+		margin: 0 40rpx;
+		border: 1px solid @main-gray;
         .tr {
             display: flex;
             .th {
@@ -28,13 +30,13 @@
                 justify-content: center;
                 align-items: center;
                 .tread {
-                    width: 60%;
+                    width: 80%;
                     display: flex;
                     justify-content: space-evenly;
                     align-items: center;
                     .img {
-                        width: 16rpx;
-                        height: 16rpx;
+                        width: 22rpx;
+                        height: 22rpx;
                     }
                 }
             }

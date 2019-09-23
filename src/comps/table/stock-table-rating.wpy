@@ -6,6 +6,8 @@
 @main-blue-color: rgb(131, 177, 229);
 .stock-table-rating {
     .table {
+		margin: 0 40rpx;
+		border: 1px solid @main-gray;
         .tr {
             display: flex;
             .th {
