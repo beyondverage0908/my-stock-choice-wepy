@@ -5,10 +5,11 @@
 @sign-color: rgba(229, 28, 35, 1);
 @main-blue-color: rgb(131, 177, 229);
 @table-header-bg-color: #F0F0F0; 
+@border: solid @main-gray 1rpx;
 .stock-table-rating {
     .table {
 		margin: 0 40rpx;
-		border: 1px solid @main-gray;
+		// border: 1px solid @main-gray;
         .tr {
             display: flex;
             .th {
@@ -16,17 +17,25 @@
                 font-weight: 700;
                 text-align: center;
                 flex: 1;
-                border: solid @main-gray 1rpx;
+				border-top: @border;
+				border-right: @border; 
 				padding: 10rpx 5rpx;
 				background-color: @table-header-bg-color;
-            }
+			}
+			.border-left {
+				border-left: @border; 
+			}
+			.border-bottom {
+				border-bottom: @border;
+			}
             .td {
                 font-size: 28rpx;
                 font-weight: 500;
                 color: @main-des-gray;
                 text-align: center;
                 flex: 1;
-                border: solid @main-gray 1rpx;
+				border-top: @border;
+				border-right: @border; 
                 padding: 10rpx 5rpx;
                 display: flex;
                 justify-content: center;
@@ -60,10 +69,10 @@
 	<div class="stock-table-rating">
         <div class="table">
             <div class="tr">
-                <div class="th" v-for="head in tableHeadLabelList" :key="head.label">{{head.label}}</div>
+                <div class="th" :class="{'border-left': index === 0}" v-for="(head, index) in tableHeadLabelList" :key="head.label">{{head.label}}</div>
             </div>
-            <div v-if="tableData.length > 0" class="tr" v-for="tr in tableData">
-                <div class="td" v-for="item in tableHeadLabelList" :key="item.label">
+            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
+                <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
                     <div class="tread" v-if="item.key === 'roe1' || item.key === 'roe2'">
                         <img v-if="tr[item.key] >= tr['roe0']" class="img" src="../../assets/up.png" alt="" />
                         <img v-else class="img" src="../../assets/down.png" alt="" />

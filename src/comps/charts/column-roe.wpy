@@ -88,7 +88,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
 	chart1.axis('year', {
 		label: (text, index, total) => {
 			const cfg = {
-				textAlign: 'center',
+				textAlign: 'right',
 				fontStyle: 'oblique',
 				rotate: -Math.PI / 10
 			};

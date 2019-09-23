@@ -125,6 +125,9 @@
 			justify-content: center;
 			padding-bottom: 40rpx;
 		}
+		.hidden {
+			display: none !important;
+		}
 	}
 </style>
 <template>
@@ -172,7 +175,7 @@
 					<img class="img" src="../assets/click.png" alt="" />预测
 				</div>
 			</div>
-			<column-roe v-if="!isShowRoeRating" :data="yearRoes"/>
+			<column-roe v-if="!isShowRoeRating" :class="{hidden: isShowRoeRating}" :data="yearRoes"/>
 			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
 			<div class="buy-rating">
 				<div class="rating-cont">
@@ -183,7 +186,7 @@
 				</div>
 			</div>
 			<column-profit v-if="!isShowProfitRating" :data="yearProfits"/>
-			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode"></profit-table-rating>
+			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
 			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title">评级机构:</div>
@@ -193,7 +196,7 @@
 					<img class="img" src="../assets/click.png" alt="" />明细
 				</div>
 			</div>
-			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode"></stock-table-rating>
+			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
 		</div>
 		<div class="section" v-if="hasRisk">
 			<risk :risks="stock.risks"/>
@@ -208,7 +211,7 @@
 </template>
 <script>
 import wepy from '@wepy/core'
-import { getStockInfo, getSearchStockInfo, getRatings } from '@/api/home'
+import { getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
 import { defaultStockCode } from '@/util/config'
 import { mapState } from '@wepy/x'
 import store from '../store';
@@ -289,6 +292,8 @@ wepy.page({
 
 					// 获取表格数据
 					this.getRatings();
+					this.getRoeratings();
+					this.getProfitRatings();
 				}
 			})
 		},
@@ -318,25 +323,28 @@ wepy.page({
 			});
 		},
 		getRatings() {
-			// this.currentStockCode = '000001.SZ';
-			// this.stock.hasWest = true;
-			if (!this.currentStockCode || !this.stock.hasWest) return;
+			this.currentStockCode = '000001.SZ';
+			this.stock.hasWest = true;
+			// if (!this.currentStockCode || !this.stock.hasWest) return;
             getRatings(this.currentStockCode).then(res => {
                 if (res.data && res.data.length) {
-					this.tableProfits = [];
-					this.tableRoes = [];
 					this.tableRatings = [];
                    	res.data.forEach(item => {
-						const profit = {
+						const rating = {
 							organization: item.organization,
 							researcher: item.researcher,
-							netprofit0: item.netprofit0,
-							netprofit1: item.netprofit1,
-							netprofit2: item.netprofit2,
-							year: item.year
-						}
-						this.tableProfits.push(profit);
-
+							rating: item.rating
+						}						
+						this.tableRatings.push(rating);
+				   });
+                }
+            })
+		},
+		getRoeratings() {
+			getRoeratings(this.currentStockCode).then(res => {
+				if (res.data && res.data.length) { 
+					this.tableRoes = [];
+					res.data.forEach(item => {
 						const roe = {
 							organization: item.organization,
 							researcher: item.researcher,
@@ -346,19 +354,28 @@ wepy.page({
 							year: item.year
 						}
 						this.tableRoes.push(roe);
-
-						const rating = {
+				   	});
+				}
+			})
+		},
+		getProfitRatings() {
+			getProfitRatings(this.currentStockCode).then(res => {
+				if (res.data && res.data.length) {
+					this.tableProfits = [];
+					res.data.forEach(item => {
+						const profit = {
 							organization: item.organization,
 							researcher: item.researcher,
-							rating: item.rating
-						}						
-						this.tableRatings.push(rating);
-				   });
-                } else {
-                    
-                }
-            })
-        },
+							netprofit0: item.netprofit0,
+							netprofit1: item.netprofit1,
+							netprofit2: item.netprofit2,
+							year: item.year
+						}
+						this.tableProfits.push(profit);
+				   	});
+				}
+			})
+		},
 		officialAccountLoad(e) {
 			console.log(e);
 		},

@@ -55,7 +55,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
             const { items } = ev;
             items[0].name = null;
             items[0].name = items[0].title;
-            items[0].value = items[0].value + '万';
+            items[0].value = items[0].value + '百万元';
         }
     });
     chart1.interval().position('year*profit').color('year', cVal => {
@@ -88,7 +88,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
 	chart1.axis('year', {
 		label: (text, index, total) => {
 			const cfg = {
-				textAlign: 'center',
+				textAlign: 'right',
 				fontStyle: 'oblique',
 				rotate: -Math.PI / 10
 			};

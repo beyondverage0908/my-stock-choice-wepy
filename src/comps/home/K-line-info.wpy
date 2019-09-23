@@ -22,7 +22,8 @@
         }
         .sec {
             margin: 15rpx 0;
-            display: flex;
+			display: flex;
+			align-items: center;
             .title {
                 font-size: 28rpx;
                 min-width: 145rpx;
@@ -51,7 +52,7 @@
     <div class="kline-container">
         <div class="header">
             <!-- <span class="title">K线强度</span> -->
-            <indicator :title="'K线强度'"/>
+            <indicator :title="'K线形态'"/>
             <span class="time">{{startTime}}-{{endTime}}</span>
         </div>
         <div class="content">
@@ -59,17 +60,17 @@
                 Ｋ线强度起源于二十年前石开先生的β背离系数，牛棚量化小组在南京、苏州二地潜心研究十五年，成功地开发了基于Ｋ线强度的AI轮动系统。
             </div>
             <div class="sec">
-                <div class="title">轮动节奏：</div>
+                <div class="title">形态节奏：</div>
                 <div class="item buying">
                     <span v-for="(label, index) in buyingLabelList" :class="{sign: stock.buying === index}" class="b-item">{{label}}</span>
                 </div>
             </div>
             <div class="sec">
-                <div class="title">K线强度：</div>
+                <div class="title">形态强度：</div>
                 <div class="item">{{stock.banker || '-'}}</div>
             </div>
             <div class="sec">
-                <div class="title">排名：</div>
+                <div class="title">强度排名：</div>
                 <div class="item"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
             </div>
             <div class="st">

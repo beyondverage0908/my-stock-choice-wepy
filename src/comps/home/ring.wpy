@@ -113,7 +113,7 @@ wepy.component({
   },
   methods: {
     initRing() {
-      var percent = this.score / 100;
+      var percent = 1 - (this.score / 100);
     //   var right = document.getElementsByClassName('circle-right')[0];
 	//   var left = document.getElementsByClassName('circle-left')[0];
 	  const ringRightClass = {};
