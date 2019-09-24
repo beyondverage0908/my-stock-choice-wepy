@@ -1,0 +1,146 @@
+<style lang="less" scoped>
+@input-font-size: 28rpx;
+@main-gray: #CFCFCF;
+@main-des-gray: rgba(102, 102, 102, 1);
+@sign-color: rgba(229, 28, 35, 1);
+@main-blue-color: rgb(131, 177, 229);
+@table-header-bg-color: #F0F0F0; 
+@border: solid @main-gray 1rpx;
+.stock-table-rating {
+    .table {
+		margin: 0 40rpx;
+		// border: 1px solid @main-gray;
+        .tr {
+            display: flex;
+            .th {
+                font-size: 30rpx;
+                font-weight: 700;
+                text-align: center;
+                flex: 1;
+				border-top: @border;
+				border-right: @border; 
+				padding: 10rpx 5rpx;
+				background-color: @table-header-bg-color;
+			}
+			.border-left {
+				border-left: @border; 
+			}
+			.border-bottom {
+				border-bottom: @border;
+			}
+            .td {
+                font-size: 28rpx;
+                font-weight: 500;
+                color: @main-des-gray;
+                text-align: center;
+                flex: 1;
+				border-top: @border;
+				border-right: @border; 
+                padding: 10rpx 5rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .tread {
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .img {
+                        width: 22rpx;
+                        height: 22rpx;
+                    }
+                }
+            }
+        }
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: @main-blue-color;
+            height: 150rpx;
+            border-left: solid @main-gray 1rpx;
+            border-bottom: solid @main-gray 1rpx;
+            border-right: solid @main-gray 1rpx;
+        }
+    }
+}
+</style>
+<template>
+	<div class="stock-table-rating">
+        <div class="table">
+            <div class="tr">
+                <div class="th" :class="{'border-left': index === 0}" v-for="(head, index) in tableHeadLabelList" :key="head.label">{{head.label}}</div>
+            </div>
+            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
+                <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
+                    <div class="tread" v-if="item.key === 'roe1' || item.key === 'roe2'">
+						<div v-if="tr[item.key] !== '0.00'">
+							<img v-if="tr.isUp" class="img" src="../../assets/up.png" alt="" />
+							<img v-else class="img" src="../../assets/down.png" alt="" />
+						</div>
+                        <span v-if="tr[item.key] !== '0.00'">{{tr[item.key]}}</span>
+                    </div>
+                    <div v-else>
+                        {{tr[item.key]}}
+                    </div>
+                </div>
+            </div>
+            <div v-if="!tableData.length && showNoData" class="no-data">
+                暂无数据
+            </div>
+        </div>
+	</div>
+</template>
+<script>
+import wepy from "@wepy/core";
+wepy.component({
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        stockCode: {
+            type: String,
+            default: null
+		},
+		dataSource: {
+			type: Array,
+			default: []	
+		}
+    },
+    watch: {
+		dataSource(newVal, oldVal) {
+			if (!newVal || !newVal.length) {
+				this.showNoData = true;
+				this.tableData = [];
+			} else {
+				this.showNoData = true;
+				const year = newVal[0].year;
+				this.tableHeadLabelList.forEach(element => {
+					if (element.key === 'roe1') {
+						element.label = `${year + 1}预测`;
+					} else if (element.key === 'roe2') {
+						element.label = `${year + 2}预测`;
+					}
+				});
+				this.tableData = newVal;
+			}
+		}
+    },
+	data: {
+		name: 'mingzi',
+        // 机构名称 研究员 2019预测 2020预测
+        tableHeadLabelList: [
+            { label: '机构名称', key: 'organization' },
+            { label: '研究员', key: 'researcher' },
+            { label: '2019预测', key: 'roe1' },
+            { label: '2020预测', key: 'roe2' }
+        ],
+        tableData: [],
+        showNoData: false
+    },
+	methods: {},
+    ready() {}
+})
+</script>
+

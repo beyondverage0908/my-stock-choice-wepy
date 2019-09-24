@@ -1,0 +1,116 @@
+<style lang="less" scoped>
+@input-font-size: 28rpx;
+@main-gray: #CFCFCF;
+@main-des-gray: rgba(102, 102, 102, 1);
+@sign-color: rgba(229, 28, 35, 1);
+@main-blue-color: rgb(131, 177, 229);
+@table-header-bg-color: #F0F0F0; 
+@border: solid @main-gray 1rpx;
+.stock-table-rating {
+    .table {
+		margin: 0 40rpx;
+        .tr {
+            display: flex;
+            .th {
+                font-size: 30rpx;
+                font-weight: 700;
+                text-align: center;
+                flex: 1;
+                border-top: @border;
+				border-right: @border; 
+				padding: 10rpx 5rpx;
+				background-color: @table-header-bg-color;
+			}
+			.border-left {
+				border-left: @border; 
+			}
+			.border-bottom {
+				border-bottom: @border;
+			}
+            .td {
+                font-size: 28rpx;
+                font-weight: 500;
+                color: @main-des-gray;
+                text-align: center;
+                flex: 1;
+                border-top: @border;
+				border-right: @border; 
+                padding: 10rpx 5rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: @main-blue-color;
+            height: 150rpx;;
+            border-left: solid @main-gray 1rpx;
+            border-bottom: solid @main-gray 1rpx;
+            border-right: solid @main-gray 1rpx;
+        }
+    }
+}
+</style>
+<template>
+	<div class="stock-table-rating">
+        <div class="table">
+            <div class="tr">
+                <div class="th" :class="{'border-left': index === 0}" v-for="(head, index) in tableHeadLabelList" :key="head.label">{{head.label}}</div>
+            </div>
+            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
+                <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">{{tr[item.key]}}</div>
+            </div>
+            <div v-if="!tableData.length && showNoData" class="no-data">
+                暂无数据
+            </div>
+        </div>
+	</div>
+</template>
+<script>
+import wepy from "@wepy/core";
+wepy.component({
+    props: {
+        isShow: {
+            type: Boolean,
+            default: false
+        },
+        stockCode: {
+            type: String,
+            default: null
+		},
+		dataSource: {
+			type: Array,
+			default: []	
+		}
+    },
+    watch: {
+		dataSource(newVal, oldVal) {
+			if (!newVal || !newVal.length) {
+				this.showNoData = true;
+				this.tableData = [];
+			} else {
+				this.tableData = newVal;
+			}
+		}
+	},
+	data: {
+		name: 'mingzi',
+        // 机构名称 研究员 评级
+        tableHeadLabelList: [
+            { label: '机构名称', key: 'organization' },
+            { label: '研究员', key: 'researcher' },
+            { label: '评级', key: 'rating' },
+            { label: '日期', key: 'date' }
+        ],
+        tableData: [],
+        showNoData: false
+    },
+	methods: {
+    },
+    ready() {}
+})
+</script>
+

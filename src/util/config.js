@@ -1,0 +1,1 @@
+export const defaultStockCode = '300059.SZ';

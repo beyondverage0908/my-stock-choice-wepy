@@ -1,0 +1,176 @@
+<style lang="less" scoped>
+
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+
+@main-black: #000000;
+@main-gray: #CFCFCF;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+@main-red-shadow: #FFB5B5;
+@main-blue: #5291F5;
+@main-green: #00A600;
+@main-green-shadow: #CEFFCE;
+
+.kline-container {
+    // margin: 30rpx 40rpx;
+    .header {
+        display: flex;
+        justify-content: space-between;
+        .time {
+            margin-top: 30rpx;
+            margin-right: 40rpx;
+            width: 36rpx;
+            height: 36rpx;
+        }
+    }
+    .content {
+        margin: 0 40rpx;
+        .desc {
+            font-size: @font-size28;
+            color: @main-gray;
+        }
+        .sec {
+            margin: 15rpx 0;
+			display: flex;
+			align-items: center;
+            .title {
+                font-size: @font-size30;
+                min-width: 145rpx;
+            }
+            .item {
+                color: @main-gray-deep;
+                font-size: @font-size28;
+            }
+            .buying {
+                .b-item {
+                    display: inline-block;
+                    padding: 0 10rpx;
+                    font-size: @font-size28;
+                    color: @main-gray;
+                }
+                .sign {
+                    color: @main-red;
+                    font-size: @font-size32 !important;
+                }
+            }
+            .sign {
+                color: @main-red;
+                font-size: @font-size28;
+            }
+        }
+        .st {
+            font-size: @font-size28;
+            color: @main-gray-deep;
+        }
+    }
+    .modal-content {
+        text-align: left;
+        padding: 10rpx 40rpx;
+        box-sizing: border-box;
+    }
+}
+</style>
+<template>
+    <div class="kline-container">
+        <div class="header">
+            <!-- <span class="title">K线强度</span> -->
+            <indicator :title="'K线形态'"/>
+            <img class="time" src="../../assets/help.png" @click="handleHelp" />
+        </div>
+        <div class="content">
+            <div class="desc">
+                Ｋ线形态起源于二十年前石开先生的β背离系数，牛棚量化团队在南京、苏州两地潜心迭代十五年，打磨出一套出基于Ｋ线形态的轮动交易系统。
+            </div>
+            <div class="sec">
+                <div class="title">形态节奏：</div>
+                <div class="item buying">
+                    <span v-for="(item, index) in buyingLabelList" :class="{sign: stock.buying === item.value}" class="b-item">{{item.label}}</span>
+                </div>
+            </div>
+            <div class="sec">
+                <div class="title">形态强度：</div>
+                <div class="item">{{stock.banker || '-'}}</div>
+            </div>
+            <div class="sec">
+                <div class="title">强度排名：</div>
+                <div class="item"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
+            </div>
+            <!-- <div class="st">
+                实时监测股票池的轮动买点，寻找相似Ｋ线
+            </div> -->
+            </div>
+        <i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+			<div class="modal-content">
+                <div>
+                    <div>1. 形态节奏，即通过Ｋ线形态分析，将股票分类三类</div>
+                    <div>关注：调入股票池，每日关注走势，监测买点</div>
+                    <div>买点：可以买入建仓</div>
+                    <div>路人：暂不关注 </div>
+                </div>
+                <div style="height: 20rpx;"></div>
+                <div>
+                    2. 形态强度，数据越大，说明主力资金越强
+        		</div>
+    		</div>
+		</i-modal>
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core';
+import moment from 'moment';
+import { mapMutations } from '@wepy/x';
+import store from '@/store';
+wepy.component({
+    store,
+    props: {
+        stock: {
+            type: Object,
+            default: {}
+        }
+    },
+    data: {
+        buyingLabelList: [
+			{ label: '买点', value: 2 },
+			{ label: '关注', value: 1 },
+			{ label: '路人', value: 0 },
+		],
+        modalVisible: false
+    },
+    computed: {
+        startTime() {
+            if (this.stock && this.stock.beginTime) {
+                return moment(this.stock.beginTime).format('YYYYMMDD');
+            }
+            return '-';
+        },
+        endTime() {
+            if (this.stock && this.stock.endTime) {
+                return moment(this.stock.endTime).format('YYYYMMDD');
+            }
+            return '-';
+        }
+    },
+    methods: {
+		...mapMutations(['changeHomeChartVisible']),
+        handleHelp() {
+            this.modalVisible = true;
+            this.changeHomeChartVisible(false);
+        },
+        handleCloseOk() {
+            this.modalVisible = false;
+            this.changeHomeChartVisible(true);
+        }
+    }
+})
+</script>
+<config>
+{
+    usingComponents: {
+		"indicator": "~@/comps/home/indicator",
+        "i-modal": "~@/iview/dist/modal/index"
+    }
+}
+</config>

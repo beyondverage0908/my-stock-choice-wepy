@@ -1,10 +1,24 @@
 <style lang="less">
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+@font-size60: 60rpx;
+
+@main-black: #000000;
+@main-gray: #cfcfcf;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+@main-red-shadow: #ffb5b5;
+@main-blue: #5291f5;
+@main-blue-shadow: rgb(131, 177, 229);
+@main-green: #00a600;
+@main-green-shadow: #ceffce;
+
 @ring-width: 250rpx;
 @ring-height: 250rpx;
-@ring-color: #a6d94a;
 @ring-bg-color: #eeeeee;
 @ring-gap-width: 90rpx;
-@ring-info-fontsize: 70rpx;
 .ring {
   margin-top: 14rpx;
   margin-left: 10rpx;
@@ -41,7 +55,7 @@
   .circle-bottom-left {
     width: 50%;
     height: 100%;
-    background: @ring-color;
+    background: @main-red;
     position: absolute;
     left: 0;
     z-index: -1;
@@ -50,7 +64,7 @@
   .circle-bottom-right {
     width: 50%;
     height: 100%;
-    background: @ring-color;
+    background: @main-red;
     position: absolute;
     right: 0;
     z-index: 1;
@@ -62,78 +76,84 @@
   line-height: @ring-height;
   text-align: center;
   margin-top: -@ring-height;
-  font-size: @ring-info-fontsize;
-  color: @ring-color;
+  font-size: @font-size60;
+  color: @main-red;
   font-weight: 700;
+}
+.green {
+  color: @main-green;
 }
 </style>
 <template>
 	<div class="ring">
 		<div class="circle">
-			<div class="circle-left" :style="{ transition: ringLeftClass['transition'], transform: ringLeftClass['transform'] }"></div>
-			<div class="circle-right" :style="{ transform: ringRightClass['transform'], transition: ringRightClass['transition'], opacity: ringRightClass['opacity'] }"></div>
+			<div
+				class="circle-left"
+				:style="{ transition: ringLeftClass['transition'], transform: ringLeftClass['transform'] }"
+			></div>
+			<div
+				class="circle-right"
+				:style="{ transform: ringRightClass['transform'], transition: ringRightClass['transition'], opacity: ringRightClass['opacity'] }"
+			></div>
 			<div class="circle-bottom-left"></div>
 			<div class="circle-bottom-right"></div>
 		</div>
-		<div class="info">{{transformScore}}</div>
+		<div class="info" :class="{green: !rank && rank <= 0}">{{rank || '——'}}</div>
 	</div>
 </template>
 <script>
 import wepy from '@wepy/core';
 wepy.component({
   data: {
-	  ringRightClass: {},
-	  ringLeftClass: {}
+    ringRightClass: {},
+    ringLeftClass: {}
   },
   props: {
     score: {
       type: Number,
       default: 0
+    },
+    rank: {
+      type: Number,
+      default: 0
     }
   },
   computed: {
-	  transformScore() {
-		  if (this.score > 0) {
-			  return this.score;
-		  }
-		  return '-';
-	  }
+    transformScore() {
+      if (this.score > 0) {
+        return this.score;
+      }
+      return '-';
+    }
   },
-	watch: {
-		score(newVal, oldVal) {
-			this.initRing();
-		}
-	},
+  watch: {
+    score(newVal, oldVal) {
+      this.initRing();
+    }
+  },
   ready() {
-	
+    console.log(this.rank);
   },
   methods: {
     initRing() {
-      var percent = this.score / 100;
-    //   var right = document.getElementsByClassName('circle-right')[0];
-	//   var left = document.getElementsByClassName('circle-left')[0];
-	  const ringRightClass = {};
-	  const ringLeftClass = {};
+      var percent = 1 - this.score / 100;
+      const ringRightClass = {};
+      const ringLeftClass = {};
       if (percent <= 0.5) {
         //红色区域不超过一半
-		// right.style.transform = `rotate(${percent * 360}deg)`;
-		ringRightClass.transform = `rotate(${percent * 360}deg)`;
+        ringRightClass.transform = `rotate(${percent * 360}deg)`;
       } else {
         //红色区域超过一半的情况，重点部分
-        // right.style.transform = `rotate(180deg)`;
-        // right.style.transition = `opacity 0s step-end 1s, transform 1s linear`; //timing-function需要设为linear来达到视觉上的平缓过渡
-		// right.style.opacity = 0;
-		ringRightClass.transform = `rotate(180deg)`;
-		ringRightClass.transition = `opacity 0s step-end 1s, transform 1s linear`;
-		ringRightClass.opacity = 0;
+        ringRightClass.transform = `rotate(180deg)`;
+        ringRightClass.transition = `opacity 0s step-end 1s, transform 1s linear`;
+        ringRightClass.opacity = 0;
 
-        // left.style.transition = `transform ${(percent - 0.5) / 0.5}s linear 1s`;
-		// left.style.transform = `rotate(${percent * 360 - 180}deg)`;
-		ringLeftClass.transition = `transform ${(percent - 0.5) / 0.5}s linear 1s`;
-		ringLeftClass.transform = `rotate(${percent * 360 - 180}deg)`;
-	  }
-	  this.ringRightClass = ringRightClass;
-	  this.ringLeftClass = ringLeftClass;
+        ringLeftClass.transition = `transform ${(percent - 0.5) /
+          0.5}s linear 1s`;
+        ringLeftClass.transform = `rotate(${percent * 360 - 180}deg)`;
+      }
+      this.ringRightClass = ringRightClass;
+      this.ringLeftClass = ringLeftClass;
     }
   }
 });

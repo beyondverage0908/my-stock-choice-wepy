@@ -1,0 +1,41 @@
+<style lang="less" scoped>
+	@main-color: #666666;
+	@main-blue: #5291F5;
+	@main-gray: #CFCFCF;
+	.cy {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		color: @main-gray;
+		font-size: 28rpx;
+		.fir {
+			margin: 80rpx 0 10rpx 0;
+		}
+		.sec {
+			margin-bottom: 50rpx;
+			.tip {
+				font-size: 30rpx;
+				color: @main-blue;
+			}
+		}
+	}
+</style>
+<template>
+	<div class="cy">
+		<div class="fir">本结果由AlphaOX智能决策引擎提供技术支持</div>
+		<div class="sec">AlphaOX已累计订阅<span class="tip">{{number}}</span>人次</div>
+	</div>
+</template>
+<script>
+import wepy from "@wepy/core";
+wepy.component({
+	props: {
+		number: {
+			type: Number,
+			default: 184392
+		}
+	}
+})
+</script>
+

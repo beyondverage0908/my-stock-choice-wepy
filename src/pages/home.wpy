@@ -1,10 +1,91 @@
 <style lang="less">
-	@input-font-size: 28rpx;
+
+	@font-size28: 28rpx;
+	@font-size32: 32rpx;
+	@font-size36: 36rpx;
+
+	@main-black: #000000;
+	@main-gray: #CFCFCF;
+	@main-gray-deep: #676767;
+	@main-red: rgba(229, 28, 35, 1);
+	@main-red-shadow: #FFB5B5;
+	@main-blue: #5291F5;
+	@main-green: #00A600;
+	@main-green-shadow: #CEFFCE;
+
+	.rating-button {
+		font-size: @font-size32;
+		margin-right: 40rpx;
+		background-color: #ffffff;
+		color: @main-gray-deep;
+		border: solid 1rpx @main-blue;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		box-sizing: border-box;
+		padding: 5rpx 15rpx;
+		border-radius: 5rpx;
+		.img {
+			width: 32rpx;
+			height: 32rpx;
+			margin-right: 15rpx;
+		}
+	}
 	.home-container {
 		position: relative;
 		.section {
 			border-bottom: solid 20rpx #f6f6f6;
 			padding-bottom: 33rpx;
+			.rating {
+				margin-top: 60rpx;
+				margin-bottom: 15rpx;
+				display: flex;
+				justify-content: flex-end;
+				.rating-btn {
+					.rating-button;
+				}
+			}
+			.buy-rating {
+				display: flex;
+				justify-content: space-between;
+				margin-top: 45rpx;
+				margin-bottom: 15rpx;
+				.rating-cont {
+					display: flex;
+					margin-left: 40rpx;
+					align-items: center;
+					.title {
+						font-size: @font-size32;
+						display: flex;
+						align-items: center;
+						.point {
+							font-size: 28rpx;
+							color: @main-gray;
+							margin-left: 10rpx;
+						}
+						.arrow {
+							margin-right: 10rpx;
+							width: 36rpx;
+							height: 36rpx;
+						}
+					}
+					.buy {
+						font-size: @font-size32;
+						margin-left: 20rpx;
+						color: @main-red;
+					}
+					.gray {
+						color: @main-gray;
+						font-size: @font-size28;
+					}
+				}
+				.rating-btn {
+					.rating-button;
+				}
+			}
+		}
+		.official {
+			margin-top: 30rpx;
 		}
 		.header-bg {
 			height: 160rpx;
@@ -22,7 +103,7 @@
 					border-radius: 40rpx;
 					box-sizing: border-box;
 					padding: 0 30rpx;
-					font-size: @input-font-size;
+					font-size: @font-size32;
 					margin-left: 20rpx;
 				}
 				.avatar-warp {
@@ -37,7 +118,7 @@
 					}
 				}
 			}
-			// 搜索框
+			// 搜索�
 			.search-board {
 				width: 100%;
 				background: #fff;
@@ -68,6 +149,9 @@
 			justify-content: center;
 			padding-bottom: 40rpx;
 		}
+		.hidden {
+			display: none !important;
+		}
 	}
 </style>
 <template>
@@ -93,25 +177,56 @@
 					<stock-base-info :stock="stock" />
 				</div>
 				<div class="ring">
-					<ring :score="rankRatio" />
+					<ring :rank="stock.rank" :score="rankRatio" />
 				</div>
 			</div>
 			<statement />
 		</div>
-		<div class="section" v-if="hasRisk">
-			<risk :risks="stock.risks"/>
+		<div class="section">
+			<K-line-info :stock="stock"/>
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
-			<indicator />
-			<!-- <div class="canvas-column">
-				<canvas canvas-id="columnCanvas-1" class="canvas"></canvas>
+			<indicator :title="'成长空间'"/>
+			<div class="buy-rating">
+				<div class="rating-cont">
+					<div class="title">
+						<img class="arrow" src="../assets/arrow.png" alt="" />净资产收益率ROE
+					</div>
+				</div>
+				<div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
+					<img class="img" src="../assets/click.png" alt="" />预测
+				</div>
 			</div>
-			<div class="canvas-column">
-				<canvas canvas-id="columnCanvas-2" class="canvas"></canvas>
-			</div> -->
-			<column-profit :data="yearProfits" :title="'净利润'"/>
-			<column-roe :data="yearRoes" :title="'净资产收益率'"/>
+			<column-roe v-if="!isShowRoeRating" :class="{hidden: isShowRoeRating}" :data="yearRoes"/>
+			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
+			<div class="buy-rating">
+				<div class="rating-cont">
+					<div class="title">
+						<img class="arrow" src="../assets/arrow.png" alt="" />净利润 <span class="point">(单位：百万元)</span>
+					</div>
+				</div>
+				<div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
+					<img class="img" src="../assets/click.png" alt="" />预测
+				</div>
+			</div>
+			<column-profit v-if="!isShowProfitRating" :data="yearProfits"/>
+			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
+			<div class="buy-rating">
+				<div class="rating-cont">
+					<div class="title"><img class="arrow" src="../assets/arrow.png" alt="" />评级:</div>
+					<div class="buy" :class="{gray: !stock.ratingAvgChn}">{{stock.ratingAvgChn || '暂无'}}</div>
+				</div>
+				<div @click="handleStockRating" v-if="stock.hasWest" class="rating-btn">
+					<img class="img" src="../assets/click.png" alt="" />明细
+				</div>
+			</div>
+			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
 		</div>
+		<div class="section" style="border-bottom: none;" v-if="hasRisk">
+			<risk :risks="stock.risks"/>
+		</div>
+		<copyrignt :number="sysPv"></copyrignt>
+		<!-- toolbar 是否悬浮在右下角的客服和分享 -->
 		<toolbar />
 		<div v-if="hazyCount===6">
 			<button @click="gotoChartArea">图表</button>
@@ -120,9 +235,12 @@
 </template>
 <script>
 import wepy from '@wepy/core'
-import { getStockInfo, getSearchStockInfo } from '@/api/home'
-import { mapState } from '@wepy/x'
+import { getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
+import { sysVisit } from '@/api/sys'
+import { defaultStockCode } from '@/util/config'
+import { mapState, mapMutations } from '@wepy/x'
 import store from '../store';
+import moment from 'moment';
 wepy.page({
 	store,
 	data: {
@@ -131,31 +249,40 @@ wepy.page({
 		stock: null,
 		stockList: [],
 		startSearch: false,
-		yearProfits: [],
-		yearRoes: []
+		yearProfits: [], // 年利润图表数�
+		yearRoes: [], // 年roe图标数据
+		currentStockCode: defaultStockCode,
+		isShowRoeRating: false,
+		isShowProfitRating: false,
+		isShowStockRating: false,
+		// 表格数据
+		tableProfits: [],
+		tableRoes: [],
+		tableRatings: [] 
 	},
 	computed: {
-		...mapState(['isShowHomeChart']),
+		...mapState(['isShowHomeChart', 'sysPv']),
 		rankRatio() {
 			if (!this.stock) {
 				return 0;
 			}
-			return (this.stock.rank / this.stock.total) * 100;
+			return parseFloat(((this.stock.rank / this.stock.total) * 100).toFixed(1));
 		},
 		hasGraph() {
-			if (!this.stock) {
+			if (!this.stock || !this.stock.growings) {
 				return false;
 			}
 			return this.stock.growings.length > 0;
 		},
 		hasRisk() {
-			if (!this.stock) {
+			if (!this.stock || !this.stock.risks) {
 				return false;
 			}
 			return this.stock.risks.length > 0;
 		}
 	},
 	methods: {
+		...mapMutations(['changeLoginCode', 'changeSysPv']),
 		onHazyDeal() {
 			console.log('hit');
 			this.hazyCount++;
@@ -166,7 +293,6 @@ wepy.page({
 			})
 		},
 		onChangeInput(e) {
-			console.log(this.inputText);
 			this.startSearch = false;
 			if (this.inputText) {
 				this.getSearchStockInfo(this.inputText).then(res => {
@@ -180,123 +306,43 @@ wepy.page({
 		handleSearch(search) {
 			this.startSearch = true;
 			this.inputText = '';
+			this.currentStockCode = search.zqdm;
 			this.getStockInfo(search.zqdm)
-		},
-		initColumnProfitChart(categorys, mainData) {
-			if (!categorys || !categorys.length || !mainData || !mainData.length) return;
-			const wxCharts = require('../comps/wxcharts/wxcharts.js');
-			var windowWidth = 320;
-			try {
-				var res = wx.getSystemInfoSync();
-				windowWidth = res.windowWidth;
-			} catch (e) {
-				console.error('getSystemInfoSync failed!');
-			}
-			new wxCharts({
-				canvasId: 'columnCanvas-1',
-				type: 'column',
-				animation: true,
-				categories: categorys,
-				series: [{
-					name: '净利润',
-					data: mainData
-				}],
-				yAxis: {
-					title: '净利润',
-					format: function (val) {
-						return val + '万';
-					}
-				},
-				xAxis: {
-					disableGrid: true,
-					type: 'calibration'
-				},
-				width: 320,
-				height: 180
-			});
-		},
-		initColumnProfitRoe(categorys, mainData) {
-			if (!categorys || !categorys.length || !mainData || !mainData.length) return;
-			const wxCharts = require('../comps/wxcharts/wxcharts.js');
-			var windowWidth = 320;
-			try {
-				var res = wx.getSystemInfoSync();
-				windowWidth = res.windowWidth;
-			} catch (e) {
-				console.error('getSystemInfoSync failed!');
-			}
-			new wxCharts({
-				canvasId: 'columnCanvas-2',
-				type: 'column',
-				animation: true,
-				categories: categorys,
-				series: [{
-					name: '净资产收益率',
-					data: mainData,
-					color: '#a6d94a'
-				}],
-				yAxis: {
-					title: '净资产收益率',
-					format: function (val) {
-						return val + '%';
-					}
-				},
-				xAxis: {
-					disableGrid: true,
-					type: 'calibration'
-				},
-				width: 320,
-				height: 180
-			});
 		},
 		getStockInfo(stockCode) {
 			getStockInfo(stockCode).then(res => {
 				if (res.data) {
 					this.stock = res.data;
-					// const cat = this.getGraphColumnCategories(res.data);
-					// const profits = this.getGraphColumnNetProfit(res.data);
-					// const roes = this.getGraphColumnRoe(res.data);
-					// this.initColumnProfitChart(cat, profits);
-					// this.initColumnProfitRoe(cat, roes);
+					this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
+					// 构建图表数据
 					this.yearProfits = this.getYearProfitList(res.data);
 					this.yearRoes = this.getYearRoeList(res.data);
+
+					// 获取表格数据
+					this.getRatings();
+					this.getRoeratings();
+					this.getProfitRatings();
 				}
 			})
 		},
 		getYearProfitList(stock) {
 			const profits = []
 			stock.growings.forEach(item => {
-				profits.push({year: `${item.year}`, profit: item.netProfit});
+				profits.push({year: `${item.year}`, profit: item.netProfit, type: item.dataType});
 			});
 			return profits;
 		},
 		getYearRoeList(stock) {
 			const roes = []
-			stock.growings.forEach(item => {
-				roes.push({year: `${item.year}`, roe: item.roe});
+			stock.growings.forEach((item, index) => {
+				// if (index % 2 === 0) {
+				// 	roes.push({year: `${item.year}`, roe: item.roe, type: item.dataType});
+				// } else {
+				// 	roes.push({year: `${item.year}`, roe: -item.roe, type: item.dataType});
+				// }
+				roes.push({year: `${item.year}`, roe: item.roe, type: item.dataType});
 			});
 			return roes;
-		},
-		getGraphColumnCategories(stock) {
-			const categories = [];
-			stock.growings.forEach(item => {
-				categories.push(item.year);
-			})
-			return categories
-		},
-		getGraphColumnNetProfit(stock) {
-			const profits = [];
-			stock.growings.forEach(item => {
-				profits.push(item.netProfit);
-			})
-			return profits
-		},
-		getGraphColumnRoe(stock) {
-			const roes = [];
-			stock.growings.forEach(item => {
-				roes.push(item.roe);
-			})
-			return roes
 		},
 		getSearchStockInfo(searchText) {
 			return new Promise((resolve, reject) => {
@@ -308,19 +354,127 @@ wepy.page({
 					}
 				})
 			});
+		},
+		getRatings() {
+			// this.currentStockCode = '000001.SZ';
+			// this.stock.hasWest = true;
+			// if (!this.currentStockCode || !this.stock.hasWest) return;
+            getRatings(this.currentStockCode).then(res => {
+                if (res.data && res.data.length) {
+					this.tableRatings = [];
+                   	res.data.forEach(item => {
+						const rating = {
+							organization: item.organization,
+							researcher: item.researcher,
+							rating: item.rating
+						}				
+						if (item.date) {
+							rating.date = moment(item.moment).format('YYYY.MM.DD');
+						}
+						this.tableRatings.push(rating);
+				   });
+                }
+            })
+		},
+		getRoeratings() {
+			getRoeratings(this.currentStockCode).then(res => {
+				if (res.data && res.data.length) { 
+					this.tableRoes = [];
+					res.data.forEach(item => {
+						const roe = {
+							organization: item.organization,
+							researcher: item.researcher,
+							roe0: item.roe0,
+							roe1: (new Number(item.roe1)).toFixed(2),
+							roe2: (new Number(item.roe2)).toFixed(2),
+							year: item.year,
+							isUp: item.roe1 > item.roe0 ? true : false
+						}
+						this.tableRoes.push(roe);
+				   	});
+				}
+			})
+		},
+		getProfitRatings() {
+			getProfitRatings(this.currentStockCode).then(res => {
+				if (res.data && res.data.length) {
+					this.tableProfits = [];
+					res.data.forEach(item => {
+						const profit = {
+							organization: item.organization,
+							researcher: item.researcher,
+							netprofit0: item.netprofit0,
+							netprofit1: item.netprofit1,
+							netprofit2: item.netprofit2,
+							year: item.year
+						}
+						this.tableProfits.push(profit);
+				   	});
+				}
+			})
+		},
+		officialAccountLoad(e) {
+			console.log(e);
+		},
+		officialAccountError(e) {
+			console.log(e);
+		},
+		handleRoeRating() {
+			this.isShowRoeRating = !this.isShowRoeRating;
+			this.isShowProfitRating = false;
+			this.isShowStockRating = false;
+		},
+		handleProfitRating() {
+			this.isShowProfitRating = !this.isShowProfitRating;
+			this.isShowRoeRating = false;
+			this.isShowStockRating = false;
+		},
+		handleStockRating() {
+			this.isShowStockRating = !this.isShowStockRating;
+			this.isShowRoeRating = false;
+			this.isShowProfitRating = false;
+		},
+		systemVisite() {
+			sysVisit().then(res => {
+				if (res.data) {
+					this.changeSysPv(res.data.pv);
+				} else {
+					this.changeSysPv(0);
+				}
+			})
+		},
+		wxLogin() {
+			wx.login({
+				success: (res) => {
+					if (res.code) {
+						this.changeLoginCode(res.code);
+					} else {
+						console.log('wx login fail');
+					}
+				},
+				fail: (err) => {
+					console.log(`wx login fail ${err}`);
+				}
+			})
 		}
 	},
 	onReady() {
 		console.log('ready');
 	},
 	onLoad(options) {
-		const code = options['code'] || '600519';
+		// 系统访问记录
+		this.systemVisite();
+
+		const code = options['code'] || defaultStockCode;
+		this.currentStockCode = code;
 		this.getStockInfo(code);
+		// 获取微信登录的code
+		this.wxLogin();
 	},
 	onShareAppMessage() {
-		const code = this.stock.zqdm || '600519';
+		const code = this.stock.zqdm || defaultStockCode;
 		return {
-			title: 'K2复盘助手',
+			title: '牛棚盯盘助手',
 			path: `/pages/home?code=${code}`
 		}
 	}
@@ -328,8 +482,8 @@ wepy.page({
 </script>
 <config>
 {
-    navigationBarTitleText: 'K2复盘助手',
 	navigationBarBackgroundColor: '#5386C7',
+	navigationBarTitleText: '牛棚盯盘助手',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",
 		"ring": "~@/comps/home/ring",
@@ -339,7 +493,12 @@ wepy.page({
 		"indicator": "~@/comps/home/indicator",
 		"toolbar": "~@/comps/home/toolbar",
 		"column-profit": "~@/comps/charts/column-profit",
-		"column-roe": "~@/comps/charts/column-roe"
+		"column-roe": "~@/comps/charts/column-roe",
+		"K-line-info": "~@/comps/home/K-line-info",
+		"stock-table-rating": "~@/comps/table/stock-table-rating",
+		"roe-table-rating": "~@/comps/table/roe-table-rating",
+		"profit-table-rating": "~@/comps/table/profit-table-rating",
+		"copyrignt": "~@/comps/home/copyrignt"
     }
 }
 </config>

@@ -9,3 +9,19 @@ export const getStockInfo = (stockCode = '') => {
 export const getSearchStockInfo = (searchText = '') => {
     return get(`https://m.00315.com/wxapp/api/stocks?q=${searchText}`);
 }
+
+// 个股评级明细
+export const getRatings = (stockCode) => {
+    return get(`https://m.00315.com/wxapp/api/stocks/${stockCode}/ratings`)
+}
+
+// 个股ROE评级明细
+export const getRoeratings = (stockCode) => {
+    return get(`https://m.00315.com/wxapp/api/stocks/${stockCode}/roeratings`)
+}
+
+// 个股利润评级明细
+export const getProfitRatings = (stockCode) => {
+    return get(`https://m.00315.com/wxapp/api/stocks/${stockCode}/profitratings`)
+}
+
