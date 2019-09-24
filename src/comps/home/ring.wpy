@@ -83,10 +83,15 @@
 .green {
   color: @main-green;
 }
+.modal-content {
+	text-align: left;
+	padding: 10rpx 40rpx;
+	box-sizing: border-box;
+}
 </style>
 <template>
 	<div class="ring">
-		<div class="circle">
+		<div class="circle" @click="handleHelp">
 			<div
 				class="circle-left"
 				:style="{ transition: ringLeftClass['transition'], transform: ringLeftClass['transform'] }"
@@ -99,14 +104,26 @@
 			<div class="circle-bottom-right"></div>
 		</div>
 		<div class="info" :class="{green: !rank && rank <= 0}">{{rank || '——'}}</div>
+		<i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+			<div class="modal-content">
+                <div>
+                    <div>1.	性价比排名指标，凝聚了十多位民间高手的智慧，是基本面与技术面融合后的复合指标，应用方法，请关注“解套宝”微信服务号。</div>
+                    <div>2.	欢迎约茶线下交流，地址：南京洪武路23号1408室。</div>
+                </div>
+    		</div>
+		</i-modal>
 	</div>
 </template>
 <script>
 import wepy from '@wepy/core';
+import { mapMutations } from '@wepy/x';
+import store from '@/store';
 wepy.component({
+	store,
   data: {
     ringRightClass: {},
-    ringLeftClass: {}
+	ringLeftClass: {},
+	modalVisible: false
   },
   props: {
     score: {
@@ -135,6 +152,7 @@ wepy.component({
     console.log(this.rank);
   },
   methods: {
+	  ...mapMutations(['changeHomeChartVisible']),
     initRing() {
       var percent = 1 - this.score / 100;
       const ringRightClass = {};
@@ -154,8 +172,24 @@ wepy.component({
       }
       this.ringRightClass = ringRightClass;
       this.ringLeftClass = ringLeftClass;
-    }
+	},
+	handleHelp() {
+		console.log(1);
+		this.modalVisible = true;
+		this.changeHomeChartVisible(false);
+	},
+	handleCloseOk() {
+		this.modalVisible = false;
+		this.changeHomeChartVisible(true);
+	}
   }
 });
 </script>
+<config>
+{
+    usingComponents: {
+        "i-modal": "~@/iview/dist/modal/index"
+    }
+}
+</config>
 

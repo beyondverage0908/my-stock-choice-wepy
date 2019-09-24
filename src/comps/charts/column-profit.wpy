@@ -60,14 +60,14 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
     });
     chart1.interval().position('year*profit').color('year', cVal => {
 		const f = dataSource && dataSource.find(item => item.year === cVal);
-		if (f.profit >= 0) {
-			if (f.type === 0) {
+		if (f.type === 0) {
+			if (f.profit >= 0) {
 				return 'rgb(131, 177, 229)';
 			} else {
-				return '#FFD700';
+				return '#00A600' // 绿色
 			}
 		} else {
-			return '#00A600'; // 绿色
+			return '#FFD700'; // 金色
 		}
     });
     chart1.axis('profit', {
@@ -125,22 +125,46 @@ wepy.component({
         }
     },
     methods:{
+		addChartShapeText() {
+			// 绘制柱状图文本
+			var canvas = chart1.get('canvas');
+			var group = canvas.addGroup();
+			var shapes = {};
+			dataSource && dataSource.map(function(obj) {
+				var point = chart1.getPosition(obj);
+				var offset = -5;
+				if (obj.profit < 0) {
+					offset = 20;
+				}
+				var text = obj.profit;
+				if (!obj.profit || obj.profit === 0) {
+					text = '暂无';
+				} else {
+					text = '';
+				}
+				var text = group.addShape('text', {
+					attrs: {
+						x: point.x,
+						y: point.y + offset,
+						text: text,
+						textAlign: 'center',
+						textBaseline: 'bottom',
+						fill: '#808080',
+						fontSize: 10
+					}
+				});
+				shapes[obj.year] = text; // 缓存该 shape, 便于后续查找
+			});
+		},
         repaintChartData() {
             // 这是timeout主要是为了防止chart对象为null
             setTimeout(() => {
                 const data = this.data;
                 dataSource = data;
                 if (!chart1) return;
-                // chart1.source(data);
-                // data.forEach(item => {
-                //     chart1.guide().text({
-                //         // position: [obj.season, obj.value > 0 ? obj.value : 0],
-                //         content: '111',
-                //         offsetY: -5
-                //     });
-                // });
-                // chart1.repaint();
-                chart1.changeData(data);
+				chart1.changeData(data);
+				
+				this.addChartShapeText();
             }, 500);
         }
     },

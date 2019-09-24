@@ -334,7 +334,12 @@ wepy.page({
 		},
 		getYearProfitList(stock) {
 			const profits = []
-			stock.growings.forEach(item => {
+			stock.growings.forEach((item, index) => {
+				// if (index % 2 === 0) {
+				// 	profits.push({year: `${item.year}`, profit: item.netProfit, type: item.dataType});
+				// } else {
+				// 	profits.push({year: `${item.year}`, profit: -item.netProfit, type: item.dataType});
+				// }
 				profits.push({year: `${item.year}`, profit: item.netProfit, type: item.dataType});
 			});
 			return profits;
@@ -442,7 +447,7 @@ wepy.page({
 			this.isShowProfitRating = false;
 		},
 		systemVisite() {
-			sysVisit().then(res => {
+			sysVisit(this.currentStockCode).then(res => {
 				if (res.data) {
 					this.changeSysPv(res.data.pv);
 				} else {

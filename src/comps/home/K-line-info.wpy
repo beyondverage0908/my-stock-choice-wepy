@@ -30,7 +30,8 @@
         margin: 0 40rpx;
         .desc {
             font-size: @font-size28;
-            color: @main-gray;
+			color: @main-gray;
+			margin-bottom: 27rpx;
         }
         .sec {
             margin: 15rpx 0;
@@ -92,11 +93,11 @@
             </div>
             <div class="sec">
                 <div class="title">形态强度：</div>
-                <div class="item">{{stock.banker || '-'}}</div>
+                <div class="item" style="margin-left: 9rpx;">{{stock.banker || '-'}}</div>
             </div>
             <div class="sec">
                 <div class="title">强度排名：</div>
-                <div class="item"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
+                <div class="item" style="margin-left: 9rpx;"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
             </div>
             <!-- <div class="st">
                 实时监测股票池的轮动买点，寻找相似Ｋ线
@@ -105,10 +106,10 @@
         <i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
-                    <div>1. 形态节奏，即通过Ｋ线形态分析，将股票分类三类</div>
-                    <div>关注：调入股票池，每日关注走势，监测买点</div>
-                    <div>买点：可以买入建仓</div>
-                    <div>路人：暂不关注 </div>
+                    <div>1. 如何根据Ｋ线形态选股择时，欢迎参加南京、昆山两地的线下沙龙活动。</div>
+                    <div>2. 形态节奏，即通过Ｋ线形态分析，将股票分类三类：关注、买点和路人。关注即调入股票池，开始关注走势。买点即买入建仓。路人即暂不关注。</div>
+                    <div>3.	形态强度数据越大，说明主力资金越强。</div>
+                    <div>4.	本次强度数据统计日期为：{{startTime}}－{{endTime}} </div>
                 </div>
                 <div style="height: 20rpx;"></div>
                 <div>

@@ -23,7 +23,7 @@
 		.name {
 			font-size: @font-size60;
 			color: @main-blue-shadow;
-			margin: 10rpx 0 10rpx;
+			margin: 10rpx 0 0rpx;
 		}
 		.code {
 			font-size: @font-size30;
@@ -37,17 +37,17 @@
 			.item {
 				display: flex;
 				align-items: center;
-				margin-bottom: 15rpx;
+				margin-bottom: 10rpx;
 				.topic {
 					font-size: @font-size30;
-					min-width: 145rpx;
 				}
 				.rank {
 					margin-left: 10rpx;
 					color: @main-red;
+					font-size: @font-size28;
 				}
 				.total-rank {
-
+					font-size: @font-size28;
 				}
 			}
 		}

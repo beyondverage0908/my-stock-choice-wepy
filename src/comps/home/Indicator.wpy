@@ -3,7 +3,7 @@
 	@tag-red: #CE0000;
 	@title-bg-color: #FFB5B5;
 	.indicator {
-		margin: 30rpx 40rpx;
+		margin: 30rpx 40rpx 20rpx 40rpx;
 		.title {
 			.tip-cn {
 				display: inline-block;
