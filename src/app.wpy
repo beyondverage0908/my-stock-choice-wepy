@@ -34,7 +34,7 @@ wepy.app({
     eventHub.$on('app-launch', (...args) => {
       console.log('app-launch event emitted, the params are:');
       console.log(args);
-    });
+	});
   },
 
   methods: {
@@ -49,7 +49,7 @@ wepy.app({
     async testAsync() {
       let d = await this.sleep(3);
       console.log(d);
-    }
+	}
   }
 });
 </script>

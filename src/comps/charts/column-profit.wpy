@@ -59,12 +59,16 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         }
     });
     chart1.interval().position('year*profit').color('year', cVal => {
-        const f = dataSource && dataSource.find(item => item.year === cVal);
-        if (f.type === 0) {
-            return 'rgb(131, 177, 229)';
-        } else {
-            return '#FFD700';
-        }
+		const f = dataSource && dataSource.find(item => item.year === cVal);
+		if (f.profit >= 0) {
+			if (f.type === 0) {
+				return 'rgb(131, 177, 229)';
+			} else {
+				return '#FFD700';
+			}
+		} else {
+			return '#00A600'; // 绿色
+		}
     });
     chart1.axis('profit', {
         position: 'left',

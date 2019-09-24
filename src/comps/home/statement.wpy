@@ -16,10 +16,7 @@
 	}
 	.modal-content {
 		margin: 15rpx 30rpx;
-		.wxid {
-			color: @main-blue-color;
-			font-weight: 700;
-		}
+		text-align: left;
 	}
 }
 </style>
@@ -27,7 +24,14 @@
 	<div class="statement">
 		<span class="tx">本工具不构成投资建议，投资有风险，请用户谨慎参考！</span><span @click="onDisclaimerApply" class="dity">免责声明</span>
 		<i-modal title="免责声明" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
-			<div class="modal-content">牛棚100指数－－关注公司旗下微信服务号“解套宝”（ＩＤ：<span class="wxid" @click="handleCopyWxId">SpringClub2015</span> 点击复制），查看性价比最高的100支价值投资股票名单</div>
+			<div class="modal-content">
+				<div>
+					1. 本产品所提供信息并非投资决策服务，在任何情形下都不构成对接收本帐号内容受众的任何投资建议。用户应当充分了解各类投资风险，根据自身情况自主做出投资决策并自行承担风险。用户根据本产品做出的任何投资决策与本公司及相关内容提供方无关。
+				</div>
+				<div style="height: 20rpx;"></div>
+				<div>
+					2. 本产品由南京解套宝数据技术有限公司基于牛棚模型、已公开的资料或信息开发，南京解套宝数据技术有限公司不对所载数据的准确性、可靠性、时效性和完整性做任何明示或暗示的保证。</div>
+				</div>
 		</i-modal>
 	</div>
 </template>
@@ -50,7 +54,7 @@ wepy.component({
 		},
 		handleCloseOk() {
 			this.modalVisible = false;
-			this.handleCopyWxId();
+			// this.handleCopyWxId();
 			this.changeHomeChartVisible(true);
 		},
 		handleCopyWxId() {

@@ -43,7 +43,7 @@
                 .tread {
                     width: 80%;
                     display: flex;
-                    justify-content: space-evenly;
+                    justify-content: space-between;
                     align-items: center;
                     .img {
                         width: 22rpx;
@@ -74,9 +74,11 @@
             <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
                 <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
                     <div class="tread" v-if="item.key === 'roe1' || item.key === 'roe2'">
-                        <img v-if="tr[item.key] >= tr['roe0']" class="img" src="../../assets/up.png" alt="" />
-                        <img v-else class="img" src="../../assets/down.png" alt="" />
-                        <span>{{tr[item.key]}}</span>
+						<div v-if="tr[item.key] !== '0.00'">
+							<img v-if="tr.isUp" class="img" src="../../assets/up.png" alt="" />
+							<img v-else class="img" src="../../assets/down.png" alt="" />
+						</div>
+                        <span v-if="tr[item.key] !== '0.00'">{{tr[item.key]}}</span>
                     </div>
                     <div v-else>
                         {{tr[item.key]}}

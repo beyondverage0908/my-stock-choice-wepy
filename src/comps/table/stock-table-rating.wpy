@@ -102,7 +102,8 @@ wepy.component({
         tableHeadLabelList: [
             { label: '机构名称', key: 'organization' },
             { label: '研究员', key: 'researcher' },
-            { label: '评级', key: 'rating' }
+            { label: '评级', key: 'rating' },
+            { label: '日期', key: 'date' }
         ],
         tableData: [],
         showNoData: false

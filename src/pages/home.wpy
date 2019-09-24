@@ -1,16 +1,24 @@
 <style lang="less">
-	@input-font-size: 28rpx;
+
+	@font-size28: 28rpx;
+	@font-size32: 32rpx;
+	@font-size36: 36rpx;
+
+	@main-black: #000000;
 	@main-gray: #CFCFCF;
-	@main-des-gray: rgba(102, 102, 102, 1);
-	@sign-color: rgba(229, 28, 35, 1);
-	@main-blue-color: rgb(131, 177, 229);
+	@main-gray-deep: #676767;
+	@main-red: rgba(229, 28, 35, 1);
+	@main-red-shadow: #FFB5B5;
+	@main-blue: #5291F5;
+	@main-green: #00A600;
+	@main-green-shadow: #CEFFCE;
 
 	.rating-button {
-		font-size: @input-font-size;
+		font-size: @font-size32;
 		margin-right: 40rpx;
 		background-color: #ffffff;
-		color: @main-des-gray;
-		border: solid 1rpx @main-blue-color;
+		color: @main-gray-deep;
+		border: solid 1rpx @main-blue;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -23,7 +31,6 @@
 			margin-right: 15rpx;
 		}
 	}
-
 	.home-container {
 		position: relative;
 		.section {
@@ -41,18 +48,35 @@
 			.buy-rating {
 				display: flex;
 				justify-content: space-between;
-				margin-top: 60rpx;
+				margin-top: 45rpx;
 				margin-bottom: 15rpx;
 				.rating-cont {
 					display: flex;
 					margin-left: 40rpx;
+					align-items: center;
 					.title {
-						font-size: @input-font-size;
+						font-size: @font-size32;
+						display: flex;
+						align-items: center;
+						.point {
+							font-size: 28rpx;
+							color: @main-gray;
+							margin-left: 10rpx;
+						}
+						.arrow {
+							margin-right: 10rpx;
+							width: 36rpx;
+							height: 36rpx;
+						}
 					}
 					.buy {
-						font-size: @input-font-size;
-						color: @main-des-gray;
+						font-size: @font-size32;
 						margin-left: 20rpx;
+						color: @main-red;
+					}
+					.gray {
+						color: @main-gray;
+						font-size: @font-size28;
 					}
 				}
 				.rating-btn {
@@ -79,7 +103,7 @@
 					border-radius: 40rpx;
 					box-sizing: border-box;
 					padding: 0 30rpx;
-					font-size: @input-font-size;
+					font-size: @font-size32;
 					margin-left: 20rpx;
 				}
 				.avatar-warp {
@@ -94,7 +118,7 @@
 					}
 				}
 			}
-			// 搜索框
+			// 搜索�
 			.search-board {
 				width: 100%;
 				background: #fff;
@@ -159,17 +183,15 @@
 			<statement />
 		</div>
 		<div class="section">
-			<div class="official"></div>
-			<official-account bindload="officialAccountLoad" binderror="officialAccountError"></official-account>
-		</div>
-		<div class="section">
 			<K-line-info :stock="stock"/>
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
 			<indicator :title="'成长空间'"/>
 			<div class="buy-rating">
 				<div class="rating-cont">
-					<div class="title">净资产收益率ROE</div>
+					<div class="title">
+						<img class="arrow" src="../assets/arrow.png" alt="" />净资产收益率ROE
+					</div>
 				</div>
 				<div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
@@ -179,7 +201,9 @@
 			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
 			<div class="buy-rating">
 				<div class="rating-cont">
-					<div class="title">净利润(单位：百万元)</div>
+					<div class="title">
+						<img class="arrow" src="../assets/arrow.png" alt="" />净利润 <span class="point">(单位：百万元)</span>
+					</div>
 				</div>
 				<div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
@@ -189,8 +213,8 @@
 			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
 			<div class="buy-rating">
 				<div class="rating-cont">
-					<div class="title">评级机构:</div>
-					<div class="buy">{{stock.ratingAvgChn}}</div>
+					<div class="title"><img class="arrow" src="../assets/arrow.png" alt="" />评级:</div>
+					<div class="buy" :class="{gray: !stock.ratingAvgChn}">{{stock.ratingAvgChn || '暂无'}}</div>
 				</div>
 				<div @click="handleStockRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />明细
@@ -198,10 +222,10 @@
 			</div>
 			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
 		</div>
-		<div class="section" v-if="hasRisk">
+		<div class="section" style="border-bottom: none;" v-if="hasRisk">
 			<risk :risks="stock.risks"/>
 		</div>
-		<copyrignt :number="stock.pv"></copyrignt>
+		<copyrignt :number="sysPv"></copyrignt>
 		<!-- toolbar 是否悬浮在右下角的客服和分享 -->
 		<toolbar />
 		<div v-if="hazyCount===6">
@@ -212,9 +236,11 @@
 <script>
 import wepy from '@wepy/core'
 import { getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
+import { sysVisit } from '@/api/sys'
 import { defaultStockCode } from '@/util/config'
 import { mapState, mapMutations } from '@wepy/x'
 import store from '../store';
+import moment from 'moment';
 wepy.page({
 	store,
 	data: {
@@ -223,7 +249,7 @@ wepy.page({
 		stock: null,
 		stockList: [],
 		startSearch: false,
-		yearProfits: [], // 年利润图表数据
+		yearProfits: [], // 年利润图表数�
 		yearRoes: [], // 年roe图标数据
 		currentStockCode: defaultStockCode,
 		isShowRoeRating: false,
@@ -235,7 +261,7 @@ wepy.page({
 		tableRatings: [] 
 	},
 	computed: {
-		...mapState(['isShowHomeChart']),
+		...mapState(['isShowHomeChart', 'sysPv']),
 		rankRatio() {
 			if (!this.stock) {
 				return 0;
@@ -256,7 +282,7 @@ wepy.page({
 		}
 	},
 	methods: {
-		...mapMutations(['changeLoginCode']),
+		...mapMutations(['changeLoginCode', 'changeSysPv']),
 		onHazyDeal() {
 			console.log('hit');
 			this.hazyCount++;
@@ -287,6 +313,7 @@ wepy.page({
 			getStockInfo(stockCode).then(res => {
 				if (res.data) {
 					this.stock = res.data;
+					this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
 					// 构建图表数据
 					this.yearProfits = this.getYearProfitList(res.data);
 					this.yearRoes = this.getYearRoeList(res.data);
@@ -307,7 +334,12 @@ wepy.page({
 		},
 		getYearRoeList(stock) {
 			const roes = []
-			stock.growings.forEach(item => {
+			stock.growings.forEach((item, index) => {
+				// if (index % 2 === 0) {
+				// 	roes.push({year: `${item.year}`, roe: item.roe, type: item.dataType});
+				// } else {
+				// 	roes.push({year: `${item.year}`, roe: -item.roe, type: item.dataType});
+				// }
 				roes.push({year: `${item.year}`, roe: item.roe, type: item.dataType});
 			});
 			return roes;
@@ -324,8 +356,8 @@ wepy.page({
 			});
 		},
 		getRatings() {
-			this.currentStockCode = '000001.SZ';
-			this.stock.hasWest = true;
+			// this.currentStockCode = '000001.SZ';
+			// this.stock.hasWest = true;
 			// if (!this.currentStockCode || !this.stock.hasWest) return;
             getRatings(this.currentStockCode).then(res => {
                 if (res.data && res.data.length) {
@@ -335,7 +367,10 @@ wepy.page({
 							organization: item.organization,
 							researcher: item.researcher,
 							rating: item.rating
-						}						
+						}				
+						if (item.date) {
+							rating.date = moment(item.moment).format('YYYY.MM.DD');
+						}
 						this.tableRatings.push(rating);
 				   });
                 }
@@ -350,9 +385,10 @@ wepy.page({
 							organization: item.organization,
 							researcher: item.researcher,
 							roe0: item.roe0,
-							roe1: item.roe1,
-							roe2: item.roe2,
-							year: item.year
+							roe1: (new Number(item.roe1)).toFixed(2),
+							roe2: (new Number(item.roe2)).toFixed(2),
+							year: item.year,
+							isUp: item.roe1 > item.roe0 ? true : false
 						}
 						this.tableRoes.push(roe);
 				   	});
@@ -398,8 +434,16 @@ wepy.page({
 			this.isShowRoeRating = false;
 			this.isShowProfitRating = false;
 		},
+		systemVisite() {
+			sysVisit().then(res => {
+				if (res.data) {
+					this.changeSysPv(res.data.pv);
+				} else {
+					this.changeSysPv(0);
+				}
+			})
+		},
 		wxLogin() {
-			debugger;
 			wx.login({
 				success: (res) => {
 					if (res.code) {
@@ -418,6 +462,9 @@ wepy.page({
 		console.log('ready');
 	},
 	onLoad(options) {
+		// 系统访问记录
+		this.systemVisite();
+
 		const code = options['code'] || defaultStockCode;
 		this.currentStockCode = code;
 		this.getStockInfo(code);
@@ -427,7 +474,7 @@ wepy.page({
 	onShareAppMessage() {
 		const code = this.stock.zqdm || defaultStockCode;
 		return {
-			title: '牛棚股票助手',
+			title: '牛棚盯盘助手',
 			path: `/pages/home?code=${code}`
 		}
 	}
@@ -435,8 +482,8 @@ wepy.page({
 </script>
 <config>
 {
-    navigationBarTitleText: '牛棚股票助手',
 	navigationBarBackgroundColor: '#5386C7',
+	navigationBarTitleText: '牛棚盯盘助手',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",
 		"ring": "~@/comps/home/ring",

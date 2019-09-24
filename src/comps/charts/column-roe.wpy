@@ -1,6 +1,19 @@
 <style lang="less" scoped>
+
+@font-size28: 28rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+
+@main-black: #000000;
+@main-gray: #CFCFCF;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+@main-red-shadow: #FFB5B5;
+@main-blue: #5291F5;
+@main-green: #00A600;
+@main-green-shadow: #CEFFCE;
+
 @main-blue-color: rgb(131, 177, 229);
-@main-green-color: #a6d94a;
 .column {
     width: 100%;
     display: flex;
@@ -60,12 +73,16 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         }
     });
     chart1.interval().position('year*roe').color('year', cVal => {
-        const f = dataSource && dataSource.find(item => item.year === cVal);
-        if (f.type === 0) {
-            return 'rgb(131, 177, 229)';
-        } else {
-            return '#FFD700';
-        }
+		const f = dataSource && dataSource.find(item => item.year === cVal);
+		if (f.roe >= 0) {
+			if (f.type === 0) {
+				return 'rgb(131, 177, 229)';
+			} else {
+				return '#FFD700';
+			}
+		} else {
+			return '#00A600'
+		}
     });
     chart1.axis('roe', {
         position: 'left',
@@ -95,6 +112,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
 			return cfg;
 		}
 	});
+
     chart1.render();
     return chart1;
 }
@@ -127,7 +145,35 @@ wepy.component({
                 const data = this.data;
                 dataSource = data;
                 if (!chart1) return;
-                chart1.changeData(data);
+				chart1.changeData(data);
+				
+				// 绘制柱状图文本
+				// var canvas = chart1.get('canvas');
+				// var group = canvas.addGroup();
+				// var shapes = {};
+				// dataSource && dataSource.map(function(obj) {
+				// 	var point = chart1.getPosition(obj);
+				// 	var offset = -5;
+				// 	if (obj.roe < 0) {
+				// 		offset = 20;
+				// 	}
+				// 	var text = obj.roe;
+				// 	// if (obj.roe < 5) {
+				// 	// 	text = '暂无';
+				// 	// }
+				// 	var text = group.addShape('text', {
+				// 		attrs: {
+				// 			x: point.x,
+				// 			y: point.y + offset,
+				// 			text: text,
+				// 			textAlign: 'center',
+				// 			textBaseline: 'bottom',
+				// 			fill: '#808080',
+				// 			fontSize: 10
+				// 		}
+				// 	});
+				// 	shapes[obj.year] = text; // 缓存该 shape, 便于后续查找
+				// });
             }, 500);
         }
     },

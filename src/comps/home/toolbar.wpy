@@ -41,7 +41,7 @@
         }
     }
     .share {
-        margin-top: 30rpx;
+        margin-top: 18rpx;
         .container;
         .img {
             width: 40rpx;

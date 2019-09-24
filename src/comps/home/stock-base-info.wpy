@@ -1,41 +1,60 @@
 <style lang="less" scoped>
-	@main-blue-color: rgb(131, 177, 229);
-	@main-gray-color: rgb(134, 134, 134);
+
+	@font-size28: 28rpx;
+	@font-size30: 30rpx;
+	@font-size32: 32rpx;
+	@font-size36: 36rpx;
+	@font-size60: 60rpx;
+
+	@main-black: #000000;
+	@main-gray: #CFCFCF;
+	@main-gray-deep: #676767;
+	@main-red: rgba(229, 28, 35, 1);
+	@main-red-shadow: #FFB5B5;
+	@main-blue: #5291F5;
+	@main-blue-shadow: rgb(131, 177, 229);
+	@main-green: #00A600;
+	@main-green-shadow: #CEFFCE;
+
 	.info {
 		flex: 5;
 		box-sizing: border-box;
 		padding-left: 40rpx;
 		.name {
-			font-size: 60rpx;
-			color: @main-blue-color;
-			margin: 10rpx 0 15rpx;
+			font-size: @font-size60;
+			color: @main-blue-shadow;
+			margin: 10rpx 0 10rpx;
 		}
 		.code {
-			font-size: 30rpx;
-			color: @main-gray-color;
-		}
-		.rank {
-			color: @main-blue-color;
-			margin: 15rpx 0;
-			.arrow {
-				padding-left: 10rpx;
-			}
+			font-size: @font-size30;
+			color: @main-gray-deep;
 		}
 		.tag-list {
 			display: flex;
 			flex-direction: column;
 			align-items: flex-start;
 			margin: 20rpx 0 0 0;
-			.tag {
-				display: inline-block;
-				padding: 10rpx 0rpx;
-				font-size: 28rpx;
+			.item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 15rpx;
+				.topic {
+					font-size: @font-size30;
+					min-width: 145rpx;
+				}
+				.rank {
+					margin-left: 10rpx;
+					color: @main-red;
+				}
+				.total-rank {
+
+				}
 			}
 		}
 		.modal-content {
 			margin: 15rpx 30rpx;
 			.wxid {
-				color: @main-blue-color;
+				color: @main-blue-shadow;
 				font-weight: 700;
 			}
 		}
@@ -46,12 +65,16 @@
 	<div class="info">
 		<div class="name">{{stock.zqjc}}</div>
 		<div class="code">{{stock.zqdm}}</div>
-		<!-- <div class="rank" @tap="onHandleRank">排行榜<span class="arrow">></span></div> -->
 		<div class="tag-list">
-			<span class="tag" v-for="tag in stock.sections">{{tag}}</span>
+			<div class="item">
+				<span class="topic">{{stock.topic1.topic}}</span><span class="rank">{{stock.topic1.rank}}</span>/<span class="total-rank">{{stock.topic1.totalRank}}</span>
+			</div>
+			<div class="item">
+				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
+			</div>
 		</div>
 		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
-			<div class="modal-content">牛棚100指数－－关注公司旗下微信服务号“解套宝”（ＩＤ：<span class="wxid" @click="handleCopyWxId">SpringClub2015</span> 点击复制），查看性价比最高的100支价值投资股票名单</div>
+			<div class="modal-content">1 本产品所提供信息并非投资决策服务，在任何情形下都不构成对接收本帐号内容受众的任何投资建议。用户应当充分了解各类投资风险，根据自身情况自主做出投资决策并自行承担风险。用户根据本产品做出的任何投资决策与本公司及相关内容提供方无关。2.本产品由南京解套宝数据技术有限公司基于牛棚模型、已公开的资料或信息开发，南京解套宝数据技术有限公司不对所载数据的准确性、可靠性、时效性和完整性做任何明示或暗示的保证。<span class="wxid" @click="handleCopyWxId">SpringClub2015</span></div>
 		</i-modal>
 	</div>
 </template>

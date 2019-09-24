@@ -3,7 +3,8 @@ import Vuex from '@wepy/x';
 export default new Vuex.Store({
 	state: {
 		isShowHomeChart: true,
-		loginCode: ''
+		loginCode: '',
+		sysPv: ''
 	},
 	mutations: {
 		changeHomeChartVisible(state, payload) {
@@ -11,6 +12,9 @@ export default new Vuex.Store({
 		},
 		changeLoginCode(state, payload) {
 			state.loginCode = payload;
+		},
+		changeSysPv(state, payload) {
+			state.sysPv = payload || 0;
 		}
 	},
 	actions: {
