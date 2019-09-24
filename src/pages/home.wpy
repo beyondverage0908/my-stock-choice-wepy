@@ -322,7 +322,14 @@ wepy.page({
 					this.getRatings();
 					this.getRoeratings();
 					this.getProfitRatings();
-				}
+
+					
+				} 
+				// 系统访问记录 +1
+				this.systemVisite();
+			}).catch(err => {
+				// 系统访问记录 +1
+				this.systemVisite();
 			})
 		},
 		getYearProfitList(stock) {
@@ -462,9 +469,6 @@ wepy.page({
 		console.log('ready');
 	},
 	onLoad(options) {
-		// 系统访问记录
-		this.systemVisite();
-
 		const code = options['code'] || defaultStockCode;
 		this.currentStockCode = code;
 		this.getStockInfo(code);
