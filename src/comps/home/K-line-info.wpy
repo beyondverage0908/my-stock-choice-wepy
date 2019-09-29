@@ -80,6 +80,19 @@
 					color: @main-gray-deep;
 					font-size: @font-size30;
 				}
+
+				.blue {
+					color: @main-blue;
+				}
+				.green {
+					color: @main-green;
+				}
+				.red {
+					color: @main-red;
+				}
+				.gray {
+					color: @main-gray;
+				}
 			}
 		}
 		.cd {
@@ -147,7 +160,7 @@
 				</div>
 				<div class="ratio">
 					<div class="shadow" :style="{height: barShadowHeight}"></div>
-					<div class="rt">+{{stock.cp}}%</div>
+					<div class="rt" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }">{{stockCp}}%</div>
 					<div class="rk">({{stock.cpRank}}/{{stock.cpTotal}})</div>
 				</div>
 			</div>
@@ -216,6 +229,16 @@ wepy.component({
                 return moment(this.stock.endTime).format('YYYYMMDD');
             }
             return '-';
+		},
+		stockCp() {
+			if (this.stock && this.stock.cp) {
+				if (this.stock.cp > 0) {
+					return `${this.stock.cp}`;
+				} else {
+					return `${-(this.stock.cp)}`;
+				}
+			}
+			return '0'
 		},
 		barShadowHeight() {
 			if (this.stock && this.stock.bar) {
