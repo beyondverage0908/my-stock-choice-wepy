@@ -22,7 +22,7 @@
     align-items: center;
     .f-c-1 {
         width: 90%;
-        height: 400rpx;
+        height: 320rpx;
         .canvas-1 {
             width: 100%;
             height: 100%;
@@ -58,11 +58,7 @@ function initChart1(canvas, width, height) { // 使用 F2 绘制图表
         height
     });
     chart1.legend(false);
-    chart1.source(data, {
-        // sales: {
-        //     tickCount: 5
-        // }
-    });
+    // chart1.source(data, {});
     chart1.tooltip({
         showItemMarker: false,
         onShow(ev) {
@@ -150,17 +146,21 @@ wepy.component({
 				if (obj.roe < 0) {
 					offset = 20;
 				}
-				var text = obj.roe;
-				if (!obj.roe || obj.roe === 0) {
-					text = '暂无';
+				var tx = obj.roe || '';
+				if (obj.type > 0) {
+					if (!obj.roe || obj.roe === 0) {
+						tx = '暂无';
+					} else {
+						tx = '';
+					}
 				} else {
-					text = '';
+					tx = '';
 				}
 				var text = group.addShape('text', {
 					attrs: {
 						x: point.x,
 						y: point.y + offset,
-						text: text,
+						text: tx,
 						textAlign: 'center',
 						textBaseline: 'bottom',
 						fill: '#808080',
@@ -175,9 +175,8 @@ wepy.component({
             setTimeout(() => {
                 const data = this.data;
                 dataSource = data;
-                if (!chart1) return;
-				chart1.changeData(data);
-
+				if (!chart1) return;
+				chart1.changeData(dataSource)
 				this.addChartShapeText();
             }, 500);
         }

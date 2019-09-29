@@ -8,7 +8,7 @@
     align-items: center;
     .f-c-1 {
         width: 90%;
-        height: 400rpx;
+        height: 320rpx;
         .canvas-1 {
             width: 100%;
             height: 100%;
@@ -136,17 +136,27 @@ wepy.component({
 				if (obj.profit < 0) {
 					offset = 20;
 				}
-				var text = obj.profit;
-				if (!obj.profit || obj.profit === 0) {
-					text = '暂无';
+				// var text = obj.profit;
+				// if (!obj.profit || obj.profit === 0) {
+				// 	text = '暂无';
+				// } else {
+				// 	text = '';
+				// }
+				var tx = obj.profit || '';
+				if (obj.type > 0) {
+					if (!obj.profit || obj.profit === 0) {
+						tx = '暂无';
+					} else {
+						tx = '';
+					}
 				} else {
-					text = '';
+					tx = '';
 				}
 				var text = group.addShape('text', {
 					attrs: {
 						x: point.x,
 						y: point.y + offset,
-						text: text,
+						text: tx,
 						textAlign: 'center',
 						textBaseline: 'bottom',
 						fill: '#808080',

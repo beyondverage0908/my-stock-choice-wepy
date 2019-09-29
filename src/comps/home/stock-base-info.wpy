@@ -28,6 +28,12 @@
 		.code {
 			font-size: @font-size30;
 			color: @main-gray-deep;
+			margin-top: 15rpx;
+		}
+		.p-rank {
+			font-size: @font-size28;
+			color: @main-gray-deep;
+			margin-top: 60rpx;
 		}
 		.tag-list {
 			display: flex;
@@ -65,16 +71,22 @@
 	<div class="info">
 		<div class="name">{{stock.zqjc}}</div>
 		<div class="code">{{stock.zqdm}}</div>
-		<div class="tag-list">
+		<!-- <div class="tag-list">
 			<div class="item">
 				<span class="topic">{{stock.topic1.topic}}</span><span class="rank">{{stock.topic1.rank}}</span>/<span class="total-rank">{{stock.topic1.totalRank}}</span>
 			</div>
 			<div class="item">
 				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
 			</div>
-		</div>
+		</div> -->
+		<div class="p-rank" @click="onHandleRank">性价比排行榜 ></div>
 		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
-			<div class="modal-content">1 本产品所提供信息并非投资决策服务，在任何情形下都不构成对接收本帐号内容受众的任何投资建议。用户应当充分了解各类投资风险，根据自身情况自主做出投资决策并自行承担风险。用户根据本产品做出的任何投资决策与本公司及相关内容提供方无关。2.本产品由南京解套宝数据技术有限公司基于牛棚模型、已公开的资料或信息开发，南京解套宝数据技术有限公司不对所载数据的准确性、可靠性、时效性和完整性做任何明示或暗示的保证。<span class="wxid" @click="handleCopyWxId">SpringClub2015</span></div>
+			<div class="modal-content">
+                <div>
+                    <div>1.	性价比排名指标，凝聚了十多位民间高手的智慧，是基本面与技术面融合后的复合指标，应用方法，请关注“解套宝”微信服务号。</div>
+                    <div>2.	欢迎约茶线下交流，地址：南京洪武路23号1408室。</div>
+                </div>
+    		</div>
 		</i-modal>
 	</div>
 </template>

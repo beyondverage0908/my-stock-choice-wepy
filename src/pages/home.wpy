@@ -49,7 +49,7 @@
 				display: flex;
 				justify-content: space-between;
 				margin-top: 45rpx;
-				margin-bottom: 15rpx;
+				// margin-bottom: 15rpx;
 				.rating-cont {
 					display: flex;
 					margin-left: 40rpx;
@@ -125,6 +125,7 @@
 				z-index: 10;
 				position: absolute;
 				top: 150rpx;
+				min-height: 90vh;
 				.search-item {
 					border-bottom: 1rpx solid #f6f6f6;
 					padding: 18rpx 0;
@@ -193,9 +194,10 @@
 						<img class="arrow" src="../assets/arrow.png" alt="" />净资产收益率ROE
 					</div>
 				</div>
-				<div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
+				<!-- 暂时删除，不能删除 -->
+				<!-- <div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div>
+				</div> -->
 			</div>
 			<column-roe v-if="!isShowRoeRating" :class="{hidden: isShowRoeRating}" :data="yearRoes"/>
 			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
@@ -205,13 +207,15 @@
 						<img class="arrow" src="../assets/arrow.png" alt="" />净利润 <span class="point">(单位：百万元)</span>
 					</div>
 				</div>
-				<div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
+				<!-- 暂时删除，不能删除 -->
+				<!-- <div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div>
+				</div> -->
 			</div>
 			<column-profit v-if="!isShowProfitRating" :data="yearProfits"/>
 			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
-			<div class="buy-rating">
+			<!-- 暂时注释，不能删除 -->
+			<!-- <div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title"><img class="arrow" src="../assets/arrow.png" alt="" />评级:</div>
 					<div class="buy" :class="{gray: !stock.ratingAvgChn}">{{stock.ratingAvgChn || '暂无'}}</div>
@@ -220,7 +224,7 @@
 					<img class="img" src="../assets/click.png" alt="" />明细
 				</div>
 			</div>
-			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
+			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" /> -->
 		</div>
 		<div class="section" style="border-bottom: none;" v-if="hasRisk">
 			<risk :risks="stock.risks"/>
@@ -266,7 +270,7 @@ wepy.page({
 			if (!this.stock) {
 				return 0;
 			}
-			return parseFloat(((this.stock.rank / this.stock.total) * 100).toFixed(1));
+			return parseFloat((((this.stock.rank || 0) / this.stock.total) * 100).toFixed(1));
 		},
 		hasGraph() {
 			if (!this.stock || !this.stock.growings) {
@@ -281,10 +285,21 @@ wepy.page({
 			return this.stock.risks.length > 0;
 		}
 	},
+	watch: {
+		stockList(newVal, oldVal) {
+			console.log(newVal, oldVal);
+			// if (newVal && newVal.length) {
+			// 	this.isShowRoeRating = true;
+			// 	this.isShowProfitRating = true;
+			// } else {
+			// 	this.isShowRoeRating = false;
+			// 	this.isShowProfitRating = false;
+			// }
+		}	
+	},
 	methods: {
-		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId']),
+		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId', 'changeHomeChartVisible']),
 		onHazyDeal() {
-			console.log('hit');
 			this.hazyCount++;
 		},
 		gotoChartArea() {
@@ -305,8 +320,13 @@ wepy.page({
 		// 点击搜索
 		handleSearch(search) {
 			this.startSearch = true;
+			this.stockList = [];
 			this.inputText = '';
 			this.currentStockCode = search.zqdm;
+
+			this.isShowRoeRating = true;
+			this.isShowProfitRating = true;
+
 			this.getStockInfo(search.zqdm)
 		},
 		getStockInfo(stockCode) {
@@ -323,6 +343,9 @@ wepy.page({
 					this.getRoeratings();
 					this.getProfitRatings();
 				} 
+				// 主要为了解决
+				this.isShowRoeRating = false;
+				this.isShowProfitRating = false;
 				// 系统访问记录 +1
 				if (this.sessionId) {
 					this.systemVisite();
@@ -342,7 +365,7 @@ wepy.page({
 				// } else {
 				// 	profits.push({year: `${item.year}`, profit: -item.netProfit, type: item.dataType});
 				// }
-				profits.push({year: `${item.year}`, profit: item.netProfit, type: item.dataType});
+				profits.push({year: `${item.year}`, profit: item.netProfit || 0, type: item.dataType});
 			});
 			return profits;
 		},
@@ -354,7 +377,7 @@ wepy.page({
 				// } else {
 				// 	roes.push({year: `${item.year}`, roe: -item.roe, type: item.dataType});
 				// }
-				roes.push({year: `${item.year}`, roe: item.roe, type: item.dataType});
+				roes.push({year: `${item.year}`, roe: item.roe || 0, type: item.dataType});
 			});
 			return roes;
 		},
@@ -383,7 +406,7 @@ wepy.page({
 							rating: item.rating
 						}				
 						if (item.date) {
-							rating.date = moment(item.moment).format('YYYY.MM.DD');
+							rating.date = moment(item.date).format('YYYY.MM.DD');
 						}
 						this.tableRatings.push(rating);
 				   });

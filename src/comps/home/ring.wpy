@@ -83,6 +83,9 @@
 .green {
   color: @main-green;
 }
+.gray {
+	color: @main-gray;
+}
 .modal-content {
 	text-align: left;
 	padding: 10rpx 40rpx;
@@ -103,7 +106,7 @@
 			<div class="circle-bottom-left"></div>
 			<div class="circle-bottom-right"></div>
 		</div>
-		<div class="info" :class="{green: !rank && rank <= 0}">{{rank || '——'}}</div>
+		<div class="info" :class="{gray: !rank && rank <= 0}">{{rank || '—'}}</div>
 		<i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
@@ -144,9 +147,12 @@ wepy.component({
     }
   },
   watch: {
-    score(newVal, oldVal) {
-      this.initRing();
-    }
+    // score(newVal, oldVal) {
+    //   this.initRing();
+	// },
+	rank(newVal, oldVal) {
+		this.initRing();
+	}
   },
   ready() {
     console.log(this.rank);
@@ -154,7 +160,11 @@ wepy.component({
   methods: {
 	  ...mapMutations(['changeHomeChartVisible']),
     initRing() {
-      var percent = 1 - this.score / 100;
+	//   var percent = 1 - this.score / 100;
+	//   if (!this.score) {
+	// 	  percent = 0;
+	//   }
+	var percent = this.rank / 100;
       const ringRightClass = {};
       const ringLeftClass = {};
       if (percent <= 0.5) {
