@@ -8,7 +8,7 @@
 @main-black: #000000;
 @main-gray: #CFCFCF;
 @main-gray-deep: #676767;
-@main-red: rgba(229, 28, 35, 1);
+@main-red: #FF0000;
 @main-red-shadow: #FFB5B5;
 @main-blue: #5291F5;
 @main-green: #00A600;
@@ -22,9 +22,10 @@
         .time {
             margin-top: 30rpx;
             margin-right: 40rpx;
-            width: 36rpx;
-            height: 36rpx;
-        }
+			height: 36rpx;
+			font-size: @font-size28;
+			color: @main-gray;
+		}
     }
     .content {
 		margin: 20rpx 40rpx 0 40rpx;
@@ -42,9 +43,9 @@
 				color: @main-gray-deep;
 			}
 			.column {
-				height: 200rpx;
-				width: 25rpx;
-				background-color: #fff;
+				height: 250rpx;
+				width: 35rpx;
+				background-color: @main-gray;
 				position: relative;
 				margin-right: 15rpx;
 				border: 1rpx solid @main-gray;
@@ -98,17 +99,22 @@
 		.cd {
 			display: flex;
 			flex-direction: column;
-			justify-content: space-evenly;
+			justify-content: space-between;
 			.item {
+				display: flex;
+				align-items: center;
 				.text {
-					display: inline-block;
+					display: flex;
+					justify-content: flex-start;
+					align-items: center;
 					width: 200rpx;
-					height: 45rpx;
-					line-height: 45rpx;
+					height: 55rpx;
 					background: @main-gray;
 					font-size: @font-size28;
-					text-align: center;
 					margin-right: 15rpx;
+					.t {
+						margin-left: 40rpx;
+					}
 				}
 				.pick-green {
 					background: url(data:image/jpeg;base64,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) no-repeat;
@@ -147,6 +153,7 @@
             <!-- <span class="title">K线强度</span> -->
             <indicator :title="'K线形态'"/>
             <!-- <img class="time" src="../../assets/help.png" @click="handleHelp" /> -->
+			<span class="time">{{startTime}}－{{endTime}}</span>
         </div>
         <div class="content">
             <div class="treat">
@@ -166,32 +173,33 @@
 			</div>
 			<div class="cd">
 				<div class="item">
-					<span class="text" :class="{'pick-oragin': stock.buying === 2}">买点</span>
+					<div class="text" :class="{'pick-oragin': stock.buying === 2}">
+						<span class="t">买点</span>
+					</div>
 					<img v-if="stock.buying === 2" class="img" src="../../assets/right.png" />
 				</div>
 				<div class="item">
-					<span class="text" :class="{'pick-blue': stock.buying === 1}">关注</span>
+					<div class="text" :class="{'pick-blue': stock.buying === 1}">
+						<span class="t">关注</span>
+					</div>
 					<img v-if="stock.buying === 1" class="img" src="../../assets/right.png" />
 				</div>
 				<div class="item">
-					<span class="text" :class="{'pick-green': stock.buying === 0}">路人</span>
+					<div class="text" :class="{'pick-green': stock.buying === 0}">
+						<span class="t">路人</span>
+					</div>
 					<img v-if="stock.buying === 0" class="img" src="../../assets/right.png" />
 				</div>
 				<div class="desc" @click="handleHelp">今日关注{{stock.totalFollow}} ></div>
 			</div>
         </div>
-        <i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+        <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
-                    <div>1. 如何根据Ｋ线形态选股择时，欢迎参加南京、昆山两地的线下沙龙活动。</div>
-                    <div>2. 形态节奏，即通过Ｋ线形态分析，将股票分类三类：关注、买点和路人。关注即调入股票池，开始关注走势。买点即买入建仓。路人即暂不关注。</div>
-                    <div>3.	形态强度数据越大，说明主力资金越强。</div>
-                    <div>4.	本次强度数据统计日期为：{{startTime}}－{{endTime}} </div>
+                    <div>1. 订阅成为“牛棚”会员，查询今日关注、今天买点排行。</div>
+                    <div>2. 欢迎约茶交流，地址：南京洪武路23号1408室。</div>
+                    <div>3.	点击客服，咨询订阅方式。。</div>
                 </div>
-                <div style="height: 20rpx;"></div>
-                <div>
-                    2. 形态强度，数据越大，说明主力资金越强
-        		</div>
     		</div>
 		</i-modal>
     </div>
@@ -233,22 +241,24 @@ wepy.component({
 		stockCp() {
 			if (this.stock && this.stock.cp) {
 				if (this.stock.cp > 0) {
-					return `${this.stock.cp}`;
+					return `+${this.stock.cp}`;
 				} else {
-					return `${-(this.stock.cp)}`;
+					return `-${-(this.stock.cp)}`;
 				}
 			}
 			return '0'
 		},
 		barShadowHeight() {
 			if (this.stock && this.stock.bar) {
-				if (this.stock.bar < 40) {
-					return '60%'
+				if (this.stock.bar < 30) {
+					return `70%`
+				} else if (this.stock.bar > 90) {
+					return `0%`
 				} else {
-					return `${100 - this.stock.bar}%`
+					return `${100 - this.stock.bar - 8}%` // 多减去8是为了冗余
 				}
 			} else {
-				return '60%';
+				return '70%';
 			}
 		},
 		barHeight() {

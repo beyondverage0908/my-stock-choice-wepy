@@ -4,11 +4,12 @@
 @font-size32: 32rpx;
 @font-size36: 36rpx;
 @font-size60: 60rpx;
+@font-size70: 70rpx;
 
 @main-black: #000000;
 @main-gray: #cfcfcf;
 @main-gray-deep: #676767;
-@main-red: rgba(229, 28, 35, 1);
+@main-red: #FF0000;
 @main-red-shadow: #ffb5b5;
 @main-blue: #5291f5;
 @main-blue-shadow: rgb(131, 177, 229);
@@ -76,7 +77,7 @@
   line-height: @ring-height;
   text-align: center;
   margin-top: -@ring-height;
-  font-size: @font-size60;
+  font-size: @font-size70;
   color: @main-red;
   font-weight: 700;
 }
@@ -94,7 +95,7 @@
 </style>
 <template>
 	<div class="ring">
-		<div class="circle" @click="handleHelp">
+		<div class="circle">
 			<div
 				class="circle-left"
 				:style="{ transition: ringLeftClass['transition'], transform: ringLeftClass['transform'] }"

@@ -7,7 +7,7 @@
 @main-black: #000000;
 @main-gray: #CFCFCF;
 @main-gray-deep: #676767;
-@main-red: rgba(229, 28, 35, 1);
+@main-red: #FF0000;
 @main-red-shadow: #FFB5B5;
 @main-blue: #5291F5;
 @main-green: #00A600;

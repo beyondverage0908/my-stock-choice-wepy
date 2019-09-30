@@ -9,7 +9,7 @@
 	@main-black: #000000;
 	@main-gray: #CFCFCF;
 	@main-gray-deep: #676767;
-	@main-red: rgba(229, 28, 35, 1);
+	@main-red: #FF0000;
 	@main-red-shadow: #FFB5B5;
 	@main-blue: #5291F5;
 	@main-blue-shadow: rgb(131, 177, 229);
@@ -59,6 +59,7 @@
 		}
 		.modal-content {
 			margin: 15rpx 30rpx;
+			text-align: left;
 			.wxid {
 				color: @main-blue-shadow;
 				font-weight: 700;
@@ -80,11 +81,12 @@
 			</div>
 		</div> -->
 		<div class="p-rank" @click="onHandleRank">性价比排行榜 ></div>
-		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+		<i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
-                    <div>1.	性价比排名指标，凝聚了十多位民间高手的智慧，是基本面与技术面融合后的复合指标，应用方法，请关注“解套宝”微信服务号。</div>
-                    <div>2.	欢迎约茶线下交流，地址：南京洪武路23号1408室。</div>
+                    <div>1.	订阅成为“牛棚”会员，查询各类优质企业排行。</div>
+					<div>2. 关注微信服务号解套宝，查询牛棚50指数。</div>
+                    <div>3.	点击客服，咨询订阅方式。</div>
                 </div>
     		</div>
 		</i-modal>
