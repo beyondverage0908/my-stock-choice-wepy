@@ -54,19 +54,23 @@
 					width: 100%;
 					position: absolute;
 					bottom: 0;
-					background-color: @main-red;
+					background-color: @main-gray-deep;
 				}
 				.blue {
-					background-color: @main-blue;
+					// background-color: @main-blue;
+					border-top: solid 5rpx  @main-blue;
 				}
 				.green {
-					background-color: @main-green;
+					// background-color: @main-green;
+					border-top: solid 5rpx  @main-green;
 				}
 				.red {
-					background-color: @main-red;
+					// background-color: @main-red;
+					border-top: solid 5rpx  @main-red;
 				}
 				.gray {
-					background-color: @main-gray;
+					// background-color: @main-gray;
+					border-top: solid 5rpx  @main-gray;
 				}
 			}
 			.ratio {
