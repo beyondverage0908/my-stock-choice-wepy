@@ -285,18 +285,7 @@ wepy.page({
 			return this.stock.risks.length > 0;
 		}
 	},
-	watch: {
-		stockList(newVal, oldVal) {
-			console.log(newVal, oldVal);
-			// if (newVal && newVal.length) {
-			// 	this.isShowRoeRating = true;
-			// 	this.isShowProfitRating = true;
-			// } else {
-			// 	this.isShowRoeRating = false;
-			// 	this.isShowProfitRating = false;
-			// }
-		}	
-	},
+	watch: {},
 	methods: {
 		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId', 'changeHomeChartVisible']),
 		onHazyDeal() {

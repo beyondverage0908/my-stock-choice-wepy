@@ -41,6 +41,7 @@
 				margin-right: 15rpx;
 				font-size: @font-size28;
 				color: @main-gray-deep;
+				min-width: 85rpx;
 			}
 			.column {
 				height: 250rpx;
@@ -77,26 +78,31 @@
 				.shadow {
 					height: 40%;
 				}
-				.rt {
-					color: @main-red;
-					font-size: @font-size30;
-				}
-				.rk {
-					color: @main-gray-deep;
-					font-size: @font-size30;
-				}
-
-				.blue {
-					color: @main-blue;
-				}
-				.green {
-					color: @main-green;
-				}
-				.red {
-					color: @main-red;
-				}
-				.gray {
-					color: @main-gray;
+				.data {
+					display: flex;
+					justify-content: center;
+					align-items: center;
+					.rt {
+						color: @main-red;
+						font-size: @font-size30;
+						margin-right: 10rpx;
+					}
+					.rk {
+						color: @main-gray-deep;
+						font-size: @font-size28;
+					}
+					.blue {
+						color: @main-blue;
+					}
+					.green {
+						color: @main-green;
+					}
+					.red {
+						color: @main-red;
+					}
+					.gray {
+						color: @main-gray;
+					}
 				}
 			}
 		}
@@ -111,7 +117,7 @@
 					display: flex;
 					justify-content: flex-start;
 					align-items: center;
-					width: 200rpx;
+					width: 180rpx;
 					height: 55rpx;
 					background: @main-gray;
 					font-size: @font-size28;
@@ -162,17 +168,19 @@
         <div class="content">
             <div class="treat">
 				<div class="pan">
-					<div>强于大盘</div>
-					<div>同步大盘</div>
-					<div>弱于大盘</div>
+					<div>强势组</div>
+					<div>同步组</div>
+					<div>弱势组</div>
 				</div>
 				<div class="column">
 					<div class="cl" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }" :style="{height: barHeight}"></div>
 				</div>
 				<div class="ratio">
 					<div class="shadow" :style="{height: barShadowHeight}"></div>
-					<div class="rt" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }">{{stockCp}}%</div>
-					<div class="rk">({{stock.cpRank}}/{{stock.cpTotal}})</div>
+					<div class="data">
+						<div class="rt" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }">{{stockCp}}%</div>
+						<div class="rk">({{stock.cpRank}}/{{stock.cpTotal}})</div>
+					</div>
 				</div>
 			</div>
 			<div class="cd">
@@ -253,16 +261,17 @@ wepy.component({
 			return '0'
 		},
 		barShadowHeight() {
+			const max = '85%';
 			if (this.stock && this.stock.bar) {
-				if (this.stock.bar < 30) {
-					return `70%`
+				if (this.stock.bar < 15) {
+					return max;
 				} else if (this.stock.bar > 90) {
 					return `0%`
 				} else {
 					return `${100 - this.stock.bar - 8}%` // 多减去8是为了冗余
 				}
 			} else {
-				return '70%';
+				return max;
 			}
 		},
 		barHeight() {
