@@ -324,9 +324,6 @@ wepy.page({
 					this.stock = res.data;
 					this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
 
-					// 
-					this.stock.risks = []
-
 					// 构建图表数据
 					this.yearProfits = this.getYearProfitList(res.data);
 					this.yearRoes = this.getYearRoeList(res.data);
