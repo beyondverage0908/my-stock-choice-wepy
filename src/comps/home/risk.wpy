@@ -1,6 +1,18 @@
 <style lang="less" scoped>
-	@main-red: #009100;
-	@tag-red: #00A600;
+	@font-size28: 28rpx;
+	@font-size30: 30rpx;
+	@font-size32: 32rpx;
+	@font-size36: 36rpx;
+
+	@tag-bg-color: #00A600;
+	@main-black: #000000;
+	@main-gray: #CFCFCF;
+	@main-gray-deep: #676767;
+	@main-red: rgba(229, 28, 35, 1);
+	@main-red-shadow: #FFB5B5;
+	@main-blue: #5291F5;
+	@main-green: #00A600;
+	@main-green-shadow: #CEFFCE;
 	.risk {
 		margin: 30rpx 40rpx;
 		.title {
@@ -13,7 +25,7 @@
 					left: 0;
 					z-index: 4;
 					background-size: 100% 30rpx;
-					color: @main-red;
+					color: @main-green;
 				}
 			}
 		}
@@ -23,7 +35,7 @@
 			margin: 28rpx 0;
 			.tag {
 				padding: 8rpx 13rpx;
-				background: @tag-red;
+				background: @tag-bg-color;
 				border-radius: 10rpx;
 				color: #fff;
 				font-size: 25rpx;
@@ -35,19 +47,29 @@
 				max-width: 550rpx;
 			}
 		}
+		.risk-none {
+			margin-top: 30rpx;
+			color: @main-gray;
+			font-size: @font-size30;
+		}
 	}
 </style>
 
 <template>
-	<div v-if="risks.length" class="risk">
+	<div class="risk">
 		<div class="title">
 			<div class="tip-cn">
 				<span class="tx">风险提示</span>
 			</div>
 		</div>
-		<div class="risk-item" v-for="item in risks">
-			<div class="tag">{{item.riskType}}</div>
-			<div class="detail">{{item.riskName}}</div>
+		<div v-if="hasRisk">
+			<div class="risk-item" v-for="item in risks">
+				<div class="tag">{{item.riskType}}</div>
+				<div class="detail">{{item.riskName}}</div>
+			</div>
+		</div>
+		<div class="risk-none" v-else>
+			暂无
 		</div>
 	</div>
 </template>
@@ -59,6 +81,10 @@ wepy.component({
 		risks: {
 			type: Array,
 			default: []
+		},
+		hasRisk: {
+			type: Boolean,
+			default: true
 		}
 	},
 	data() {

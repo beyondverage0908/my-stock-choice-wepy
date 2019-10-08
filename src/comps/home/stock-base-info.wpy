@@ -80,7 +80,7 @@
 				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
 			</div>
 		</div> -->
-		<div class="p-rank" @click="onHandleRank">性价比排行榜 ></div>
+		<div class="p-rank" @click="onHandleRank">性价比></div>
 		<i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>

@@ -202,7 +202,7 @@
 					</div>
 					<img v-if="stock.buying === 0" class="img" src="../../assets/right.png" />
 				</div>
-				<div class="desc" @click="handleHelp">今日关注{{stock.totalFollow}} ></div>
+				<div class="desc" @click="handleHelp">今日关注 ></div>
 			</div>
         </div>
         <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">

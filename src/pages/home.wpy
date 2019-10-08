@@ -226,8 +226,8 @@
 			</div>
 			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" /> -->
 		</div>
-		<div class="section" style="border-bottom: none;" v-if="hasRisk">
-			<risk :risks="stock.risks"/>
+		<div class="section" style="border-bottom: none;">
+			<risk :hasRisk="hasRisk" :risks="stock.risks"/>
 		</div>
 		<copyrignt :number="sysPv"></copyrignt>
 		<!-- toolbar 是否悬浮在右下角的客服和分享 -->
@@ -323,6 +323,10 @@ wepy.page({
 				if (res.data) {
 					this.stock = res.data;
 					this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
+
+					// 
+					this.stock.risks = []
+
 					// 构建图表数据
 					this.yearProfits = this.getYearProfitList(res.data);
 					this.yearRoes = this.getYearRoeList(res.data);
