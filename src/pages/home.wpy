@@ -239,7 +239,7 @@
 </template>
 <script>
 import wepy from '@wepy/core'
-import { getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
+import { getStockDefault, getStockInfo, getSearchStockInfo, getRatings, getRoeratings, getProfitRatings } from '@/api/home'
 import { sysVisit, login } from '@/api/sys'
 import { defaultStockCode } from '@/util/config'
 import { mapState, mapMutations } from '@wepy/x'
@@ -289,7 +289,11 @@ wepy.page({
 	methods: {
 		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId', 'changeHomeChartVisible']),
 		onHazyDeal() {
-			this.hazyCount++;
+			// this.hazyCount++;
+			// console.log('xxxx');
+			wx.navigateTo({
+				url: './stock-list?id=123'
+			})
 		},
 		gotoChartArea() {
 			wx.navigateTo({
@@ -319,33 +323,57 @@ wepy.page({
 			this.getStockInfo(search.zqdm)
 		},
 		getStockInfo(stockCode) {
-			getStockInfo(stockCode).then(res => {
-				if (res.data) {
-					this.stock = res.data;
-					this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
+			if (!stockCode) {
+				getStockDefault().then(res => {
+					if (res.data) {
+						this.stock = res.data;
+						this.currentStockCode = res.data.zqdm;
+						this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
 
-					// 构建图表数据
-					this.yearProfits = this.getYearProfitList(res.data);
-					this.yearRoes = this.getYearRoeList(res.data);
+						// 构建图表数据
+						this.yearProfits = this.getYearProfitList(res.data);
+						this.yearRoes = this.getYearRoeList(res.data);
 
-					// 获取表格数据
-					this.getRatings();
-					this.getRoeratings();
-					this.getProfitRatings();
-				} 
-				// 主要为了解决
-				this.isShowRoeRating = false;
-				this.isShowProfitRating = false;
-				// 系统访问记录 +1
-				if (this.sessionId) {
-					this.systemVisite();
-				}
-			}).catch(err => {
-				// 系统访问记录 +1
-				if (this.sessionId) {
-					this.systemVisite();
-				}
-			})
+						// 获取表格数据
+						this.getRatings();
+						this.getRoeratings();
+						this.getProfitRatings();
+					}
+					// 系统访问记录 +1
+					if (this.sessionId) {
+						this.systemVisite();
+					}
+				})
+			} else {
+				getStockInfo(stockCode).then(res => {
+					if (res.data) {
+						this.stock = res.data;
+						this.currentStockCode = res.data.zqdm;
+						this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
+
+						// 构建图表数据
+						this.yearProfits = this.getYearProfitList(res.data);
+						this.yearRoes = this.getYearRoeList(res.data);
+
+						// 获取表格数据
+						this.getRatings();
+						this.getRoeratings();
+						this.getProfitRatings();
+					} 
+					// 主要为了解决
+					this.isShowRoeRating = false;
+					this.isShowProfitRating = false;
+					// 系统访问记录 +1
+					if (this.sessionId) {
+						this.systemVisite();
+					}
+				}).catch(err => {
+					// 系统访问记录 +1
+					if (this.sessionId) {
+						this.systemVisite();
+					}
+				})
+			}
 		},
 		getYearProfitList(stock) {
 			const profits = []

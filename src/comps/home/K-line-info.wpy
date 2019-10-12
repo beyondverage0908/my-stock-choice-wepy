@@ -13,6 +13,8 @@
 @main-blue: #5291F5;
 @main-green: #00A600;
 @main-green-shadow: #CEFFCE;
+@main-heightlight: #DBE11C;
+@buying-border: solid 1rpx @main-gray-deep;
 
 .kline-container {
     // margin: 30rpx 40rpx;
@@ -34,119 +36,76 @@
 		.treat {
 			display: flex;
 			padding: 20rpx 0 10rpx 0;
-			.pan {
+			flex-direction: column;
+			.buy-tip-container {
 				display: flex;
-				flex-direction: column;
-				justify-content: space-around;
-				margin-right: 15rpx;
-				font-size: @font-size28;
-				color: @main-gray-deep;
-				min-width: 85rpx;
-			}
-			.column {
-				height: 250rpx;
-				width: 35rpx;
-				background-color: @main-gray;
-				position: relative;
-				margin-right: 15rpx;
-				border: 1rpx solid @main-gray;
-				.cl {
-					height: 50%;
-					width: 100%;
-					position: absolute;
-					bottom: 0;
-					background-color: @main-gray-deep;
-				}
-				.blue {
-					// background-color: @main-blue;
-					border-top: solid 5rpx  @main-blue;
-				}
-				.green {
-					// background-color: @main-green;
-					border-top: solid 5rpx  @main-green;
-				}
-				.red {
-					// background-color: @main-red;
-					border-top: solid 5rpx  @main-red;
-				}
-				.gray {
-					// background-color: @main-gray;
-					border-top: solid 5rpx  @main-gray;
-				}
-			}
-			.ratio {
-				.shadow {
-					height: 40%;
-				}
-				.data {
+				.buy-item {
 					display: flex;
-					justify-content: center;
+					flex-direction: column;
 					align-items: center;
-					.rt {
-						color: @main-red;
+					min-width: 110rpx;
+					.name {
 						font-size: @font-size30;
-						margin-right: 10rpx;
-					}
-					.rk {
 						color: @main-gray-deep;
-						font-size: @font-size28;
+						background-color: @main-gray;
+						text-align: center;
+						width: 99%;
 					}
-					.blue {
-						color: @main-blue;
+					.borderRight {
+						border-right: solid 2rpx @main-black;
 					}
-					.green {
-						color: @main-green;
+					.heightlight {
+						background-color: @main-heightlight;
 					}
-					.red {
-						color: @main-red;
+					.up-img {
+						width: 32rpx;
+						height: 32rpx;
 					}
-					.gray {
-						color: @main-gray;
-					}
+				}
+			}
+			.desc-buying {
+				margin-top: 30rpx;
+				.buy {
+					color: @main-gray;
+					font-size: @font-size30;
 				}
 			}
 		}
 		.cd {
 			display: flex;
 			flex-direction: column;
-			justify-content: space-between;
-			.item {
-				display: flex;
-				align-items: center;
-				.text {
+			padding-top: 20rpx;
+			.today-buy-container {
+				.today-buy-item {
 					display: flex;
-					justify-content: flex-start;
-					align-items: center;
-					width: 180rpx;
-					height: 55rpx;
-					background: @main-gray;
-					font-size: @font-size28;
-					margin-right: 15rpx;
-					.t {
-						margin-left: 40rpx;
+					width: 100%;
+					.label {
+						color: @main-gray;
+						font-size: @font-size30;
+						border-left: @buying-border;
+						border-top: @buying-border;
+						border-right: @buying-border;
+						padding: 5rpx 8rpx;
+						text-align: center;
 					}
-				}
-				.pick-green {
-					background: url(data:image/jpeg;base64,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) no-repeat;
-					color: #fff;
-				}
-				.pick-oragin {
-					background: url(data:image/jpeg;base64,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) no-repeat;
-					color: #fff;
-				}
-				.pick-blue {
-					background: url(data:image/jpeg;base64,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) no-repeat;
-					color: #fff;
-				}
-				.img {
-					width: 36rpx;
-					height: 36rpx;
+					.value {
+						color: @main-gray;
+						font-size: @font-size30;
+						border-top: @buying-border;
+						border-right: @buying-border;
+						padding: 5rpx 0;
+						width: 69rpx;
+						text-align: center;
+					}
+					.borderBottom {
+						border-bottom: @buying-border;
+					}
 				}
 			}
 			.desc {
 				font-size: @font-size28;
 				color: @main-gray-deep;
-				margin-top: 15rpx;
+				margin-top: 30rpx;
 			}
 		}
     }
@@ -160,47 +119,37 @@
 <template>
     <div class="kline-container">
         <div class="header">
-            <!-- <span class="title">K线强度</span> -->
             <indicator :title="'K线形态'"/>
-            <!-- <img class="time" src="../../assets/help.png" @click="handleHelp" /> -->
 			<span class="time">{{startTime}}－{{endTime}}</span>
         </div>
         <div class="content">
             <div class="treat">
-				<div class="pan">
-					<div>强势组</div>
-					<div>同步组</div>
-					<div>弱势组</div>
-				</div>
-				<div class="column">
-					<div class="cl" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }" :style="{height: barHeight}"></div>
-				</div>
-				<div class="ratio">
-					<div class="shadow" :style="{height: barShadowHeight}"></div>
-					<div class="data">
-						<div class="rt" :class="{gray: stock.barColor === 0, red: stock.barColor === 1, blue: stock.barColor === 2, green: stock.barColor === 3 }">{{stockCp}}%</div>
-						<div class="rk">({{stock.cpRank}}/{{stock.cpTotal}})</div>
+				<div class="buy-tip-container">
+					<div v-for="(buyItem, index) in buyingLabelList" class="buy-item">
+						<div class="name" :class="{borderRight: index < buyingLabelList.length - 1, heightlight: buyItem.key === stock.buying}">{{buyItem.label}}</div>
+						<img v-if="buyItem.key === stock.buying" class="up-img" src="../../assets/up.png" alt="">
 					</div>
+				</div>
+				<div class="desc-buying">
+					<div class="buy">买1：关注标的波动收缩或突破</div>
+					<div class="buy">买2：突破前期阻力位回落企稳</div>
+					<div class="buy">买3：再次向上突破回落前高点</div>
 				</div>
 			</div>
 			<div class="cd">
-				<div class="item">
-					<div class="text" :class="{'pick-oragin': stock.buying === 2}">
-						<span class="t">买点</span>
+				<div class="today-buy-container">
+					<div class="today-buy-item">
+						<div class="label">今日买一</div>
+						<div class="value">{{stock.buying1Count}}</div>
 					</div>
-					<img v-if="stock.buying === 2" class="img" src="../../assets/right.png" />
-				</div>
-				<div class="item">
-					<div class="text" :class="{'pick-blue': stock.buying === 1}">
-						<span class="t">关注</span>
+					<div class="today-buy-item">
+						<div class="label">今日买二</div>
+						<div class="value">{{stock.buying2Count}}</div>
 					</div>
-					<img v-if="stock.buying === 1" class="img" src="../../assets/right.png" />
-				</div>
-				<div class="item">
-					<div class="text" :class="{'pick-green': stock.buying === 0}">
-						<span class="t">路人</span>
+					<div class="today-buy-item">
+						<div class="label borderBottom">今日买三</div>
+						<div class="value borderBottom">{{stock.buying3Count}}</div>
 					</div>
-					<img v-if="stock.buying === 0" class="img" src="../../assets/right.png" />
 				</div>
 				<div class="desc" @click="handleHelp">今日关注 ></div>
 			</div>
@@ -230,10 +179,23 @@ wepy.component({
         }
     },
     data: {
-        buyingLabelList: [
-			{ label: '买点', value: 2 },
-			{ label: '关注', value: 1 },
-			{ label: '路人', value: 0 },
+		buyingLabelList: [
+			{
+				key: 0,
+				label: '等待'
+			}, 
+			{
+				key: 1,
+				label: '买点一'
+			}, 
+			{
+				key: 2,
+				label: '买点二'
+			},
+			{
+				key: 3,
+				label: '买点三'
+			}
 		],
         modalVisible: false
     },
@@ -249,37 +211,6 @@ wepy.component({
                 return moment(this.stock.endTime).format('YYYYMMDD');
             }
             return '-';
-		},
-		stockCp() {
-			if (this.stock && this.stock.cp) {
-				if (this.stock.cp > 0) {
-					return `+${this.stock.cp}`;
-				} else {
-					return `-${-(this.stock.cp)}`;
-				}
-			}
-			return '0'
-		},
-		barShadowHeight() {
-			const max = '85%';
-			if (this.stock && this.stock.bar) {
-				if (this.stock.bar < 15) {
-					return max;
-				} else if (this.stock.bar > 90) {
-					return `0%`
-				} else {
-					return `${100 - this.stock.bar - 8}%` // 多减去8是为了冗余
-				}
-			} else {
-				return max;
-			}
-		},
-		barHeight() {
-			if (this.stock && this.stock.bar) {
-				return `${this.stock.bar}%`;
-			} else {
-				return '0%';
-			}
 		}
     },
     methods: {

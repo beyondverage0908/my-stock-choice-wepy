@@ -20,10 +20,33 @@
 		flex: 5;
 		box-sizing: border-box;
 		padding-left: 40rpx;
-		.name {
-			font-size: @font-size60;
-			color: @main-blue-shadow;
-			margin: 10rpx 0 0rpx;
+		.name-wraper {
+			display: flex;
+			align-items: center;
+			.name {
+				font-size: @font-size60;
+				color: @main-blue-shadow;
+				margin: 10rpx 0 0rpx;
+			}
+			.sel {
+				border: 1rpx solid @main-red;
+				border-radius: 6rpx;
+				font-size: @font-size28;
+				color: @main-red;
+				display: flex;
+				align-items: center;
+				padding: 10rpx 15rpx;
+				margin-left: 15rpx;
+				margin-top: 20rpx;
+				.add-img {
+					width: 32rpx;
+					height: 32rpx;
+				}
+			}
+			.seled {
+				color: #fff;
+				background-color: @main-red;
+			}
 		}
 		.code {
 			font-size: @font-size30;
@@ -70,7 +93,15 @@
 
 <template>
 	<div class="info">
-		<div class="name">{{stock.zqjc}}</div>
+		<div class="name-wraper">
+			<div class="name">
+				{{stock.zqjc}}
+			</div>
+			<div class="sel" :class="{seled: stock.hasAdded}" @click="handleAddSelectStock">
+				<img v-if="stock.hasAdded" class="add-img" src="../../assets/zixun.png" alt=""/>
+				<img v-else class="add-img" src="../../assets/add.png" alt="" /> 自选
+			</div>
+		</div>
 		<div class="code">{{stock.zqdm}}</div>
 		<!-- <div class="tag-list">
 			<div class="item">
@@ -97,6 +128,7 @@
 import wepy from '@wepy/core';
 import { mapMutations } from '@wepy/x';
 import store from '@/store';
+import { addToStocks } from '@/api/home'
 wepy.component({
 	store,
 	props: {
@@ -123,6 +155,17 @@ wepy.component({
 		handleCopyWxId() {
 			wx.setClipboardData({
 				data: 'SpringClub2015'
+			})
+		},
+		handleAddSelectStock() {
+			if (this.stock.hasAdded) {
+				return;
+			}
+			addToStocks({ zqdm: this.stock.zqdm, zqjc: this.stock.zqjc }).then(res => {
+				console.log(res);
+				if (res.data) {
+					this.stock.hasAdded = true;
+				}
 			})
 		}
 	}
