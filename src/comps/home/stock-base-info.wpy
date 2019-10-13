@@ -167,7 +167,7 @@ wepy.component({
 			addToStocks({ zqdm: this.stock.zqdm, zqjc: this.stock.zqjc }).then(res => {
 				if (res.data.success) {
 					this.stock.hasAdded = true;
-					this.changeStockAdded({zqdm: this.stock.zqdm, hasAdded: true, isNew: true})
+					this.changeStockAdded({zqdm: this.stock.zqdm, hasAdded: true, isNeedFresh: true})
 					wx.showToast({title: '添加自选成功', icon: 'none', duration: 2000});
 				} else {
 					wx.showToast({title: res.data.message, icon: 'none', duration: 2000});

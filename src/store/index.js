@@ -25,7 +25,7 @@ export default new Vuex.Store({
 			state.sessionId = payload;
 		},
 		changeStockAdded(state, payload) {
-			if (payload.isNew || state.stockAdded.zqdm === payload.zqdm) {
+			if (payload.isNeedFresh || state.stockAdded.zqdm === payload.zqdm) {
 				state.stockAdded = payload;
 			}
 		}

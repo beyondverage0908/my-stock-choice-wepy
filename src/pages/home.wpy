@@ -324,7 +324,7 @@ wepy.page({
 		},
 		dealStockInfo(stock) {
 			this.currentStockCode = stock.zqdm;
-			this.changeStockAdded({zqdm: stock.zqdm || '', hasAdded: stock.hasAdded, isNew: true})
+			this.changeStockAdded({zqdm: stock.zqdm || '', hasAdded: stock.hasAdded, isNeedFresh: true})
 			this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
 
 			// 构建图表数据
