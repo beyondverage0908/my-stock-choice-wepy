@@ -1,0 +1,214 @@
+<style lang="less" scoped>
+
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+
+@main-black: #000000;
+@main-gray: #CFCFCF;
+@main-gray-deep: #676767;
+@main-red: #FF0000;
+@main-red-shadow: #FFB5B5;
+@main-blue: #5291F5;
+@main-green: #00A600;
+@table-header-bg-color: #F0F0F0; 
+@border: solid @main-gray 1rpx;
+.stock-table-rating {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	min-height: 100vh;
+    .table {
+		margin: 0 0rpx;
+        .tr {
+            display: flex;
+            .th {
+                font-size: 30rpx;
+                font-weight: 700;
+                text-align: center;
+                flex: 1;
+                border-top: @border;
+				border-right: @border; 
+				padding: 10rpx 5rpx;
+				background: @table-header-bg-color;
+			}
+			.border-left {
+				border-left: @border; 
+			}
+			.border-bottom {
+				border-bottom: @border;
+			}
+            .td {
+                font-size: 28rpx;
+                font-weight: 500;
+                color: @main-gray-deep;
+                text-align: center;
+                flex: 1;
+				border-top: @border;
+				border-right: @border; 
+                padding: 10rpx 5rpx;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                .tread {
+                    width: 80%;
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    .img {
+                        width: 22rpx;
+                        height: 22rpx;
+                    }
+                }
+            }
+        }
+        .no-data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: @main-blue;
+            height: 150rpx;
+            border-left: solid @main-gray 1rpx;
+            border-bottom: solid @main-gray 1rpx;
+            border-right: solid @main-gray 1rpx;
+        }
+	}
+	.footer {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-top: 100rpx;
+		margin-bottom: 100rpx;
+		.img-qrcode {
+			width: 200rpx;
+			height: 200rpx;
+		}
+		.desc {
+			margin-left: 25rpx;
+			.title {
+				color: @main-gray-deep;
+				font-size: @font-size30;
+				.fixed {
+					color: @main-red;
+					font-weight: 700;
+					font-size: @font-size32;
+				}
+			}
+			.subtitle {
+				color: @main-gray-deep;
+				font-size: @font-size30;
+			}
+		}
+	}
+}
+</style>
+
+<template>
+	<div class="stock-table-rating">
+        <div class="table">
+            <div class="tr">
+                <div class="th" :class="{'border-left': index === 0}" v-for="(head, index) in tableHeadLabelList" :key="head.label">{{head.label}}</div>
+            </div>
+            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
+                <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
+                    <div v-if="item.key === 'index'">
+						{{tridx}}
+                    </div>
+					<div v-else-if="item.key === 'buying'">
+						{{buyingLabel[tr[item.key]]}}
+					</div>
+					<div v-else-if="item.key === 'opt'">
+						<div @click="handleRemoveSelfStock(tr)">取消自选</div>
+					</div>
+                    <div v-else>
+                        {{tr[item.key]}}
+                    </div>
+                </div>
+            </div>
+            <div v-if="!tableData.length" class="no-data">
+                暂无数据
+            </div>
+        </div>
+		<div class="footer">
+			<img class="img-qrcode" src="../assets/qrcode.jpeg" alt="" />
+			<div class="desc">
+				<div class="title">欢迎扫码关注<span class="fixed">解套宝</span>公众号</div>
+				<div class="subtitle">买点+轮动策略简介</div>
+			</div>
+		</div>
+	</div>
+</template>
+<script>
+import { getUserStocks, removeFromStocks } from '@/api/home';
+import { mapMutations } from '@wepy/x';
+import wepy from '@wepy/core';
+import store from '@/store';
+const { $Toast } = require('../iview/dist/base/index')
+wepy.page({
+	store,
+	data: {
+		// 0.等待 1.买一 2.买二 3.买三
+		buyingLabel: {
+			'0': '', // 0等待，显示空白
+			'1': '买一',
+			'2': '买二',
+			'3': '买三'
+		},
+		// 机构名称 研究员 2019预测 2020预测
+        tableHeadLabelList: [
+			{ label: '序号', key: 'index' },
+            { label: '公司简介', key: 'zqjc' },
+            { label: '性价比', key: 'value' },
+            { label: '买点', key: 'buying' },
+            { label: '操作', key: 'opt' }
+        ],
+        tableData: []
+	},
+	methods: {
+		...mapMutations(['changeStockAdded']),
+		handleRemoveSelfStock(stock) {
+			removeFromStocks(stock.zqdm).then(res => {
+				if (res.data.success) {
+					wx.showToast({
+						title: '删除自选成功',
+						icon: 'none',
+						duration: 2000
+					})
+					this.changeStockAdded({zqdm: stock.zqdm, hasAdded: false});
+					const index = this.tableData.findIndex(item => item.zqdm === stock.zqdm);
+					this.tableData.splice(index, 1);
+				} else {
+					wx.showToast({
+						title: '删除失败',
+						icon: 'none',
+						duration: 2000
+					})
+				}
+			})
+		}
+	},
+	onLoad(options) {
+		getUserStocks().then(res => {
+			if (res.data.success) {
+				this.tableData = res.data.data;
+			} else {
+				wx.showToast({
+					title: '获取自选股失败',
+					icon: 'none',
+					duration: 2000
+				})
+			}
+		}) 
+	},
+})
+</script>
+<config>
+{
+	navigationBarBackgroundColor: '#5386C7',
+	navigationBarTitleText: '自选股',
+    usingComponents: {
+		"i-toast": "~@/iview/dist/toast/index"
+    }
+}
+</config>

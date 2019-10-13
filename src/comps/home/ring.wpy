@@ -4,11 +4,12 @@
 @font-size32: 32rpx;
 @font-size36: 36rpx;
 @font-size60: 60rpx;
+@font-size70: 70rpx;
 
 @main-black: #000000;
 @main-gray: #cfcfcf;
 @main-gray-deep: #676767;
-@main-red: rgba(229, 28, 35, 1);
+@main-red: #FF0000;
 @main-red-shadow: #ffb5b5;
 @main-blue: #5291f5;
 @main-blue-shadow: rgb(131, 177, 229);
@@ -76,12 +77,20 @@
   line-height: @ring-height;
   text-align: center;
   margin-top: -@ring-height;
-  font-size: @font-size60;
+  font-size: @font-size70;
   color: @main-red;
   font-weight: 700;
 }
 .green {
   color: @main-green;
+}
+.gray {
+	color: @main-gray;
+}
+.modal-content {
+	text-align: left;
+	padding: 10rpx 40rpx;
+	box-sizing: border-box;
 }
 </style>
 <template>
@@ -98,15 +107,27 @@
 			<div class="circle-bottom-left"></div>
 			<div class="circle-bottom-right"></div>
 		</div>
-		<div class="info" :class="{green: !rank && rank <= 0}">{{rank || '——'}}</div>
+		<div class="info" :class="{gray: !rank && rank <= 0}">{{rank || '—'}}</div>
+		<i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+			<div class="modal-content">
+                <div>
+                    <div>1.	性价比排名指标，凝聚了十多位民间高手的智慧，是基本面与技术面融合后的复合指标，应用方法，请关注“解套宝”微信服务号。</div>
+                    <div>2.	欢迎约茶线下交流，地址：南京洪武路23号1408室。</div>
+                </div>
+    		</div>
+		</i-modal>
 	</div>
 </template>
 <script>
 import wepy from '@wepy/core';
+import { mapMutations } from '@wepy/x';
+import store from '@/store';
 wepy.component({
+	store,
   data: {
     ringRightClass: {},
-    ringLeftClass: {}
+	ringLeftClass: {},
+	modalVisible: false
   },
   props: {
     score: {
@@ -127,16 +148,24 @@ wepy.component({
     }
   },
   watch: {
-    score(newVal, oldVal) {
-      this.initRing();
-    }
+    // score(newVal, oldVal) {
+    //   this.initRing();
+	// },
+	rank(newVal, oldVal) {
+		this.initRing();
+	}
   },
   ready() {
     console.log(this.rank);
   },
   methods: {
+	  ...mapMutations(['changeHomeChartVisible']),
     initRing() {
-      var percent = 1 - this.score / 100;
+	//   var percent = 1 - this.score / 100;
+	//   if (!this.score) {
+	// 	  percent = 0;
+	//   }
+	var percent = this.rank / 100;
       const ringRightClass = {};
       const ringLeftClass = {};
       if (percent <= 0.5) {
@@ -154,8 +183,24 @@ wepy.component({
       }
       this.ringRightClass = ringRightClass;
       this.ringLeftClass = ringLeftClass;
-    }
+	},
+	handleHelp() {
+		console.log(1);
+		this.modalVisible = true;
+		this.changeHomeChartVisible(false);
+	},
+	handleCloseOk() {
+		this.modalVisible = false;
+		this.changeHomeChartVisible(true);
+	}
   }
 });
 </script>
+<config>
+{
+    usingComponents: {
+        "i-modal": "~@/iview/dist/modal/index"
+    }
+}
+</config>
 

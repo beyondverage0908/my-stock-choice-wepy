@@ -8,11 +8,13 @@
 @main-black: #000000;
 @main-gray: #CFCFCF;
 @main-gray-deep: #676767;
-@main-red: rgba(229, 28, 35, 1);
+@main-red: #FF0000;
 @main-red-shadow: #FFB5B5;
 @main-blue: #5291F5;
 @main-green: #00A600;
 @main-green-shadow: #CEFFCE;
+@main-heightlight: #DBE11C;
+@buying-border: solid 1rpx @main-gray-deep;
 
 .kline-container {
     // margin: 30rpx 40rpx;
@@ -22,49 +24,90 @@
         .time {
             margin-top: 30rpx;
             margin-right: 40rpx;
-            width: 36rpx;
-            height: 36rpx;
-        }
+			height: 36rpx;
+			font-size: @font-size28;
+			color: @main-gray;
+		}
     }
     .content {
-        margin: 0 40rpx;
-        .desc {
-            font-size: @font-size28;
-            color: @main-gray;
-        }
-        .sec {
-            margin: 15rpx 0;
+		margin: 20rpx 40rpx 0 40rpx;
+		display: flex;
+		justify-content: space-between;
+		.treat {
 			display: flex;
-			align-items: center;
-            .title {
-                font-size: @font-size30;
-                min-width: 145rpx;
-            }
-            .item {
-                color: @main-gray-deep;
-                font-size: @font-size28;
-            }
-            .buying {
-                .b-item {
-                    display: inline-block;
-                    padding: 0 10rpx;
-                    font-size: @font-size28;
-                    color: @main-gray;
-                }
-                .sign {
-                    color: @main-red;
-                    font-size: @font-size32 !important;
-                }
-            }
-            .sign {
-                color: @main-red;
-                font-size: @font-size28;
-            }
-        }
-        .st {
-            font-size: @font-size28;
-            color: @main-gray-deep;
-        }
+			padding: 20rpx 0 10rpx 0;
+			flex-direction: column;
+			.buy-tip-container {
+				display: flex;
+				.buy-item {
+					display: flex;
+					flex-direction: column;
+					align-items: center;
+					min-width: 110rpx;
+					.name {
+						font-size: @font-size30;
+						color: @main-gray-deep;
+						background-color: @main-gray;
+						text-align: center;
+						width: 99%;
+					}
+					.borderRight {
+						border-right: solid 2rpx @main-black;
+					}
+					.heightlight {
+						background-color: @main-heightlight;
+					}
+					.up-img {
+						width: 32rpx;
+						height: 32rpx;
+					}
+				}
+			}
+			.desc-buying {
+				margin-top: 30rpx;
+				.buy {
+					color: @main-gray;
+					font-size: @font-size30;
+				}
+			}
+		}
+		.cd {
+			display: flex;
+			flex-direction: column;
+			padding-top: 20rpx;
+			.today-buy-container {
+				.today-buy-item {
+					display: flex;
+					width: 100%;
+					.label {
+						color: @main-gray;
+						font-size: @font-size30;
+						border-left: @buying-border;
+						border-top: @buying-border;
+						border-right: @buying-border;
+						padding: 5rpx 8rpx;
+						text-align: center;
+					}
+					.value {
+						color: @main-gray;
+						font-size: @font-size30;
+						border-top: @buying-border;
+						border-right: @buying-border;
+						padding: 5rpx 0;
+						width: 69rpx;
+						text-align: center;
+					}
+					.borderBottom {
+						border-bottom: @buying-border;
+					}
+				}
+			}
+			.desc {
+				font-size: @font-size28;
+				color: @main-gray-deep;
+				margin-top: 30rpx;
+			}
+		}
     }
     .modal-content {
         text-align: left;
@@ -76,44 +119,48 @@
 <template>
     <div class="kline-container">
         <div class="header">
-            <!-- <span class="title">K线强度</span> -->
             <indicator :title="'K线形态'"/>
-            <img class="time" src="../../assets/help.png" @click="handleHelp" />
+			<span class="time">{{startTime}}－{{endTime}}</span>
         </div>
         <div class="content">
-            <div class="desc">
-                Ｋ线形态起源于二十年前石开先生的β背离系数，牛棚量化团队在南京、苏州两地潜心迭代十五年，打磨出一套出基于Ｋ线形态的轮动交易系统。
-            </div>
-            <div class="sec">
-                <div class="title">形态节奏：</div>
-                <div class="item buying">
-                    <span v-for="(item, index) in buyingLabelList" :class="{sign: stock.buying === item.value}" class="b-item">{{item.label}}</span>
-                </div>
-            </div>
-            <div class="sec">
-                <div class="title">形态强度：</div>
-                <div class="item">{{stock.banker || '-'}}</div>
-            </div>
-            <div class="sec">
-                <div class="title">强度排名：</div>
-                <div class="item"><span class="sign">{{stock.bankerRank || '-'}}</span>/{{stock.bankerTotal || '-'}}</div>
-            </div>
-            <!-- <div class="st">
-                实时监测股票池的轮动买点，寻找相似Ｋ线
-            </div> -->
-            </div>
-        <i-modal title="帮助" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+            <div class="treat">
+				<div class="buy-tip-container">
+					<div v-for="(buyItem, index) in buyingLabelList" class="buy-item">
+						<div class="name" :class="{borderRight: index < buyingLabelList.length - 1, heightlight: buyItem.key === stock.buying}">{{buyItem.label}}</div>
+						<img v-if="buyItem.key === stock.buying" class="up-img" src="../../assets/up.png" alt="">
+					</div>
+				</div>
+				<div class="desc-buying">
+					<div class="buy">买1：关注标的波动收缩或突破</div>
+					<div class="buy">买2：突破前期阻力位回落企稳</div>
+					<div class="buy">买3：再次向上突破回落前高点</div>
+				</div>
+			</div>
+			<div class="cd">
+				<div class="today-buy-container">
+					<div class="today-buy-item">
+						<div class="label">今日买一</div>
+						<div class="value">{{stock.buying1Count}}</div>
+					</div>
+					<div class="today-buy-item">
+						<div class="label">今日买二</div>
+						<div class="value">{{stock.buying2Count}}</div>
+					</div>
+					<div class="today-buy-item">
+						<div class="label borderBottom">今日买三</div>
+						<div class="value borderBottom">{{stock.buying3Count}}</div>
+					</div>
+				</div>
+				<div class="desc" @click="handleHelp">今日关注 ></div>
+			</div>
+        </div>
+        <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
-                    <div>1. 形态节奏，即通过Ｋ线形态分析，将股票分类三类</div>
-                    <div>关注：调入股票池，每日关注走势，监测买点</div>
-                    <div>买点：可以买入建仓</div>
-                    <div>路人：暂不关注 </div>
+                    <div>1. 订阅成为“牛棚”会员，查询今日关注、今天买点排行。</div>
+                    <div>2. 欢迎约茶交流，地址：南京洪武路23号1408室。</div>
+                    <div>3.	点击客服，咨询订阅方式。。</div>
                 </div>
-                <div style="height: 20rpx;"></div>
-                <div>
-                    2. 形态强度，数据越大，说明主力资金越强
-        		</div>
     		</div>
 		</i-modal>
     </div>
@@ -132,10 +179,23 @@ wepy.component({
         }
     },
     data: {
-        buyingLabelList: [
-			{ label: '买点', value: 2 },
-			{ label: '关注', value: 1 },
-			{ label: '路人', value: 0 },
+		buyingLabelList: [
+			{
+				key: 0,
+				label: '等待'
+			}, 
+			{
+				key: 1,
+				label: '买点一'
+			}, 
+			{
+				key: 2,
+				label: '买点二'
+			},
+			{
+				key: 3,
+				label: '买点三'
+			}
 		],
         modalVisible: false
     },
@@ -151,7 +211,7 @@ wepy.component({
                 return moment(this.stock.endTime).format('YYYYMMDD');
             }
             return '-';
-        }
+		}
     },
     methods: {
 		...mapMutations(['changeHomeChartVisible']),

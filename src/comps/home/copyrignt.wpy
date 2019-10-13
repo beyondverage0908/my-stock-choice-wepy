@@ -17,6 +17,7 @@
 			.tip {
 				font-size: 30rpx;
 				color: @main-blue;
+				margin-left: 12rpx;
 			}
 		}
 	}

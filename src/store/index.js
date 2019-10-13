@@ -4,7 +4,12 @@ export default new Vuex.Store({
 	state: {
 		isShowHomeChart: true,
 		loginCode: '',
-		sysPv: ''
+		sysPv: '',
+		sessionId: '',
+		stockAdded: {
+			zqdm: '',
+			hasAdded: false
+		}
 	},
 	mutations: {
 		changeHomeChartVisible(state, payload) {
@@ -15,6 +20,14 @@ export default new Vuex.Store({
 		},
 		changeSysPv(state, payload) {
 			state.sysPv = payload || 0;
+		},
+		changeSessionId(state, payload) {
+			state.sessionId = payload;
+		},
+		changeStockAdded(state, payload) {
+			if (payload.isNeedFresh || state.stockAdded.zqdm === payload.zqdm) {
+				state.stockAdded = payload;
+			}
 		}
 	},
 	actions: {

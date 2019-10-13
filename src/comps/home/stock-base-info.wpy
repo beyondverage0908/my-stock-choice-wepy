@@ -9,7 +9,7 @@
 	@main-black: #000000;
 	@main-gray: #CFCFCF;
 	@main-gray-deep: #676767;
-	@main-red: rgba(229, 28, 35, 1);
+	@main-red: #FF0000;
 	@main-red-shadow: #FFB5B5;
 	@main-blue: #5291F5;
 	@main-blue-shadow: rgb(131, 177, 229);
@@ -20,14 +20,43 @@
 		flex: 5;
 		box-sizing: border-box;
 		padding-left: 40rpx;
-		.name {
-			font-size: @font-size60;
-			color: @main-blue-shadow;
-			margin: 10rpx 0 10rpx;
+		.name-wraper {
+			display: flex;
+			align-items: center;
+			.name {
+				font-size: @font-size60;
+				color: @main-blue-shadow;
+				margin: 10rpx 0 0rpx;
+			}
+			.sel {
+				border: 1rpx solid @main-red;
+				border-radius: 6rpx;
+				font-size: @font-size28;
+				color: @main-red;
+				display: flex;
+				align-items: center;
+				padding: 10rpx 15rpx;
+				margin-left: 15rpx;
+				margin-top: 20rpx;
+				.add-img {
+					width: 32rpx;
+					height: 32rpx;
+				}
+			}
+			.seled {
+				color: #fff;
+				background-color: @main-red;
+			}
 		}
 		.code {
 			font-size: @font-size30;
 			color: @main-gray-deep;
+			margin-top: 15rpx;
+		}
+		.p-rank {
+			font-size: @font-size28;
+			color: @main-gray-deep;
+			margin-top: 60rpx;
 		}
 		.tag-list {
 			display: flex;
@@ -37,22 +66,23 @@
 			.item {
 				display: flex;
 				align-items: center;
-				margin-bottom: 15rpx;
+				margin-bottom: 10rpx;
 				.topic {
 					font-size: @font-size30;
-					min-width: 145rpx;
 				}
 				.rank {
 					margin-left: 10rpx;
 					color: @main-red;
+					font-size: @font-size28;
 				}
 				.total-rank {
-
+					font-size: @font-size28;
 				}
 			}
 		}
 		.modal-content {
 			margin: 15rpx 30rpx;
+			text-align: left;
 			.wxid {
 				color: @main-blue-shadow;
 				font-weight: 700;
@@ -63,26 +93,42 @@
 
 <template>
 	<div class="info">
-		<div class="name">{{stock.zqjc}}</div>
+		<div class="name-wraper">
+			<div class="name">
+				{{stock.zqjc}}
+			</div>
+			<div class="sel" :class="{seled: stockAdded.hasAdded}" @click="handleAddSelectStock">
+				<img v-if="stockAdded.hasAdded" class="add-img" src="../../assets/zixun.png" alt=""/>
+				<img v-else class="add-img" src="../../assets/add.png" alt="" /> 自选
+			</div>
+		</div>
 		<div class="code">{{stock.zqdm}}</div>
-		<div class="tag-list">
+		<!-- <div class="tag-list">
 			<div class="item">
 				<span class="topic">{{stock.topic1.topic}}</span><span class="rank">{{stock.topic1.rank}}</span>/<span class="total-rank">{{stock.topic1.totalRank}}</span>
 			</div>
 			<div class="item">
 				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
 			</div>
-		</div>
-		<i-modal title="排行提示" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
-			<div class="modal-content">1 本产品所提供信息并非投资决策服务，在任何情形下都不构成对接收本帐号内容受众的任何投资建议。用户应当充分了解各类投资风险，根据自身情况自主做出投资决策并自行承担风险。用户根据本产品做出的任何投资决策与本公司及相关内容提供方无关。2.本产品由南京解套宝数据技术有限公司基于牛棚模型、已公开的资料或信息开发，南京解套宝数据技术有限公司不对所载数据的准确性、可靠性、时效性和完整性做任何明示或暗示的保证。<span class="wxid" @click="handleCopyWxId">SpringClub2015</span></div>
+		</div> -->
+		<div class="p-rank" @click="onHandleRank">性价比></div>
+		<i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
+			<div class="modal-content">
+                <div>
+                    <div>1.	订阅成为“牛棚”会员，查询各类优质企业排行。</div>
+					<div>2. 关注微信服务号解套宝，查询牛棚50指数。</div>
+                    <div>3.	点击客服，咨询订阅方式。</div>
+                </div>
+    		</div>
 		</i-modal>
 	</div>
 </template>
 
 <script>
 import wepy from '@wepy/core';
-import { mapMutations } from '@wepy/x';
+import { mapMutations, mapState } from '@wepy/x';
 import store from '@/store';
+import { addToStocks } from '@/api/home'
 wepy.component({
 	store,
 	props: {
@@ -91,13 +137,16 @@ wepy.component({
 			default: null
 		}
 	},
+	computed: {
+		...mapState(['stockAdded'])
+	},
 	data() {
 		return {
 			modalVisible: false
 		}
 	},
 	methods: {
-		...mapMutations(['changeHomeChartVisible']),
+		...mapMutations(['changeHomeChartVisible', 'changeStockAdded']),
 		onHandleRank() {
 			this.modalVisible = true;
 			this.changeHomeChartVisible(false);
@@ -109,6 +158,20 @@ wepy.component({
 		handleCopyWxId() {
 			wx.setClipboardData({
 				data: 'SpringClub2015'
+			})
+		},
+		handleAddSelectStock() {
+			if (this.stockAdded.hasAdded) {
+				return;
+			}
+			addToStocks({ zqdm: this.stock.zqdm, zqjc: this.stock.zqjc }).then(res => {
+				if (res.data.success) {
+					this.stock.hasAdded = true;
+					this.changeStockAdded({zqdm: this.stock.zqdm, hasAdded: true, isNeedFresh: true})
+					wx.showToast({title: '添加自选成功', icon: 'none', duration: 2000});
+				} else {
+					wx.showToast({title: res.data.message, icon: 'none', duration: 2000});
+				}
 			})
 		}
 	}
