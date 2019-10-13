@@ -97,8 +97,8 @@
 			<div class="name">
 				{{stock.zqjc}}
 			</div>
-			<div class="sel" :class="{seled: stock.hasAdded}" @click="handleAddSelectStock">
-				<img v-if="stock.hasAdded" class="add-img" src="../../assets/zixun.png" alt=""/>
+			<div class="sel" :class="{seled: stockAdded.hasAdded}" @click="handleAddSelectStock">
+				<img v-if="stockAdded.hasAdded" class="add-img" src="../../assets/zixun.png" alt=""/>
 				<img v-else class="add-img" src="../../assets/add.png" alt="" /> 自选
 			</div>
 		</div>
@@ -126,7 +126,7 @@
 
 <script>
 import wepy from '@wepy/core';
-import { mapMutations } from '@wepy/x';
+import { mapMutations, mapState } from '@wepy/x';
 import store from '@/store';
 import { addToStocks } from '@/api/home'
 wepy.component({
@@ -137,13 +137,16 @@ wepy.component({
 			default: null
 		}
 	},
+	computed: {
+		...mapState(['stockAdded'])
+	},
 	data() {
 		return {
 			modalVisible: false
 		}
 	},
 	methods: {
-		...mapMutations(['changeHomeChartVisible']),
+		...mapMutations(['changeHomeChartVisible', 'changeStockAdded']),
 		onHandleRank() {
 			this.modalVisible = true;
 			this.changeHomeChartVisible(false);
@@ -158,13 +161,16 @@ wepy.component({
 			})
 		},
 		handleAddSelectStock() {
-			if (this.stock.hasAdded) {
+			if (this.stockAdded.hasAdded) {
 				return;
 			}
 			addToStocks({ zqdm: this.stock.zqdm, zqjc: this.stock.zqjc }).then(res => {
-				console.log(res);
-				if (res.data) {
+				if (res.data.success) {
 					this.stock.hasAdded = true;
+					this.changeStockAdded({zqdm: this.stock.zqdm, hasAdded: true, isNew: true})
+					wx.showToast({title: '添加自选成功', icon: 'none', duration: 2000});
+				} else {
+					wx.showToast({title: res.data.message, icon: 'none', duration: 2000});
 				}
 			})
 		}

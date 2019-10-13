@@ -287,7 +287,7 @@ wepy.page({
 	},
 	watch: {},
 	methods: {
-		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId', 'changeHomeChartVisible']),
+		...mapMutations(['changeLoginCode', 'changeSysPv', 'changeSessionId', 'changeHomeChartVisible', 'changeStockAdded']),
 		onHazyDeal() {
 			// this.hazyCount++;
 			// console.log('xxxx');
@@ -322,22 +322,32 @@ wepy.page({
 
 			this.getStockInfo(search.zqdm)
 		},
+		dealStockInfo(stock) {
+			this.currentStockCode = stock.zqdm;
+			this.changeStockAdded({zqdm: stock.zqdm || '', hasAdded: stock.hasAdded, isNew: true})
+			this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
+
+			// 构建图表数据
+			this.yearProfits = this.getYearProfitList(stock);
+			this.yearRoes = this.getYearRoeList(stock);
+
+			// 获取表格数据
+			this.getRatings();
+			this.getRoeratings();
+			this.getProfitRatings();
+		},
 		getStockInfo(stockCode) {
 			if (!stockCode) {
 				getStockDefault().then(res => {
-					if (res.data) {
-						this.stock = res.data;
-						this.currentStockCode = res.data.zqdm;
-						this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
-
-						// 构建图表数据
-						this.yearProfits = this.getYearProfitList(res.data);
-						this.yearRoes = this.getYearRoeList(res.data);
-
-						// 获取表格数据
-						this.getRatings();
-						this.getRoeratings();
-						this.getProfitRatings();
+					if (res.data.success) {	
+						this.stock = res.data.data;
+						this.dealStockInfo(this.stock);
+					} else {
+						wx.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 2000
+						})
 					}
 					// 系统访问记录 +1
 					if (this.sessionId) {
@@ -346,20 +356,16 @@ wepy.page({
 				})
 			} else {
 				getStockInfo(stockCode).then(res => {
-					if (res.data) {
-						this.stock = res.data;
-						this.currentStockCode = res.data.zqdm;
-						this.stock.banker = (new Number(this.stock.banker)).toFixed(2);
-
-						// 构建图表数据
-						this.yearProfits = this.getYearProfitList(res.data);
-						this.yearRoes = this.getYearRoeList(res.data);
-
-						// 获取表格数据
-						this.getRatings();
-						this.getRoeratings();
-						this.getProfitRatings();
-					} 
+					if (res.data.success) {
+						this.stock = res.data.data;
+						this.dealStockInfo(this.stock);
+					} else {
+						wx.showToast({
+							title: res.data.message,
+							icon: 'none',
+							duration: 2000
+						})
+					}
 					// 主要为了解决
 					this.isShowRoeRating = false;
 					this.isShowProfitRating = false;
@@ -402,8 +408,8 @@ wepy.page({
 		getSearchStockInfo(searchText) {
 			return new Promise((resolve, reject) => {
 				getSearchStockInfo(searchText).then(res => {
-					if (res.data) {
-						resolve(res.data);
+					if (res.data.success) {
+						resolve(res.data.data);
 					} else {
 						reject()
 					}
@@ -415,9 +421,9 @@ wepy.page({
 			// this.stock.hasWest = true;
 			// if (!this.currentStockCode || !this.stock.hasWest) return;
             getRatings(this.currentStockCode).then(res => {
-                if (res.data && res.data.length) {
+                if (res.data.success && res.data.data.length) {
 					this.tableRatings = [];
-                   	res.data.forEach(item => {
+                   	res.data.data.forEach(item => {
 						const rating = {
 							organization: item.organization,
 							researcher: item.researcher,
@@ -433,9 +439,9 @@ wepy.page({
 		},
 		getRoeratings() {
 			getRoeratings(this.currentStockCode).then(res => {
-				if (res.data && res.data.length) { 
+				if (res.data.success && res.data.data.length) { 
 					this.tableRoes = [];
-					res.data.forEach(item => {
+					res.data.data.forEach(item => {
 						const roe = {
 							organization: item.organization,
 							researcher: item.researcher,
@@ -452,9 +458,9 @@ wepy.page({
 		},
 		getProfitRatings() {
 			getProfitRatings(this.currentStockCode).then(res => {
-				if (res.data && res.data.length) {
+				if (res.data.success && res.data.data.length) {
 					this.tableProfits = [];
-					res.data.forEach(item => {
+					res.data.data.forEach(item => {
 						const profit = {
 							organization: item.organization,
 							researcher: item.researcher,
@@ -491,8 +497,8 @@ wepy.page({
 		},
 		systemVisite() {
 			sysVisit(this.currentStockCode).then(res => {
-				if (res.data) {
-					this.changeSysPv(res.data.pv);
+				if (res.data.success) {
+					this.changeSysPv(res.data.data.pv);
 				} else {
 					this.changeSysPv(0);
 				}
@@ -505,8 +511,8 @@ wepy.page({
 						if (res.code) {
 							this.changeLoginCode(res.code);
 							login(res.code).then(res => {
-								if (res.data) {
-									this.changeSessionId(res.data.sessionId);
+								if (res.data.success) {
+									this.changeSessionId(res.data.data.sessionId);
 								}
 								resolve();
 							});
