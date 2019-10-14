@@ -54,9 +54,15 @@
 			margin-top: 15rpx;
 		}
 		.p-rank {
-			font-size: @font-size28;
+			font-size: @font-size30;
 			color: @main-gray-deep;
 			margin-top: 60rpx;
+			font-weight: 600;
+		}
+		.highlight-underline {
+			font-size: 30rpx;
+			color: @main-blue;
+			text-decoration: underline;
 		}
 		.tag-list {
 			display: flex;
@@ -111,7 +117,7 @@
 				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
 			</div>
 		</div> -->
-		<div class="p-rank" @click="onHandleRank">性价比></div>
+		<div class="p-rank" @click="onHandleRank">性价比评分></div>
 		<i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>

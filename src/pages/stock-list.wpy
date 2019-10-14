@@ -115,7 +115,7 @@
             </div>
             <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
                 <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
-                    <div class="gray" v-if="item.key === 'index'">
+                    <div v-if="item.key === 'index'">
 						{{tridx + 1}}
                     </div>
 					<div v-else-if="item.key === 'buying'">
