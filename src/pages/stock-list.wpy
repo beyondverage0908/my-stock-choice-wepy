@@ -60,7 +60,10 @@
                         width: 22rpx;
                         height: 22rpx;
                     }
-                }
+				}
+				.gray {
+					color: @main-gray;
+				}
             }
         }
         .no-data {
@@ -112,13 +115,13 @@
             </div>
             <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
                 <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
-                    <div v-if="item.key === 'index'">
-						{{tridx}}
+                    <div class="gray" v-if="item.key === 'index'">
+						{{tridx + 1}}
                     </div>
 					<div v-else-if="item.key === 'buying'">
 						{{buyingLabel[tr[item.key]]}}
 					</div>
-					<div v-else-if="item.key === 'opt'">
+					<div class="gray" v-else-if="item.key === 'opt'">
 						<div @click="handleRemoveSelfStock(tr)">取消自选</div>
 					</div>
                     <div v-else>
@@ -134,7 +137,7 @@
 			<img class="img-qrcode" src="../assets/qrcode.jpeg" alt="" />
 			<div class="desc">
 				<div class="title">欢迎扫码关注<span class="fixed">解套宝</span>公众号</div>
-				<div class="subtitle">买点+轮动策略简介</div>
+				<div class="subtitle">一组股票轮动策略介绍</div>
 			</div>
 		</div>
 	</div>
@@ -158,7 +161,7 @@ wepy.page({
 		// 机构名称 研究员 2019预测 2020预测
         tableHeadLabelList: [
 			{ label: '序号', key: 'index' },
-            { label: '公司简介', key: 'zqjc' },
+            { label: '公司名称', key: 'zqjc' },
             { label: '性价比', key: 'value' },
             { label: '买点', key: 'buying' },
             { label: '操作', key: 'opt' }
