@@ -1,6 +1,7 @@
 <style lang="less">
 
 	@font-size28: 28rpx;
+	@font-size30: 30rpx;
 	@font-size32: 32rpx;
 	@font-size36: 36rpx;
 
@@ -95,16 +96,22 @@
 				display: flex;
 				align-items: center;
 				padding-top: 40rpx;
-				.input {
-					display: flex;
+				.input-wrap {
 					flex: 4;
 					background-color: #fff;
 					height: 80rpx;
 					border-radius: 40rpx;
 					box-sizing: border-box;
-					padding: 0 30rpx;
-					font-size: @font-size32;
+					padding: 0 0 0 20rpx;
 					margin-left: 20rpx;
+				}
+				.input {
+					background-color: #fff;
+					height: 100%;
+					border-radius: 40rpx;
+					box-sizing: border-box;
+					padding: 0 0 0 5rpx;
+					font-size: @font-size30;
 				}
 				.avatar-warp {
 					display: flex;
@@ -118,7 +125,7 @@
 					}
 				}
 			}
-			// 搜索�
+			// 搜索
 			.search-board {
 				width: 100%;
 				background: #fff;
@@ -160,7 +167,9 @@
 		<div class="section">
 			<div class="header-bg">
 				<div class="search">
-					<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码"></input>
+					<div class="input-wrap">
+						<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码，自选股点击头像"></input>
+					</div>
 					<div class="avatar-warp">
 						<div class="h-wrap" @click="onHazyDeal">
 							<open-data type="userAvatarUrl"></open-data> 
