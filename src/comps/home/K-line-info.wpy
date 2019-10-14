@@ -120,7 +120,7 @@
     <div class="kline-container">
         <div class="header">
             <indicator :title="'K线形态'"/>
-			<span class="time">{{startTime}}－{{endTime}}</span>
+			<span class="time">{{fitTime}}</span>
         </div>
         <div class="content">
             <div class="treat">
@@ -151,7 +151,7 @@
 						<div class="value borderBottom">{{stock.buying3Count}}</div>
 					</div>
 				</div>
-				<div class="desc" @click="handleHelp">今日关注 ></div>
+				<div class="desc" @click="handleHelp">今日订阅 ></div>
 			</div>
         </div>
         <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
@@ -200,18 +200,12 @@ wepy.component({
         modalVisible: false
     },
     computed: {
-        startTime() {
-            if (this.stock && this.stock.beginTime) {
-                return moment(this.stock.beginTime).format('YYYYMMDD');
+        fitTime() {
+            if (this.stock && this.stock.ftime) {
+                return moment(this.stock.ftime).format('MM-DD HH:mm');
             }
             return '-';
-        },
-        endTime() {
-            if (this.stock && this.stock.endTime) {
-                return moment(this.stock.endTime).format('YYYYMMDD');
-            }
-            return '-';
-		}
+        }
     },
     methods: {
 		...mapMutations(['changeHomeChartVisible']),

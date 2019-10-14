@@ -292,7 +292,7 @@ wepy.page({
 			// this.hazyCount++;
 			// console.log('xxxx');
 			wx.navigateTo({
-				url: './stock-list?id=123'
+				url: './stock-list'
 			})
 		},
 		gotoChartArea() {
