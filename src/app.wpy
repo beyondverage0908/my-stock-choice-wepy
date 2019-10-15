@@ -63,7 +63,7 @@ wepy.app({
     window: {
       	backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#5386C7',
-      	navigationBarTitleText: '牛棚股票助手',
+      	navigationBarTitleText: 'AI 盯盘助手',
       	navigationBarTextStyle: 'white'
     }
 }

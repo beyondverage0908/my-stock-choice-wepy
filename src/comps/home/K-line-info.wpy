@@ -124,7 +124,7 @@
 <template>
     <div class="kline-container">
         <div class="header">
-            <indicator :title="'K线形态'"/>
+            <indicator :title="'技术买点'"/>
 			<span class="time">{{fitTime}}</span>
         </div>
         <div class="content">

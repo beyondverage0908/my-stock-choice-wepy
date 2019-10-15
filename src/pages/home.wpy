@@ -196,7 +196,7 @@
 			<K-line-info :stock="stock"/>
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
-			<indicator :title="'成长空间'"/>
+			<indicator :title="'公司增长'"/>
 			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title">
@@ -551,7 +551,7 @@ wepy.page({
 	onShareAppMessage() {
 		const code = this.stock.zqdm || defaultStockCode;
 		return {
-			title: '牛棚盯盘助手',
+			title: 'AI盯盘助手',
 			path: `/pages/home?code=${code}`
 		}
 	}
@@ -560,7 +560,7 @@ wepy.page({
 <config>
 {
 	navigationBarBackgroundColor: '#5386C7',
-	navigationBarTitleText: '牛棚盯盘助手',
+	navigationBarTitleText: 'AI 盯盘助手',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",
 		"ring": "~@/comps/home/ring",
