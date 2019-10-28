@@ -168,7 +168,7 @@
 			<div class="header-bg">
 				<div class="search">
 					<div class="input-wrap">
-						<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码，自选股点击头像"></input>
+						<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入公司名称/代码，自选点击头像"></input>
 					</div>
 					<div class="avatar-warp">
 						<div class="h-wrap" @click="onHazyDeal">

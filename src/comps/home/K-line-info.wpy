@@ -14,6 +14,7 @@
 @main-green: #00A600;
 @main-green-shadow: #CEFFCE;
 @main-heightlight: #DBE11C;
+@main-orange: #F39C12;
 @buying-border: solid 1rpx @main-gray-deep;
 
 .kline-container {
@@ -43,12 +44,14 @@
 					display: flex;
 					flex-direction: column;
 					align-items: center;
-					min-width: 110rpx;
+					min-width: 130rpx;
 					.name {
 						font-size: @font-size30;
 						color: @main-gray-deep;
+						color: #303030;
 						background-color: @main-gray;
 						text-align: center;
+						padding: 5rpx 0;
 						width: 99%;
 					}
 					.borderRight {
@@ -57,9 +60,22 @@
 					.heightlight {
 						background-color: @main-heightlight;
 					}
+					.green {
+						background-color: @main-green;
+						font-weight: 700;
+					}
+					.blue {
+						background-color: @main-blue;
+						font-weight: 700;
+					}
+					.orange {
+						background-color: @main-orange;
+						font-weight: 700;
+					}
 					.up-img {
-						width: 32rpx;
-						height: 32rpx;
+						margin-top: 12rpx;
+						width: 48rpx;
+						height: 48rpx;
 					}
 				}
 			}
@@ -74,28 +90,32 @@
 		.cd {
 			display: flex;
 			flex-direction: column;
-			padding-top: 20rpx;
+			padding-top: 10rpx;
 			.today-buy-container {
 				.today-buy-item {
 					display: flex;
 					width: 100%;
 					.label {
+						display: flex;
+						justify-content: center;
+						align-items: center;
 						color: @main-gray-deep;
 						font-size: @font-size30;
+						padding: 8rpx 8rpx 5rpx 8rpx;
 						border-left: @buying-border;
 						border-top: @buying-border;
 						border-right: @buying-border;
-						padding: 5rpx 8rpx;
-						text-align: center;
 					}
 					.value {
+						display: flex;
+						justify-content: center;
+						align-items: center;
 						color: @main-gray-deep;
-						font-size: @font-size30;
+						padding: 8rpx 0 5rpx 0;
+						width: 90rpx;
 						border-top: @buying-border;
 						border-right: @buying-border;
-						padding: 5rpx 0;
-						width: 69rpx;
-						text-align: center;
+						font-size: @font-size28;
 					}
 					.borderBottom {
 						border-bottom: @buying-border;
@@ -124,47 +144,58 @@
 <template>
     <div class="kline-container">
         <div class="header">
-            <indicator :title="'技术买点'"/>
+            <indicator :title="'K线节奏'"/>
 			<span class="time">{{fitTime}}</span>
         </div>
         <div class="content">
             <div class="treat">
 				<div class="buy-tip-container">
-					<div v-for="(buyItem, index) in buyingLabelList" class="buy-item">
-						<div class="name" :class="{borderRight: index < buyingLabelList.length - 1, heightlight: buyItem.key === stock.buying}">{{buyItem.label}}</div>
-						<img v-if="buyItem.key === stock.buying" class="up-img" src="../../assets/up.png" alt="">
+					<!-- <div v-for="(buyItem, index) in buyingLabelList" class="buy-item">
+						<div 
+							class="name"
+							:class="[{borderRight: index < buyingLabelList.length - 1}, heightlightClass]">
+							{{buyItem.label}}
+						</div>
+						<img v-if="buyItem.key === currentOption" class="up-img" src="../../assets/up.png" alt="">
+					</div> -->
+					<div class="buy-item">
+						<div class="name borderRight" :class="{green: 0 === currentOption}">路人</div>
+						<img v-if="0 === currentOption" class="up-img" src="../../assets/up.png" alt="">
+					</div>
+					<div class="buy-item">
+						<div class="name borderRight" :class="{blue: 1 === currentOption}">关注</div>
+						<img v-if="1 === currentOption" class="up-img" src="../../assets/up.png" alt="">
+					</div>
+					<div class="buy-item">
+						<div class="name" :class="{orange: 2 === currentOption}">买点</div>
+						<img v-if="2 === currentOption" class="up-img" src="../../assets/up.png" alt="">
 					</div>
 				</div>
-				<div class="desc-buying">
+				<!-- <div class="desc-buying">
 					<div class="buy">买1：关注标的波动收缩或突破</div>
 					<div class="buy">买2：突破前期阻力位回落企稳</div>
 					<div class="buy">买3：再次向上突破回落前高点</div>
-				</div>
+				</div> -->
 			</div>
 			<div class="cd">
 				<div class="today-buy-container">
 					<div class="today-buy-item">
-						<div class="label">今日买一</div>
-						<div class="value">{{stock.buying1Count}}</div>
+						<div class="label">今日关注榜</div>
+						<div class="value">{{stock.followCount}}</div>
 					</div>
 					<div class="today-buy-item">
-						<div class="label">今日买二</div>
-						<div class="value">{{stock.buying2Count}}</div>
-					</div>
-					<div class="today-buy-item">
-						<div class="label borderBottom">今日买三</div>
-						<div class="value borderBottom">{{stock.buying3Count}}</div>
+						<div class="label borderBottom">今日买点榜</div>
+						<div class="value borderBottom">{{buyingCount}}</div>
 					</div>
 				</div>
-				<div class="desc highlight-underline" @click="handleHelp">今日订阅</div>
+				<div class="desc highlight-underline" @click="handleHelp">榜单订阅</div>
 			</div>
         </div>
         <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
                     <div>1. 订阅成为“牛棚”会员，查询今日关注、今天买点排行。</div>
-                    <div>2. 欢迎约茶交流，地址：南京洪武路23号1408室。</div>
-                    <div>3.	点击客服，咨询订阅方式。。</div>
+                    <div>2.	点击客服，咨询订阅方式。</div>
                 </div>
     		</div>
 		</i-modal>
@@ -184,22 +215,19 @@ wepy.component({
         }
     },
     data: {
+		heightlightClass: 'green',
 		buyingLabelList: [
 			{
 				key: 0,
-				label: '等待'
+				label: '路人'
 			}, 
 			{
 				key: 1,
-				label: '买点一'
+				label: '关注'
 			}, 
 			{
 				key: 2,
-				label: '买点二'
-			},
-			{
-				key: 3,
-				label: '买点三'
+				label: '买点'
 			}
 		],
         modalVisible: false
@@ -210,7 +238,25 @@ wepy.component({
                 return moment(this.stock.ftime).format('MM-DD HH:mm');
             }
             return '-';
-        }
+        },
+		buyingCount() {
+			if (this.stock) {
+				return this.stock.buying1Count + this.stock.buying2Count + this.stock.buying3Count;
+			} 
+			return 0;
+		},
+		currentOption() {
+			let index = 0;
+			if (!this.stock) return index;
+			if (this.stock.buying > 0) {
+				index = 2;
+			} else if (this.stock.following > 0) {
+				index = 1;
+			} else {
+				index = 0;
+			}
+			return index;
+		}
     },
     methods: {
 		...mapMutations(['changeHomeChartVisible']),
@@ -221,7 +267,7 @@ wepy.component({
         handleCloseOk() {
             this.modalVisible = false;
             this.changeHomeChartVisible(true);
-        }
+		}
     }
 })
 </script>

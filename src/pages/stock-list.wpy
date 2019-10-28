@@ -64,6 +64,9 @@
 				.gray {
 					color: @main-gray;
 				}
+				.red {
+					color: @main-red;
+				}
             }
         }
         .no-data {
@@ -124,6 +127,9 @@
 					<div class="gray" v-else-if="item.key === 'opt'">
 						<div @click="handleRemoveSelfStock(tr)">取消自选</div>
 					</div>
+					<div v-else-if="item.key === 'value'" :class="{red: tr[item.key] === 0}">
+						{{tr[item.key]}}
+					</div>
                     <div v-else>
                         {{tr[item.key]}}
                     </div>
@@ -140,6 +146,7 @@
 				<div class="subtitle">一组股票轮动策略介绍</div>
 			</div>
 		</div>
+		<!-- <official-account bindload="officialAccountLoad"></official-account> -->
 	</div>
 </template>
 <script>
@@ -189,6 +196,9 @@ wepy.page({
 					})
 				}
 			})
+		},
+		officialAccountLoad(e) {
+			console.log(e);
 		}
 	},
 	onLoad(options) {
