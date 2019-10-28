@@ -8,7 +8,8 @@
 @border: solid @main-gray 1rpx;
 .stock-table-rating {
     .table {
-		margin: 0 40rpx;
+        margin: 0 40rpx;
+        margin-top: 30rpx;
         .tr {
             display: flex;
             .th {

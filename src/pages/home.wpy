@@ -204,9 +204,9 @@
 					</div>
 				</div>
 				<!-- 暂时删除，不能删除 -->
-				<!-- <div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
+				<div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div> -->
+				</div>
 			</div>
 			<column-roe v-if="!isShowRoeRating" :class="{hidden: isShowRoeRating}" :data="yearRoes"/>
 			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
@@ -217,14 +217,14 @@
 					</div>
 				</div>
 				<!-- 暂时删除，不能删除 -->
-				<!-- <div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
+				<div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div> -->
+				</div>
 			</div>
 			<column-profit v-if="!isShowProfitRating" :data="yearProfits"/>
 			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
 			<!-- 暂时注释，不能删除 -->
-			<!-- <div class="buy-rating">
+			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title"><img class="arrow" src="../assets/arrow.png" alt="" />评级:</div>
 					<div class="buy" :class="{gray: !stock.ratingAvgChn}">{{stock.ratingAvgChn || '暂无'}}</div>
@@ -233,7 +233,7 @@
 					<img class="img" src="../assets/click.png" alt="" />明细
 				</div>
 			</div>
-			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" /> -->
+			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
 		</div>
 		<div class="section" style="border-bottom: none;">
 			<risk :hasRisk="hasRisk" :risks="stock.risks"/>
