@@ -144,7 +144,7 @@
 <template>
     <div class="kline-container">
         <div class="header">
-            <indicator :title="'K线节奏'"/>
+            <indicator :title="'技术买点'"/>
 			<span class="time">{{fitTime}}</span>
         </div>
         <div class="content">
@@ -180,15 +180,15 @@
 			<div class="cd">
 				<div class="today-buy-container">
 					<div class="today-buy-item">
-						<div class="label">今日关注榜</div>
+						<div class="label">今日关注</div>
 						<div class="value">{{stock.followCount}}</div>
 					</div>
 					<div class="today-buy-item">
-						<div class="label borderBottom">今日买点榜</div>
+						<div class="label borderBottom">今日买点</div>
 						<div class="value borderBottom">{{buyingCount}}</div>
 					</div>
 				</div>
-				<div class="desc highlight-underline" @click="handleHelp">榜单订阅</div>
+				<div class="desc highlight-underline" @click="handleHelp">订阅</div>
 			</div>
         </div>
         <i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">

@@ -1,6 +1,6 @@
 import store from '@/store';
 
-const baseUrl = 'https://m.00315.com/wxapp/api/v2';
+const baseUrl = 'https://m.00315.com/wxapp/api/v3';
 
 function appendSessionIdToUrl(url) {
 	let parseUrl = ''

@@ -119,7 +119,11 @@
 				<span class="topic">{{stock.topic2.topic}}</span><span class="rank">{{stock.topic2.rank}}</span>/<span class="total-rank">{{stock.topic2.totalRank}}</span>
 			</div>
 		</div> -->
-		<div class="p-rank" @click="onHandleRank"><span class="heightlight">性价比 </span><span>排行榜</span><span class="heightlight"> ></span></div>
+		<div class="p-rank" @click="onHandleRank">
+			<span class="heightlight">性价比：</span>
+			<span>{{stock.rank}}/{{stock.total}}</span>
+			<!-- <span class="heightlight"> ></span> -->
+		</div>
 		<i-modal title="订阅须知" visible="{{ modalVisible }}" @ok="handleCloseOk" ok-text="我知道了" :show-cancel="false">
 			<div class="modal-content">
                 <div>
