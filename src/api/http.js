@@ -1,16 +1,26 @@
 import store from '@/store';
 
-console.log(store.state.sessionId);
+const baseUrl = 'https://m.00315.com/wxapp/api/v3';
 
-export const get = (url, query) => {
+function appendSessionIdToUrl(url) {
+	let parseUrl = ''
+	if (url && url.indexOf('?')) {
+		const urlSplitList = url.split('?');
+		urlSplitList.splice(1, 0, `;jsessionid=${store.state.sessionId || ''}`, '?');
+		parseUrl = urlSplitList.join('')
+	} else {
+		parseUrl = url + ';jsessionid=' + (store.state.sessionId || '')
+	}
+	return baseUrl + parseUrl;
+}
+
+export const get = (url, query = {}) => {
+	query._ts = new Date().getTime()
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'GET',
-            url: url,
+            url: appendSessionIdToUrl(url),
 			data: query || {},
-			header: {
-				sessionId: store.state.sessionId || ''
-			},
             success: (res) => {
                 resolve(res)
             },
@@ -25,11 +35,8 @@ export const post = (url, params) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'POST',
-            url: url,
+			url: appendSessionIdToUrl(url),
 			data: params || {},
-			header: {
-				sessionId: store.state.sessionId || ''
-			},
             success: (res) => {
                 resolve(res)
             },
@@ -44,11 +51,8 @@ export const del = (url, params) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'DELETE',
-            url: url,
+			url: appendSessionIdToUrl(url),
 			data: params || {},
-			header: {
-				sessionId: store.state.sessionId || ''
-			},
             success: (res) => {
                 resolve(res)
             },
@@ -63,11 +67,8 @@ export const put = (url, params) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'PUT',
-            url: url,
+			url: appendSessionIdToUrl(url),
 			data: params || {},
-			header: {
-				sessionId: store.state.sessionId || ''
-			},
             success: (res) => {
                 resolve(res)
             },

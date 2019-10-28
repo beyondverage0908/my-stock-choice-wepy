@@ -1,6 +1,7 @@
 <style lang="less">
 
 	@font-size28: 28rpx;
+	@font-size30: 30rpx;
 	@font-size32: 32rpx;
 	@font-size36: 36rpx;
 
@@ -95,16 +96,22 @@
 				display: flex;
 				align-items: center;
 				padding-top: 40rpx;
-				.input {
-					display: flex;
+				.input-wrap {
 					flex: 4;
 					background-color: #fff;
 					height: 80rpx;
 					border-radius: 40rpx;
 					box-sizing: border-box;
-					padding: 0 30rpx;
-					font-size: @font-size32;
+					padding: 0 0 0 20rpx;
 					margin-left: 20rpx;
+				}
+				.input {
+					background-color: #fff;
+					height: 100%;
+					border-radius: 40rpx;
+					box-sizing: border-box;
+					padding: 0 0 0 5rpx;
+					font-size: @font-size30;
 				}
 				.avatar-warp {
 					display: flex;
@@ -118,7 +125,7 @@
 					}
 				}
 			}
-			// 搜索�
+			// 搜索
 			.search-board {
 				width: 100%;
 				background: #fff;
@@ -160,7 +167,9 @@
 		<div class="section">
 			<div class="header-bg">
 				<div class="search">
-					<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入股票名称/代码"></input>
+					<div class="input-wrap">
+						<input class="input" type="text" v-model="inputText" bindinput="onChangeInput" placeholder="请输入公司名称/代码，自选点击头像"></input>
+					</div>
 					<div class="avatar-warp">
 						<div class="h-wrap" @click="onHazyDeal">
 							<open-data type="userAvatarUrl"></open-data> 
@@ -187,7 +196,7 @@
 			<K-line-info :stock="stock"/>
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
-			<indicator :title="'成长空间'"/>
+			<indicator :title="'公司增长'"/>
 			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title">
@@ -195,9 +204,9 @@
 					</div>
 				</div>
 				<!-- 暂时删除，不能删除 -->
-				<!-- <div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
+				<div @click="handleRoeRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div> -->
+				</div>
 			</div>
 			<column-roe v-if="!isShowRoeRating" :class="{hidden: isShowRoeRating}" :data="yearRoes"/>
 			<roe-table-rating v-else :dataSource="tableRoes" :is-show="isShowRoeRating" :stockCode="currentStockCode"></roe-table-rating>
@@ -208,14 +217,14 @@
 					</div>
 				</div>
 				<!-- 暂时删除，不能删除 -->
-				<!-- <div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
+				<div @click="handleProfitRating" v-if="stock.hasWest" class="rating-btn">
 					<img class="img" src="../assets/click.png" alt="" />预测
-				</div> -->
+				</div>
 			</div>
 			<column-profit v-if="!isShowProfitRating" :data="yearProfits"/>
 			<profit-table-rating v-else :dataSource="tableProfits" :is-show="isShowProfitRating" :stockCode="currentStockCode" />
 			<!-- 暂时注释，不能删除 -->
-			<!-- <div class="buy-rating">
+			<div class="buy-rating">
 				<div class="rating-cont">
 					<div class="title"><img class="arrow" src="../assets/arrow.png" alt="" />评级:</div>
 					<div class="buy" :class="{gray: !stock.ratingAvgChn}">{{stock.ratingAvgChn || '暂无'}}</div>
@@ -224,7 +233,7 @@
 					<img class="img" src="../assets/click.png" alt="" />明细
 				</div>
 			</div>
-			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" /> -->
+			<stock-table-rating v-if="isShowStockRating" :dataSource="tableRatings" :is-show="isShowStockRating" :stockCode="currentStockCode" />
 		</div>
 		<div class="section" style="border-bottom: none;">
 			<risk :hasRisk="hasRisk" :risks="stock.risks"/>
@@ -542,7 +551,7 @@ wepy.page({
 	onShareAppMessage() {
 		const code = this.stock.zqdm || defaultStockCode;
 		return {
-			title: '牛棚盯盘助手',
+			title: 'AI盯盘助手',
 			path: `/pages/home?code=${code}`
 		}
 	}
@@ -551,7 +560,7 @@ wepy.page({
 <config>
 {
 	navigationBarBackgroundColor: '#5386C7',
-	navigationBarTitleText: '牛棚盯盘助手',
+	navigationBarTitleText: 'AI 盯盘助手',
     usingComponents: {
 		"i-input": "~@/iview/dist/input/index",
 		"ring": "~@/comps/home/ring",

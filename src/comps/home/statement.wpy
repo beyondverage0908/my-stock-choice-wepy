@@ -1,5 +1,5 @@
 <style lang="less" scoped>
-@main-blue-color: rgb(131, 177, 229);
+@main-blue: #5291F5;
 .statement {
 	display: flex;
 	margin-left: 40rpx;
@@ -11,7 +11,7 @@
 	}
 	.dity {
 		font-size: 30rpx;
-		color: #9085C8;
+		color: @main-blue;
 		text-decoration: underline;
 	}
 	.modal-content {
