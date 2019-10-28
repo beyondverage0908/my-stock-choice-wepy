@@ -187,7 +187,7 @@
 					<stock-base-info :stock="stock" />
 				</div>
 				<div class="ring">
-					<ring :rank="stock.rank" :score="rankRatio" />
+					<ring :rank="stock.rankPercent" :score="rankRatio" />
 				</div>
 			</div>
 			<statement />

@@ -159,12 +159,13 @@ wepy.component({
     console.log(this.rank);
   },
   methods: {
-	  ...mapMutations(['changeHomeChartVisible']),
+	...mapMutations(['changeHomeChartVisible']),
     initRing() {
 	//   var percent = 1 - this.score / 100;
 	//   if (!this.score) {
 	// 	  percent = 0;
 	//   }
+	console.log('---', this.rank)
 	var percent = this.rank / 100;
       const ringRightClass = {};
       const ringLeftClass = {};
@@ -177,15 +178,13 @@ wepy.component({
         ringRightClass.transition = `opacity 0s step-end 1s, transform 1s linear`;
         ringRightClass.opacity = 0;
 
-        ringLeftClass.transition = `transform ${(percent - 0.5) /
-          0.5}s linear 1s`;
+        ringLeftClass.transition = `transform ${(percent - 0.5) / 0.5}s linear 1s`;
         ringLeftClass.transform = `rotate(${percent * 360 - 180}deg)`;
       }
       this.ringRightClass = ringRightClass;
       this.ringLeftClass = ringLeftClass;
 	},
 	handleHelp() {
-		console.log(1);
 		this.modalVisible = true;
 		this.changeHomeChartVisible(false);
 	},
