@@ -1,6 +1,6 @@
-import store from '@/store';
+import store from '@/store'
 
-const baseUrl = 'https://m.00315.com/wxapp/api/v3';
+const baseUrl = 'https://m.00315.com/wxapp/api/v2'
 
 function appendSessionIdToUrl(url) {
 	let parseUrl = ''
@@ -15,12 +15,12 @@ function appendSessionIdToUrl(url) {
 }
 
 export const get = (url, query = {}) => {
-	query._ts = new Date().getTime()
+    query._ts = new Date().getTime()
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'GET',
             url: appendSessionIdToUrl(url),
-			data: query || {},
+	        data: query || {},
             success: (res) => {
                 resolve(res)
             },
@@ -67,8 +67,8 @@ export const put = (url, params) => {
     return new Promise((resolve, reject) => {
         wx.request({
             method: 'PUT',
-			url: appendSessionIdToUrl(url),
-			data: params || {},
+	        url: appendSessionIdToUrl(url),
+	        data: params || {},
             success: (res) => {
                 resolve(res)
             },
