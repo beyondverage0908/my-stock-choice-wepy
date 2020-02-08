@@ -143,7 +143,7 @@
 </style>
 <template>
     <div class="kline-container">
-        <!-- <div class="header">
+        <div class="header">
             <indicator :title="'技术买点'"/>
 			<span class="time">{{fitTime}}</span>
         </div>
@@ -185,7 +185,7 @@
                     <div>2.	点击客服，咨询订阅方式。</div>
                 </div>
     		</div>
-		</i-modal> -->
+		</i-modal>
     </div>
 </template>
 <script>
@@ -194,67 +194,67 @@ import wepy from '@wepy/core';
 import { mapMutations } from '@wepy/x';
 import store from '@/store';
 wepy.component({
-    // store,
-    // props: {
-    //     stock: {
-    //         type: Object,
-    //         default: {}
-    //     }
-    // },
-    // data: {
-	// 	heightlightClass: 'green',
-	// 	buyingLabelList: [
-	// 		{
-	// 			key: 0,
-	// 			label: '路人'
-	// 		}, 
-	// 		{
-	// 			key: 1,
-	// 			label: '关注'
-	// 		}, 
-	// 		{
-	// 			key: 2,
-	// 			label: '买点'
-	// 		}
-	// 	],
-    //     modalVisible: false
-    // },
-    // computed: {
-    //     fitTime() {
-    //         if (this.stock && this.stock.ftime) {
-    //             return moment(this.stock.ftime).format('MM-DD HH:mm');
-    //         }
-    //         return '-';
-    //     },
-	// 	buyingCount() {
-	// 		if (this.stock) {
-	// 			return this.stock.buying1Count + this.stock.buying2Count + this.stock.buying3Count;
-	// 		} 
-	// 		return 0;
-	// 	},
-	// 	currentOption() {
-	// 		let index = 0;
-	// 		if (!this.stock) return index;
-	// 		if (this.stock.buying > 0) {
-	// 			index = 2;
-	// 		} else if (this.stock.following > 0) {
-	// 		} else {
-	// 			index = 0;
-	// 		}
-	// 		return index;
-	// 	}
-    // },
-    // methods: {
-	// 	...mapMutations(['changeHomeChartVisible']),
-    //     handleHelp() {
-    //         this.modalVisible = true;
-    //         this.changeHomeChartVisible(false);
-    //     },
-    //     handleCloseOk() {
-    //         this.modalVisible = false;
-    //         this.changeHomeChartVisible(true);
-	// 	}
-    // }
+    store,
+    props: {
+        stock: {
+            type: Object,
+            default: {}
+        }
+    },
+    data: {
+		heightlightClass: 'green',
+		buyingLabelList: [
+			{
+				key: 0,
+				label: '路人'
+			}, 
+			{
+				key: 1,
+				label: '关注'
+			}, 
+			{
+				key: 2,
+				label: '买点'
+			}
+		],
+        modalVisible: false
+    },
+    computed: {
+        fitTime() {
+            if (this.stock && this.stock.ftime) {
+                return moment(this.stock.ftime).format('MM-DD HH:mm');
+            }
+            return '-';
+        },
+		buyingCount() {
+			if (this.stock) {
+				return this.stock.buying1Count + this.stock.buying2Count + this.stock.buying3Count;
+			} 
+			return 0;
+		},
+		currentOption() {
+			let index = 0;
+			if (!this.stock) return index;
+			if (this.stock.buying > 0) {
+				index = 2;
+			} else if (this.stock.following > 0) {
+			} else {
+				index = 0;
+			}
+			return index;
+		}
+    },
+    methods: {
+		...mapMutations(['changeHomeChartVisible']),
+        handleHelp() {
+            this.modalVisible = true;
+            this.changeHomeChartVisible(false);
+        },
+        handleCloseOk() {
+            this.modalVisible = false;
+            this.changeHomeChartVisible(true);
+		}
+    }
 })
 </script>
 <config>

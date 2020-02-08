@@ -194,7 +194,7 @@
 		</div>
 		<div class="section">
             <!-- 暂时注释 -->
-			<!-- <K-line-info :stock="stock"/> -->
+			<K-line-info :stock="stock"/>
 		</div>
 		<div class="section" v-if="hasGraph" v-show="isShowHomeChart">
 			<indicator :title="'公司增长'"/>
@@ -585,6 +585,7 @@ wepy.page({
 		"risk": "~@/comps/home/risk",
 		"indicator": "~@/comps/home/indicator",
 		"toolbar": "~@/comps/home/toolbar",
+        "K-line-info": "~@/comps/home/K-line-info",
 		"column-profit": "~@/comps/charts/column-profit",
 		"column-roe": "~@/comps/charts/column-roe",
 		"stock-table-rating": "~@/comps/table/stock-table-rating",
