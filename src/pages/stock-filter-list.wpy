@@ -1,0 +1,47 @@
+<template>
+    <div>
+        <filter-table :dataSource="dataSource"  />
+    </div>
+</template>
+<script>
+import { mapState } from '@wepy/x';
+import wepy from '@wepy/core';
+import store from '@/store';
+import { getFilterStocks } from "@/api/filter-stock";
+wepy.page({
+    store,
+    computed: {
+        ...mapState(['filterStockCondition']),
+    },
+    data: {
+        dataSource: []
+    },
+    methods: {
+        async getFilterStocks() {
+            const query = this.filterStockCondition
+            query.pageNum = 1
+            query.pageSize = 100
+            try {
+                const { data } = await getFilterStocks(query)
+                if (data.success) {
+                    this.dataSource = data.data
+                } else {
+                    wx.showToast({ title: data.message, icon: 'none', duration: 2000 })
+                }
+            } catch (error) {
+                wx.showToast({ title: '网络异常请重试', icon: 'none', duration: 2000 })
+            }
+        },
+    },
+    onLoad() {
+        this.getFilterStocks()
+    }
+})
+</script>
+<config>
+{
+    usingComponents: {
+        "filter-table": "~@/comps/stock-filter/filter-table"
+    }
+}
+</config>

@@ -5,159 +5,151 @@
 @font-size32: 32rpx;
 @font-size36: 36rpx;
 
-@main-black: #000000;
-@main-gray: #CFCFCF;
+@main-black: #000;
+@main-gray: #cfcfcf;
 @main-gray-deep: #676767;
-@main-red: #FF0000;
-@main-red-shadow: #FFB5B5;
-@main-blue: #5291F5;
-@main-green: #00A600;
-@main-green-shadow: #CEFFCE;
-@main-heightlight: #DBE11C;
-@main-orange: #F39C12;
+@main-red: #f00;
+@main-red-shadow: #ffb5b5;
+@main-blue: #5291f5;
+@main-green: #00a600;
+@main-green-shadow: #ceffce;
+@main-heightlight: #dbe11c;
+@main-orange: #f39c12;
 @buying-border: solid 1rpx @main-gray-deep;
 
 .kline-container {
-    // margin: 30rpx 40rpx;
-    .header {
+  // margin: 30rpx 40rpx;
+  .header {
+    display: flex;
+    justify-content: space-between;
+    .time {
+      height: 36rpx;
+      margin-top: 30rpx;
+      margin-right: 40rpx;
+      color: @main-gray;
+      font-size: @font-size28;
+    }
+  }
+  .content {
+    display: flex;
+    justify-content: space-between;
+    margin: 20rpx 40rpx 0 40rpx;
+    .treat {
+      display: flex;
+      flex-direction: column;
+      padding: 20rpx 0 10rpx 0;
+      .buy-tip-container {
         display: flex;
-        justify-content: space-between;
-        .time {
-            margin-top: 30rpx;
-            margin-right: 40rpx;
-			height: 36rpx;
-			font-size: @font-size28;
-			color: @main-gray;
-		}
+        .buy-item {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-width: 130rpx;
+          .name {
+            width: 99%;
+            padding: 5rpx 0;
+            color: @main-gray-deep;
+            color: #303030;
+            font-size: @font-size30;
+            text-align: center;
+            background-color: @main-gray;
+          }
+          .borderRight {
+            border-right: solid 2rpx @main-black;
+          }
+          .heightlight {
+            background-color: @main-heightlight;
+          }
+          .green {
+            font-weight: 700;
+            background-color: @main-green;
+          }
+          .blue {
+            font-weight: 700;
+            background-color: @main-blue;
+          }
+          .orange {
+            font-weight: 700;
+            background-color: @main-orange;
+          }
+          .up-img {
+            width: 48rpx;
+            height: 48rpx;
+            margin-top: 12rpx;
+          }
+        }
+      }
+      .desc-buying {
+        margin-top: 30rpx;
+        .buy {
+          color: @main-gray;
+          font-size: @font-size30;
+        }
+      }
     }
-    .content {
-		margin: 20rpx 40rpx 0 40rpx;
-		display: flex;
-		justify-content: space-between;
-		.treat {
-			display: flex;
-			padding: 20rpx 0 10rpx 0;
-			flex-direction: column;
-			.buy-tip-container {
-				display: flex;
-				.buy-item {
-					display: flex;
-					flex-direction: column;
-					align-items: center;
-					min-width: 130rpx;
-					.name {
-						font-size: @font-size30;
-						color: @main-gray-deep;
-						color: #303030;
-						background-color: @main-gray;
-						text-align: center;
-						padding: 5rpx 0;
-						width: 99%;
-					}
-					.borderRight {
-						border-right: solid 2rpx @main-black;
-					}
-					.heightlight {
-						background-color: @main-heightlight;
-					}
-					.green {
-						background-color: @main-green;
-						font-weight: 700;
-					}
-					.blue {
-						background-color: @main-blue;
-						font-weight: 700;
-					}
-					.orange {
-						background-color: @main-orange;
-						font-weight: 700;
-					}
-					.up-img {
-						margin-top: 12rpx;
-						width: 48rpx;
-						height: 48rpx;
-					}
-				}
-			}
-			.desc-buying {
-				margin-top: 30rpx;
-				.buy {
-					color: @main-gray;
-					font-size: @font-size30;
-				}
-			}
-		}
-		.cd {
-			display: flex;
-			flex-direction: column;
-			padding-top: 10rpx;
-			.today-buy-container {
-				.today-buy-item {
-					display: flex;
-					width: 100%;
-					.label {
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						color: @main-gray-deep;
-						font-size: @font-size30;
-						padding: 8rpx 8rpx 5rpx 8rpx;
-						border-left: @buying-border;
-						border-top: @buying-border;
-						border-right: @buying-border;
-					}
-					.value {
-						display: flex;
-						justify-content: center;
-						align-items: center;
-						color: @main-gray-deep;
-						padding: 8rpx 0 5rpx 0;
-						width: 90rpx;
-						border-top: @buying-border;
-						border-right: @buying-border;
-						font-size: @font-size28;
-					}
-					.borderBottom {
-						border-bottom: @buying-border;
-					}
-				}
-			}
-			.desc {
-				font-size: @font-size28;
-				color: @main-gray-deep;
-				margin-top: 30rpx;
-			}
-			.highlight-underline {
-				font-size: 30rpx;
-				color: @main-blue;
-				text-decoration: underline;
-			}
-		}
+    .cd {
+      display: flex;
+      flex-direction: column;
+      padding-top: 10rpx;
+      .today-buy-container {
+        .today-buy-item {
+          display: flex;
+          width: 100%;
+          .label {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 8rpx 8rpx 5rpx 8rpx;
+            color: @main-gray-deep;
+            font-size: @font-size30;
+            border-top: @buying-border;
+            border-right: @buying-border;
+            border-left: @buying-border;
+          }
+          .value {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90rpx;
+            padding: 8rpx 0 5rpx 0;
+            color: @main-gray-deep;
+            font-size: @font-size28;
+            border-top: @buying-border;
+            border-right: @buying-border;
+          }
+          .borderBottom {
+            border-bottom: @buying-border;
+          }
+        }
+      }
+      .desc {
+        margin-top: 30rpx;
+        color: @main-gray-deep;
+        font-size: @font-size28;
+      }
+      .highlight-underline {
+        color: @main-blue;
+        font-size: 30rpx;
+        text-decoration: underline;
+      }
     }
-    .modal-content {
-        text-align: left;
-        padding: 10rpx 40rpx;
-        box-sizing: border-box;
-    }
+  }
+  .modal-content {
+    box-sizing: border-box;
+    padding: 10rpx 40rpx;
+    text-align: left;
+  }
 }
 </style>
 <template>
     <div class="kline-container">
-        <div class="header">
+        <!-- <div class="header">
             <indicator :title="'技术买点'"/>
 			<span class="time">{{fitTime}}</span>
         </div>
         <div class="content">
             <div class="treat">
 				<div class="buy-tip-container">
-					<!-- <div v-for="(buyItem, index) in buyingLabelList" class="buy-item">
-						<div 
-							class="name"
-							:class="[{borderRight: index < buyingLabelList.length - 1}, heightlightClass]">
-							{{buyItem.label}}
-						</div>
-						<img v-if="buyItem.key === currentOption" class="up-img" src="../../assets/up.png" alt="">
-					</div> -->
 					<div class="buy-item">
 						<div class="name borderRight" :class="{green: 0 === currentOption}">路人</div>
 						<img v-if="0 === currentOption" class="up-img" src="../../assets/up.png" alt="">
@@ -171,11 +163,6 @@
 						<img v-if="2 === currentOption" class="up-img" src="../../assets/up.png" alt="">
 					</div>
 				</div>
-				<!-- <div class="desc-buying">
-					<div class="buy">买1：关注标的波动收缩或突破</div>
-					<div class="buy">买2：突破前期阻力位回落企稳</div>
-					<div class="buy">买3：再次向上突破回落前高点</div>
-				</div> -->
 			</div>
 			<div class="cd">
 				<div class="today-buy-container">
@@ -198,77 +185,76 @@
                     <div>2.	点击客服，咨询订阅方式。</div>
                 </div>
     		</div>
-		</i-modal>
+		</i-modal> -->
     </div>
 </template>
 <script>
 import wepy from '@wepy/core';
-import moment from 'moment';
+// import moment from 'moment';
 import { mapMutations } from '@wepy/x';
 import store from '@/store';
 wepy.component({
-    store,
-    props: {
-        stock: {
-            type: Object,
-            default: {}
-        }
-    },
-    data: {
-		heightlightClass: 'green',
-		buyingLabelList: [
-			{
-				key: 0,
-				label: '路人'
-			}, 
-			{
-				key: 1,
-				label: '关注'
-			}, 
-			{
-				key: 2,
-				label: '买点'
-			}
-		],
-        modalVisible: false
-    },
-    computed: {
-        fitTime() {
-            if (this.stock && this.stock.ftime) {
-                return moment(this.stock.ftime).format('MM-DD HH:mm');
-            }
-            return '-';
-        },
-		buyingCount() {
-			if (this.stock) {
-				return this.stock.buying1Count + this.stock.buying2Count + this.stock.buying3Count;
-			} 
-			return 0;
-		},
-		currentOption() {
-			let index = 0;
-			if (!this.stock) return index;
-			if (this.stock.buying > 0) {
-				index = 2;
-			} else if (this.stock.following > 0) {
-				index = 1;
-			} else {
-				index = 0;
-			}
-			return index;
-		}
-    },
-    methods: {
-		...mapMutations(['changeHomeChartVisible']),
-        handleHelp() {
-            this.modalVisible = true;
-            this.changeHomeChartVisible(false);
-        },
-        handleCloseOk() {
-            this.modalVisible = false;
-            this.changeHomeChartVisible(true);
-		}
-    }
+    // store,
+    // props: {
+    //     stock: {
+    //         type: Object,
+    //         default: {}
+    //     }
+    // },
+    // data: {
+	// 	heightlightClass: 'green',
+	// 	buyingLabelList: [
+	// 		{
+	// 			key: 0,
+	// 			label: '路人'
+	// 		}, 
+	// 		{
+	// 			key: 1,
+	// 			label: '关注'
+	// 		}, 
+	// 		{
+	// 			key: 2,
+	// 			label: '买点'
+	// 		}
+	// 	],
+    //     modalVisible: false
+    // },
+    // computed: {
+    //     fitTime() {
+    //         if (this.stock && this.stock.ftime) {
+    //             return moment(this.stock.ftime).format('MM-DD HH:mm');
+    //         }
+    //         return '-';
+    //     },
+	// 	buyingCount() {
+	// 		if (this.stock) {
+	// 			return this.stock.buying1Count + this.stock.buying2Count + this.stock.buying3Count;
+	// 		} 
+	// 		return 0;
+	// 	},
+	// 	currentOption() {
+	// 		let index = 0;
+	// 		if (!this.stock) return index;
+	// 		if (this.stock.buying > 0) {
+	// 			index = 2;
+	// 		} else if (this.stock.following > 0) {
+	// 		} else {
+	// 			index = 0;
+	// 		}
+	// 		return index;
+	// 	}
+    // },
+    // methods: {
+	// 	...mapMutations(['changeHomeChartVisible']),
+    //     handleHelp() {
+    //         this.modalVisible = true;
+    //         this.changeHomeChartVisible(false);
+    //     },
+    //     handleCloseOk() {
+    //         this.modalVisible = false;
+    //         this.changeHomeChartVisible(true);
+	// 	}
+    // }
 })
 </script>
 <config>

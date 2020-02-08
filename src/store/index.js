@@ -9,7 +9,8 @@ export default new Vuex.Store({
 		stockAdded: {
 			zqdm: '',
 			hasAdded: false
-		}
+        },
+        filterStockCondition: null
 	},
 	mutations: {
 		changeHomeChartVisible(state, payload) {
@@ -28,7 +29,10 @@ export default new Vuex.Store({
 			if (payload.isNeedFresh || state.stockAdded.zqdm === payload.zqdm) {
 				state.stockAdded = payload;
 			}
-		}
+        },
+        changeFilterStockCondition(state, payload) {
+            state.filterStockCondition = payload
+        }
 	},
 	actions: {
 

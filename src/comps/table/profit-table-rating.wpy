@@ -1,68 +1,68 @@
 <style lang="less" scoped>
 @input-font-size: 28rpx;
-@main-gray: #CFCFCF;
+@main-gray: #cfcfcf;
 @main-des-gray: rgba(102, 102, 102, 1);
 @sign-color: rgba(229, 28, 35, 1);
 @main-blue-color: rgb(131, 177, 229);
-@table-header-bg-color: #F0F0F0; 
+@table-header-bg-color: #f0f0f0; 
 @border: solid @main-gray 1rpx;
 .stock-table-rating {
-    .table {
-        margin: 0 40rpx;
-        margin-top: 30rpx;
-        .tr {
-            display: flex;
-            .th {
-                font-size: 30rpx;
-                font-weight: 700;
-                text-align: center;
-                flex: 1;
-                border-top: @border;
-				border-right: @border; 
-				padding: 10rpx 5rpx;
-				background: @table-header-bg-color;
-			}
-			.border-left {
-				border-left: @border; 
-			}
-			.border-bottom {
-				border-bottom: @border;
-			}
-            .td {
-                font-size: 28rpx;
-                font-weight: 500;
-                color: @main-des-gray;
-                text-align: center;
-                flex: 1;
-				border-top: @border;
-				border-right: @border; 
-                padding: 10rpx 5rpx;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                .tread {
-                    width: 80%;
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    .img {
-                        width: 22rpx;
-                        height: 22rpx;
-                    }
-                }
-            }
+  .table {
+    margin: 0 40rpx;
+    margin-top: 30rpx;
+    .tr {
+      display: flex;
+      .th {
+        flex: 1;
+        padding: 10rpx 5rpx;
+        font-size: 30rpx;
+        font-weight: 700;
+        text-align: center;
+        background: @table-header-bg-color;
+        border-top: @border;
+        border-right: @border;
+      }
+      .border-left {
+        border-left: @border;
+      }
+      .border-bottom {
+        border-bottom: @border;
+      }
+      .td {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex: 1;
+        padding: 10rpx 5rpx;
+        color: @main-des-gray;
+        font-size: 28rpx;
+        font-weight: 500;
+        text-align: center;
+        border-top: @border;
+        border-right: @border;
+        .tread {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 80%;
+          .img {
+            width: 22rpx;
+            height: 22rpx;
+          }
         }
-        .no-data {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: @main-blue-color;
-            height: 150rpx;
-            border-left: solid @main-gray 1rpx;
-            border-bottom: solid @main-gray 1rpx;
-            border-right: solid @main-gray 1rpx;
-        }
+      }
     }
+    .no-data {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 150rpx;
+      color: @main-blue-color;
+      border-right: solid @main-gray 1rpx;
+      border-bottom: solid @main-gray 1rpx;
+      border-left: solid @main-gray 1rpx;
+    }
+  }
 }
 </style>
 <template>
@@ -71,7 +71,7 @@
             <div class="tr">
                 <div class="th" :class="{'border-left': index === 0}" v-for="(head, index) in tableHeadLabelList" :key="head.label">{{head.label}}</div>
             </div>
-            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData">
+            <div v-if="tableData.length > 0" class="tr" v-for="(tr, tridx) in tableData" :key="tridx">
                 <div class="td" :class="{'border-left': idx === 0, 'border-bottom': tridx === tableData.length - 1}" v-for="(item, idx) in tableHeadLabelList" :key="item.label">
                     <div class="tread" v-if="item.key === 'netprofit1' || item.key === 'netprofit2'">
 						<div v-if="tr[item.key] !== 0">

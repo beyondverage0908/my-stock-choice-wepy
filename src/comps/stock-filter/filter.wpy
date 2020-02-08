@@ -1,0 +1,157 @@
+<style lang="less" scoped>
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+
+@main-black: #000;
+@main-gray: #cfcfcf;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+@main-red-shadow: #ffb5b5;
+@main-blue: #5291f5;
+@main-green: #00a600;
+@main-green-shadow: #ceffce;
+.filter-warp {
+  .title {
+    margin-top: 30rpx;
+    margin-left: 28rpx;
+    font-size: @font-size30;
+    font-weight: 700;
+  }
+  .line {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 0 10rpx;
+    margin-top: 20rpx;
+    .item {
+      flex: 1;
+      width: 202rpx;
+      padding: 10rpx 5px;
+      margin: 0 10rpx;
+      color: @main-gray-deep;
+      text-align: center;
+      background-color: #dfdfdf;
+      border-radius: 10rpx;
+    }
+    .item-blank {
+      background-color: transparent;
+    }
+    .item-select {
+      color: @main-red;
+      background-color: @main-red-shadow;
+      border: solid 1rpx @main-red;
+    }
+  }
+}
+</style>
+<template>
+    <div class="filter-warp">
+        <div class="title" v-if="title">{{title}}:</div>
+        <div class="line" v-for="(arr, index) in filterData" :key="index">
+            <span 
+                class="item" 
+                :class="{'item-blank': !item.value, 'item-select': item.pick}" 
+                v-for="(item) in arr"
+                :key="item.value"
+                @click="handlePick(item)">{{item.label}}</span>
+        </div>
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core'
+import { mapState, mapMutations } from '@wepy/x'
+import store from '@/store';
+wepy.component({
+    store,
+    props: {
+        title: {
+            type: String,
+            default: ''
+        },
+        multiple: {
+            type: Boolean,
+            default: true
+        },
+        dataList: {
+            type: Array,
+            default: []
+        }
+    },
+    watch: {
+        dataList(newVal, oldVal) {
+            if (newVal && newVal.length > 0) {
+                let m = 3
+                let multiple = Math.floor(newVal.length / m)
+                const moore = newVal.length % m
+                if (moore > 0) {
+                    multiple += 1
+                }
+                const tList = []
+                for (let i = 0; i < multiple; i++) {
+                    const nList = newVal.slice(i * m, i * m + m)
+                    if (nList.length < m) {
+                        for (let j = 0; j < m - nList.length; j++) {
+                            nList.push({})
+                        }
+                    } 
+                    tList.push(nList)
+                }
+                this.filterData = tList
+            }
+        }
+    },
+    data: {
+        filterData: [],
+        pickList: []
+    },
+    methods: {
+        handlePick(item) {
+            if (this.multiple) {
+                if (item.pick) {
+                    item.pick = false
+                    const fIndex = this.pickList.findIndex(f => f.value === item.value)
+                    if (fIndex > -1) {
+                        this.pickList.splice(fIndex, 1)   
+                    }
+                } else {
+                    item.pick = true
+                    this.pickList.push(item)
+                }
+                this.filterData.forEach(arr => {
+                    const findex = arr.findIndex(f => f.value === item.value)
+                    if (findex > -1) {
+                        arr.splice(findex, 1, item)
+                    }
+                })
+            } else {
+                if (item.pick) {
+                    item.pick = false
+                    const fIndex = this.pickList.findIndex(f => f.value === item.value)
+                    if (fIndex > -1) {
+                        this.pickList.splice(fIndex, 1)   
+                    }
+                } else {
+                    item.pick = true
+                    this.pickList = [item]
+                }
+                this.filterData.forEach(arr => {
+                    // 把所有的选中改为非选中状态
+                    arr.forEach(a => {
+                        if (a.pick) {
+                            a.pick = false
+                        }
+                    })
+                    const findex = arr.findIndex(f => f.value === item.value)
+                    if (findex > -1) {
+                        arr.splice(findex, 1, item)
+                    }
+                })
+            }
+            this.$emit('on-filter-pick', this.pickList)
+        }
+    },
+})
+</script>
+

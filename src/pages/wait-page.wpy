@@ -1,0 +1,55 @@
+<style lang="less" scoped>
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+@font-size36: 36rpx;
+
+@main-black: #000;
+@main-gray: #cfcfcf;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+.wait {
+  margin-top: 50%;
+  color: @main-red;
+  font-size: @font-size32;
+  text-align: center;
+}
+</style>
+<template>
+    <div>
+        <filter-header @on-picked-stock="handlePickedStock"/>
+        <div class="wait">抱歉，本模块正在内测中，敬请期待...</div>
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core'
+import store from "../store"
+import { mapState, mapMutations } from '@wepy/x'
+wepy.page({
+    store,
+    data: {
+        
+    },
+    onReady() {
+        console.log('stock filter on ready!!')
+    },
+    onLoad() {
+        console.log('stock filter on loaded!!!')
+    },
+    methods: {
+        handlePickedStock(stock) {
+            console.log(stock)
+        }
+    }
+})
+</script>
+<config>
+{
+    navigationBarBackgroundColor: '#5386C7',
+	navigationBarTitleText: '牛棚选股',
+    usingComponents: {
+        "filter-header": "~@/comps/stock-filter/filter-header"
+    }
+}
+</config>
+

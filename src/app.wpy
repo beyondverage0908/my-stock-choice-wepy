@@ -1,11 +1,11 @@
 <style lang="less">
 .container {
-  height: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
+  height: 100%;
 }
 </style>
 
@@ -56,14 +56,16 @@ wepy.app({
 <config>
 {
     pages: [
-		'pages/home',
+        'pages/stock-filter',
+        'pages/wait-page',
+        'pages/stock-filter-list',
 		'pages/stock-list',
         'pages/chart-demo'
     ],
     window: {
       	backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#5386C7',
-      	navigationBarTitleText: 'AI 盯盘助手',
+      	navigationBarTitleText: '牛棚选股',
       	navigationBarTextStyle: 'white'
     }
 }

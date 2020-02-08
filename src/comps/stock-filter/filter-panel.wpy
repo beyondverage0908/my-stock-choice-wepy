@@ -1,0 +1,263 @@
+<style lang="less" scoped>
+@font-size24: 24rpx;
+@font-size26: 26rpx;
+@font-size28: 28rpx;
+@font-size30: 30rpx;
+@font-size32: 32rpx;
+
+@main-black: #000;
+@main-gray: #cfcfcf;
+@main-gray-deep: #676767;
+@main-red: rgba(229, 28, 35, 1);
+@main-red-shadow: #ffb5b5;
+@main-blue: #5291f5;
+@main-green: #00a600;
+@main-green-shadow: #ceffce;
+
+.f-panel-warp {
+  .filter-warp {
+    padding-bottom: 180rpx;
+  }
+  .f-count {
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding-top: 30rpx;
+    padding-bottom: 30rpx;
+    background-color: #fff;
+    box-shadow: 0 20px 20px 15px #fff;
+    .drap-panel {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 75%;
+      height: 88rpx;
+      font-size: @font-size32;
+      background-color: @main-blue;
+      border-radius: 44rpx;
+      .number {
+        color: #fff;
+      }
+    }
+    .not-fit {
+      background-color: @main-gray-deep;
+    }
+  }
+}
+</style>
+<template>
+    <div class="f-panel-warp">
+        <div class="filter-warp">
+            <filter title="基本面" :dataList="condition.jbmLableList" @on-filter-pick="handleJbmFilterPick" />
+            <filter title="技术面" :dataList="condition.jsmLabelList" @on-filter-pick="handleJsmFilterPick" />
+            <filter title="资金面" :dataList="condition.zjmLabelList" @on-filter-pick="handleZjmFilterPick" />
+            <filter title="位置" :dataList="condition.wzLabelList" :multiple="false" @on-filter-pick="handleWzFilterPick" />
+            <filter title="市值" :dataList="condition.shizhiLabelList" :multiple="false" @on-filter-pick="handleShizhiFilterPick" />
+            <filter title="上市" :dataList="condition.shangshiLabelList" :multiple="false" @on-filter-pick="handleShangshiFilterPick" />
+            <filter title="行业" :dataList="condition.hangyeLabelList" @on-filter-pick="handleHangyeFilterPick" />
+        </div>
+        <div class="f-count">
+            <div class="drap-panel" :class="{'not-fit': !isCanSeeStock}" @click="handleFilterStocks">
+                <span class="number">{{countTipStr}}</span>
+            </div>
+        </div>
+        <filter-table :dataSource="dataSource"/>
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core'
+import condition from './condition'
+import { 
+    getFilterStockCount, 
+    getFilterStocks
+} from '@/api/filter-stock'
+import { mapState, mapMutations } from '@wepy/x'
+import store from '@/store';
+wepy.component({
+    store,
+    data: {
+        condition: condition,
+        tempQuery: {},
+        count: 0,
+        dataSource: []
+    },
+    computed: {
+        ...mapState(['sessionId']),
+        countTipStr() {
+            if (this.count === 0) {
+                return `暂时符合条件的股票，请重新筛选`
+            }
+            if (this.count > 100) {
+                return `超过${100}支，请继续添加条件`
+            }
+            if (Object.keys(this.tempQuery).length === 0) {
+                return '请添加筛选条件'
+            }
+            return `查看满足条件的${this.count}支股票`
+        },
+        isCanSeeStock() {
+            if (this.count > 100 || this.count === 0) {
+                return false
+            }
+            if (Object.keys(this.tempQuery).length === 0) {
+                return false
+            }
+            return true
+        }
+    },
+    watch: {
+        sessionId(newVal, oldVal) {
+            // 只有登录成功了之后才能接口调用
+            // this.getFilterStocks()
+        }
+    },
+    attached() {},
+    methods: {
+        ...mapMutations(['changeFilterStockCondition']),
+        getQuery() {
+            const arrMap = {
+                wz: 'againstGroups',
+                sz: 'assets',
+                ss: 'years',
+                hy: 'indexCodes'
+            }
+            const query = {}
+            // jbm jsm zjm
+            for (const key in this.tempQuery) {
+                if (this.tempQuery.hasOwnProperty(key)) {
+                    const value = this.tempQuery[key];
+                    if (Array.isArray(value)) {
+                        query[arrMap[key]] = value.join(',')
+                    } else {
+                        for (const k in value) {
+                            if (value.hasOwnProperty(k)) {
+                                query[k] = value[k]
+                            }
+                        }
+                    }
+                }
+            }
+            return query
+        },
+        getFilterInfo() {
+            this.getFilterStockCount()
+        },
+        async getFilterStockCount() {
+            const query = this.getQuery()
+            try {
+                const { data } = await getFilterStockCount(query)
+                if (data.success) {
+                    this.count = data.data
+                } else {
+                    wx.showToast({ title: data.message, icon: 'none', duration: 2000 })
+                }
+            } catch (error) {
+                wx.showToast({ title: '网络异常请重试', icon: 'none', duration: 2000 })
+            }
+        },
+        async handleFilterStocks() {
+            // this.getFilterStocks()
+            if (!this.isCanSeeStock) {
+                return;
+            }
+            const query = this.getQuery()
+            this.changeFilterStockCondition(query)
+            
+            wx.navigateTo({
+                url: '/pages/stock-filter-list'
+            })
+        },
+        async getFilterStocks() {
+            const query = this.getQuery()
+            try {
+                const { data } = await getFilterStocks(query)
+                if (data.success) {
+                    this.dataSource = data.data
+                } else {
+                    wx.showToast({ title: data.message, icon: 'none', duration: 2000 })
+                }
+            } catch (error) {
+                wx.showToast({ title: '网络异常请重试', icon: 'none', duration: 2000 })
+            }
+        },
+        handleJbmFilterPick(pickList) {
+            const map = {
+                iG: 'g',
+                iMagic: 'magic',
+                iROE: 'roe',
+                iCashing: 'cashing',
+                iRating: 'rating'
+            }
+            const jbmQueryList = pickList.map(p => map[p.value])
+            const query = {}
+            jbmQueryList.forEach(code => {
+                query[code] = 1
+            })
+            this.tempQuery['jbm'] = query
+            this.getFilterInfo()
+        },
+        handleJsmFilterPick(pickList) {
+            const map = {
+                iMA7: 'ma7',
+                iMA0: 'ma0',
+                iLow: 'low'
+            }
+            const jsmQueryList = pickList.map(p => map[p.value])
+            const query = {}
+            jsmQueryList.forEach(code => {
+                query[code] = 1
+            })
+            this.tempQuery['jsm'] = query
+            this.getFilterInfo()
+        },
+        handleZjmFilterPick(pickList) {
+            const map = {
+                iAmt: 'amt',
+                iHot: 'hot',
+                iAgainst: 'against'
+            }
+            const zjmQueryList = pickList.map(p => map[p.value])
+            const query = {}
+            zjmQueryList.forEach(code => {
+                query[code] = 1
+            })
+            this.tempQuery['zjm'] = query
+            this.getFilterInfo()
+        },
+        handleWzFilterPick(pickList) {
+            this.tempQuery['wz'] = pickList.map(p => p.value)
+            this.getFilterInfo()
+        },
+        handleShizhiFilterPick(pickList) {
+            // 市值
+            this.tempQuery['sz'] = pickList.map(p => p.value)
+            this.getFilterInfo() 
+        },
+        handleShangshiFilterPick(pickList) {
+            // 上市
+            this.tempQuery['ss'] = pickList.map(p => p.value)
+            this.getFilterInfo()
+        },
+        handleHangyeFilterPick(pickList) {
+            // 行业
+            this.tempQuery['hy'] = pickList.map(p => p.value)
+            this.getFilterInfo()
+        }
+    }
+})
+</script>
+<config>
+{
+    usingComponents: {
+        "i-panel": "../../iview/dist/panel/index",
+        "i-checkbox-group": "../../iview/dist/checkbox-group/index",
+        "i-checkbox": "../../iview/dist/checkbox/index",
+        "filter-table": "~@/comps/stock-filter/filter-table",
+        "filter": "~@/comps/stock-filter/filter"
+    }
+}
+</config>

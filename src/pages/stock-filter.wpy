@@ -1,0 +1,90 @@
+<template>
+    <div>
+        <filter-header @on-picked-stock="handlePickedStock"/>
+        <filter-panel />
+    </div>
+</template>
+<script>
+import wepy from '@wepy/core'
+import store from "../store"
+import { mapState, mapMutations } from '@wepy/x'
+import { sysVisit, login } from '@/api/sys'
+wepy.page({
+    store,
+    data: {
+        currentStockCode: '000001.SZ'
+    },
+    onReady() {
+        console.log('stock filter on ready!!')
+    },
+    onLoad() {
+        this.wxLogin()
+    },
+    methods: {
+        ...mapMutations([
+            'changeLoginCode', 
+            'changeSysPv', 
+            'changeSessionId'
+        ]),
+        handlePickedStock(stock) {
+            wx.navigateTo({ 
+                url: './wait-page'
+            })
+        },
+        async systemVisite() {
+            try {
+                const { data } = await sysVisit(this.currentStockCode)
+                if (data.success) {
+                    this.changeSysPv(data.data.pv);
+                } else {
+                    this.changeSysPv(0);
+                }
+            } catch (error) {
+                console.log(error)
+            }
+		},
+        wxLogin() {
+			return new Promise((resolve, reject) => {
+				wx.login({
+					success: (res) => {
+						if (res.code) {
+							this.changeLoginCode(res.code);
+							login(res.code).then(res => {
+								if (res.data.success) {
+									this.changeSessionId(res.data.data.sessionId);
+                                }
+                                this.systemVisite()
+								resolve();
+							});
+						} else {
+							resolve();
+						}
+					},
+					fail: (err) => {
+						console.log(`wx login fail ${err}`);
+						resolve();
+					}
+				})
+			}); 
+		}
+    },
+    onShareAppMessage() {
+		const code = this.stock.zqdm || defaultStockCode;
+		return {
+			title: '牛棚选股',
+			path: `/pages/stock-filter`
+		}
+	}
+})
+</script>
+<config>
+{
+    navigationBarBackgroundColor: '#5386C7',
+	navigationBarTitleText: '牛棚选股',
+    usingComponents: {
+        "filter-header": "~@/comps/stock-filter/filter-header",
+        "filter-panel": "~@/comps/stock-filter/filter-panel"
+    }
+}
+</config>
+
